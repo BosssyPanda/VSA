@@ -260,3 +260,16 @@ export function runReport(run: RunState): RunReport {
     factsAsOf: run.factsAsOf,
   };
 }
+
+/**
+ * The two or three places most worth calling, for the end of the year.
+ *
+ * `helpLinesFor` returns everything this life could use, which is the right answer for
+ * the Help screen and the wrong one for the final statement: a person who has just
+ * finished twelve months does not need the directory reprinted at them, they need the
+ * one number that matches what went wrong. The statement shows these and links to Help
+ * for the rest.
+ */
+export function topHelpLinesFor(run: RunState, limit = 3): HelpLine[] {
+  return helpLinesFor(run).slice(0, limit);
+}

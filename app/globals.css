@@ -14,23 +14,40 @@
   --color-ink: #1b1b19;
   --color-muted: #5b5a55;
   --color-line: #e3e1db;
+  /* The edge of anything operable. 3.58:1 on card, 3.20:1 on ground. WCAG 2.2 1.4.11. */
+  --color-line-strong: #8a8780;
   --color-accent: #0f6e56;
   --color-accent-tint: #e4efea;
   --color-warn: #b42318;
   --color-warn-tint: #fcebe8;
 
-  /* Type ramp. Nothing below --text-min exists. */
-  --text-min: 0.875rem; /* 14px — nav labels, the smallest text in the product */
-  --text-label: 0.9375rem; /* 15px — field labels, secondary lines */
-  --text-body: 1.0625rem; /* 17px — body copy, buttons, choices */
-  --text-title: 1.1875rem; /* 19px — card titles, the player's name */
-  --text-figure: 2.125rem; /* 34px — the one big money figure per screen */
+  /*
+   * Type ramp. Nothing below --text-min exists.
+   *
+   * Each step also has a weight, because an earlier version of this file specified
+   * size and leading and left weight to whoever wrote the component — which is how
+   * 19px shipped at three different weights on three different screens.
+   */
+  --text-min: 0.875rem; /* 14px / 500 — nav labels, the smallest text in the product */
+  --text-label: 0.9375rem; /* 15px / 400, or 500 as a label above a figure */
+  --text-body: 1.0625rem; /* 17px / 400 — body copy, buttons, choice rows */
+  --text-title: 1.1875rem; /* 19px / 600 — card titles, the player's name */
+  --text-section: 1.375rem; /* 22px / 600 — the heading above a group of cards */
+  --text-figure: 2.125rem; /* 34px / 600 tabular — the one big money figure per screen */
+  /*
+   * 28px on a phone, 36px on a computer, and every size between, so a page heading
+   * never has to be two tokens. Both ends are rem and the middle term is rem-dominant,
+   * so browser zoom still scales it; qa:a11y checks that at 200%.
+   */
+  --text-display: clamp(1.75rem, 1.554rem + 0.87vw, 2.25rem); /* 28–36px / 600 */
 
   --leading-min: 1.125rem;
   --leading-label: 1.375rem;
   --leading-body: 1.5rem;
   --leading-title: 1.625rem;
+  --leading-section: 1.75rem;
   --leading-figure: 2.5rem;
+  --leading-display: 1.15;
 
   /* Shape. Cards, buttons, bars — three radii, no others. */
   --radius-card: 16px;
@@ -41,6 +58,8 @@
   --w-column: 480px;
   --w-column-wide: 560px;
   --w-rail: 360px;
+  /* rail + gap + main. Was written as a bare 944 in three components. */
+  --w-shell: 944px;
 
   --font-sans: var(--font-public-sans), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;

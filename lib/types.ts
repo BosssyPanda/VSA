@@ -437,13 +437,31 @@ export type HelpLineId =
   | "anti-scam"
   | "scameter"
   | "caritas-debt"
+  | "twghs-debt"
+  | "labour-general"
+  | "eaa"
   | "labour-fdh"
   | "enrich"
   | "eoc"
+  | "cheer"
+  | "rvd-tenancy"
   | "basic-housing";
+
+/**
+ * What a person is trying to solve, in their words rather than the government's.
+ *
+ * Help is entered by problem, not by organisation: somebody whose landlord has just
+ * put the rent up does not know that the body they want is the Rating and Valuation
+ * Department, and should not have to. Every topic must hold at least two services, a
+ * rule the engine checks — a topic that leads to a single phone number is a tap that
+ * bought the player nothing, and the fix for that is content, not a screen.
+ */
+export type HelpTopic = "scam" | "money" | "work" | "home" | "unfair";
 
 export type HelpLine = {
   id: HelpLineId;
+  /** Which "what do you need help with?" answer leads here. */
+  topic: HelpTopic;
   org: string;
   what: string;
   phone?: string;

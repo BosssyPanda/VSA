@@ -123,9 +123,39 @@
       "checkedOn": "2026-09-11"
     },
     "basic-housing": {
-      "org": "Subdivided flats enquiry line",
+      "org": "Subdivided flat standards line",
       "phone": "3611 0248",
       "url": "https://www.bhu.gov.hk/eng/contact-us",
+      "checkedOn": "2026-09-11"
+    },
+    "twghs-debt": {
+      "org": "Tung Wah debt counselling",
+      "phone": "2548 0803",
+      "url": "https://fdcc.tungwahcsd.org/en/about-us-en/contact-us",
+      "checkedOn": "2026-09-11"
+    },
+    "labour-general": {
+      "org": "Labour Department enquiry line",
+      "phone": "2717 1771",
+      "url": "https://www.labour.gov.hk/eng/tele/content.htm",
+      "checkedOn": "2026-09-11"
+    },
+    "cheer": {
+      "org": "CHEER Centre",
+      "phone": "3106 3104",
+      "url": "https://www.had.gov.hk/rru/english/programmes/support_service_centres.htm",
+      "checkedOn": "2026-09-11"
+    },
+    "rvd-tenancy": {
+      "org": "Subdivided flat rent line",
+      "phone": "2150 8303",
+      "url": "https://www.rvd.gov.hk/en/our_services/part_iva.html",
+      "checkedOn": "2026-09-11"
+    },
+    "eaa": {
+      "org": "Employment agency complaints",
+      "phone": "2115 3667",
+      "url": "https://www.eaa.labour.gov.hk/en/contact-us.html",
       "checkedOn": "2026-09-11"
     }
   },

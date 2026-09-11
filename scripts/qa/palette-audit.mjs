@@ -75,6 +75,13 @@ if (pairBlock) {
 
 const MIN = Number((TS.match(/MIN_CONTRAST\s*=\s*([\d.]+)/) ?? [])[1] ?? 4.5);
 
+const BOUNDARIES = [];
+const boundaryBlock = TS.match(/BOUNDARY_PAIRS[\s\S]*?\] as const;/);
+if (boundaryBlock) {
+  for (const [, fg, bg] of boundaryBlock[0].matchAll(/\["(\w+)",\s*"(\w+)"\]/g)) BOUNDARIES.push([fg, bg]);
+}
+const MIN_BOUNDARY = Number((TS.match(/MIN_BOUNDARY_CONTRAST\s*=\s*([\d.]+)/) ?? [])[1] ?? 3);
+
 // ── Checks ──────────────────────────────────────────────────────────────────
 check("lib/palette.ts declares colours", () => {
   const n = Object.keys(tsColors).length;
@@ -111,6 +118,39 @@ check(`every declared pairing clears ${MIN}:1`, () => {
   }
   if (bad.length) throw new Error(bad.join("; "));
   return `${PAIRS.length} pairs · worst ${Math.min(...PAIRS.map(([f, b]) => contrast(tsColors[f], tsColors[b]))).toFixed(2)}:1`;
+});
+
+check(`every boundary clears ${MIN_BOUNDARY}:1`, () => {
+  // WCAG 2.2 1.4.11. The edge of a control is not text, so 4.5:1 is not the bar --
+  // but 3:1 is, and `line` at 1.31:1 is not a boundary, it is a suggestion. An
+  // earlier build drew every choice row in it.
+  if (BOUNDARIES.length === 0) throw new Error("no BOUNDARY_PAIRS parsed");
+  const bad = [];
+  for (const [fg, bg] of BOUNDARIES) {
+    if (!tsColors[fg] || !tsColors[bg]) {
+      bad.push(`${fg} on ${bg}: unknown colour`);
+      continue;
+    }
+    const ratio = contrast(tsColors[fg], tsColors[bg]);
+    if (ratio < MIN_BOUNDARY) bad.push(`${fg} on ${bg} is ${ratio.toFixed(2)}:1`);
+  }
+  if (bad.length) throw new Error(bad.join("; "));
+  const worst = Math.min(...BOUNDARIES.map(([f, b]) => contrast(tsColors[f], tsColors[b])));
+  return `${BOUNDARIES.length} boundaries · worst ${worst.toFixed(2)}:1`;
+});
+
+check("every type step declares a weight", () => {
+  // DESIGN.md used to give each step a size and a line height and say nothing about
+  // weight, so 19px shipped at 400, 500 and 600 on three different screens. The
+  // comment beside each token is where the weight is now written down, and this is
+  // what stops the next step being added without one.
+  const steps = [...CSS.matchAll(/--text-([a-z-]+):\s*[^;]+;\s*\/\* ([^*]+)\*\//g)];
+  if (steps.length < 6) throw new Error(`read ${steps.length} type steps, expected at least six`);
+  const silent = steps
+    .filter(([, , comment]) => !/\b(400|500|600|700)\b/.test(comment))
+    .map(([, name]) => `--text-${name}`);
+  if (silent.length) throw new Error(`no weight given for ${silent.join(", ")}`);
+  return `${steps.length} steps, each with a weight`;
 });
 
 check("warning red is spent only on money at risk", () => {

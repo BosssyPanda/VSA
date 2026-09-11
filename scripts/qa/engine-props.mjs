@@ -849,6 +849,43 @@ check("P21c every life is offered help, and only help written for it", () => {
   }
 });
 
+check("P21e every help topic leads somewhere, for every life", () => {
+  // The Help screen asks "what do you need help with?" and offers five answers. A
+  // topic that resolves to a single phone number is a tap that bought the player
+  // nothing, and an empty one is a dead end at the exact moment somebody needed it.
+  // Before this property existed, "my flat or my rent" was empty for two of three
+  // lives, because public government hotlines had been filtered by persona.
+  const topicIds = helpLines.HELP_TOPICS.map((t) => t.id);
+  ok(new Set(topicIds).size === topicIds.length, "a help topic is listed twice");
+  for (const id of helpLines.HELP_LINE_IDS) {
+    const line = helpLines.helpLine(id);
+    ok(topicIds.includes(line.topic), `"${id}" is filed under unknown topic "${line.topic}"`);
+  }
+  for (const personaId of PERSONA_IDS) {
+    for (const topic of topicIds) {
+      const found = helpLines.helpLinesForTopic(topic, personaId);
+      ok(found.length >= 2, `${personaId}: topic "${topic}" offers only ${found.length} service(s)`);
+    }
+  }
+});
+
+check("P21f the interpretation lines are distinct and cover the languages we ship", () => {
+  const lines = helpLines.INTERPRETATION_LINES;
+  ok(lines.length >= 6, `only ${lines.length} interpretation lines`);
+  const phones = lines.map((l) => l.phone);
+  ok(new Set(phones).size === phones.length, "two languages share an interpretation number");
+  for (const line of lines) {
+    ok(/^[\d ]{4,}$/.test(line.phone), `"${line.language}" has a phone number that is not one`);
+    ok(line.endonym.length > 0, `"${line.language}" is not named in its own script`);
+  }
+  // Every language this product can be read in must have a line the Help screen can
+  // lead with, or the offer is empty for exactly the person who needs it most.
+  for (const locale of ["tl", "id"]) {
+    ok(Boolean(helpLines.interpretationFor(locale)), `no interpretation line for locale "${locale}"`);
+  }
+  ok(helpLines.interpretationFor("en") === undefined, "English is not an interpretation language");
+});
+
 check("P21d the report always ends with somewhere to go", () => {
   for (const policy of POLICIES) {
     for (const { personaId, seed } of cases(range(1, 31))) {

@@ -30,6 +30,17 @@ export const PALETTE = {
   /** Structure: 1px rules and bar tracks. Never used for text. */
   line: "#e3e1db",
 
+  /**
+   * The boundary of anything a person can operate: a choice row, a field, a control.
+   *
+   * `line` is 1.31:1 on card. That is fine for a rule that merely separates two blocks
+   * of text, and far below the 3:1 that WCAG 2.2 requires of a boundary which is the
+   * only thing telling somebody where a control begins. This one measures 3.58:1 on
+   * card and 3.20:1 on ground. It is warm rather than neutral so it belongs to the
+   * same paper as the rest, and lighter than `muted` so it never reads as text.
+   */
+  lineStrong: "#8a8780",
+
   /** Safe action: primary buttons, progress fill, links, the Cousin monogram. */
   accent: "#0f6e56",
   accentTint: "#e4efea",
@@ -66,3 +77,26 @@ export const CONTRAST_PAIRS: ReadonlyArray<readonly [PaletteKey, PaletteKey]> = 
 
 /** The floor every pairing above must clear. WCAG 2.1 AA for body text. */
 export const MIN_CONTRAST = 4.5;
+
+/**
+ * Boundaries and state indicators, which WCAG 2.2 holds to 3:1 rather than 4.5:1
+ * (1.4.11 Non-text Contrast). These are not text and must not be read as text; they
+ * are the edge of a control, so a person can tell where one begins and whether it is
+ * the one they picked.
+ *
+ * This list exists because an earlier build drew every choice row and every field in
+ * `line`, which is 1.31:1 — visible on the designer's monitor and gone on a cheap
+ * phone in daylight, which is the only screen that matters here.
+ */
+export const BOUNDARY_PAIRS: ReadonlyArray<readonly [PaletteKey, PaletteKey]> = [
+  ["lineStrong", "card"],
+  ["lineStrong", "ground"],
+  ["accent", "card"],
+  ["accent", "ground"],
+  ["accent", "accentTint"],
+  ["warn", "card"],
+  ["warn", "warnTint"],
+] as const;
+
+/** The floor for a boundary or a state indicator. WCAG 2.2 AA, 1.4.11. */
+export const MIN_BOUNDARY_CONTRAST = 3;
