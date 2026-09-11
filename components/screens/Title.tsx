@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { Column } from "@/components/ui/Column";
 import { readyLocales } from "@/lib/i18n";
 import { asOfDate } from "@/lib/format";
+import { FACTS_AS_OF } from "@/lib/facts";
 
 /**
  * The first screen.
@@ -14,12 +15,24 @@ import { asOfDate } from "@/lib/format";
  * product is asked for money, data and trust by a dozen apps a week; the opening
  * screen is where this one says what it does not want.
  *
- * The facts date is hard-coded until `lib/facts.ts` lands in M1, and it is on screen
- * from the first commit so that no build can ever quietly show undated figures.
+ * The facts date comes from the ledger itself — the newest `asOf` of any figure in
+ * play — so no build can ever quietly show undated numbers.
  */
-const FACTS_AS_OF = "2026-03-01";
 
-export function Title() {
+export function Title({
+  onStart,
+  onResume,
+  onHelp,
+  canResume,
+  saveExpired = false,
+}: {
+  onStart: () => void;
+  onResume: () => void;
+  onHelp: () => void;
+  canResume: boolean;
+  /** A save was found but this build could not honestly open it. Say so, don't hide it. */
+  saveExpired?: boolean;
+}) {
   const { t, locale, setLocale } = useI18n();
   const locales = readyLocales();
 
@@ -38,9 +51,30 @@ export function Title() {
           </p>
         </header>
 
+        {saveExpired ? (
+          <p className="m-0 rounded-[var(--radius-card)] border border-line bg-card p-4 text-[length:var(--text-body)] leading-[var(--leading-body)]">
+            {t("saves.outdated")}
+          </p>
+        ) : null}
+
         <div className="flex flex-col gap-3">
-          <Button kind="primary">{t("title.start")}</Button>
-          <Button kind="secondary">{t("title.help")}</Button>
+          {canResume ? (
+            <>
+              <Button kind="primary" onClick={onResume}>
+                {t("title.resume")}
+              </Button>
+              <Button kind="secondary" onClick={onStart}>
+                {t("title.startOver")}
+              </Button>
+            </>
+          ) : (
+            <Button kind="primary" onClick={onStart}>
+              {t("title.start")}
+            </Button>
+          )}
+          <Button kind="secondary" onClick={onHelp}>
+            {t("title.help")}
+          </Button>
         </div>
 
         <section className="flex flex-col gap-2" aria-label={t("title.language")}>

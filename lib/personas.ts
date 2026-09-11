@@ -56,7 +56,7 @@ export const PERSONAS: Record<PersonaId, Persona> = {
       flags: ["lives-with-family"],
     },
     helpLines: ["eoc", "scameter", "anti-scam", "caritas-debt"],
-    partnerOrg: "Ethnic minority and domestic worker NGO partner",
+    partnerOrg: null,
   },
 
   mdw: {
@@ -93,7 +93,7 @@ export const PERSONAS: Record<PersonaId, Persona> = {
       flags: ["live-in", "sends-money-home"],
     },
     helpLines: ["enrich", "labour-fdh", "anti-scam", "scameter"],
-    partnerOrg: "Ethnic minority and domestic worker NGO partner",
+    partnerOrg: null,
   },
 
   "sdu-family": {

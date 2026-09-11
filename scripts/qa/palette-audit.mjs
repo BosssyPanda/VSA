@@ -8,7 +8,7 @@
 //
 // This reads both files as TEXT rather than importing them. A gate that needs a
 // TypeScript build to check sixteen hex literals is a gate that gets skipped.
-import { readdirSync, readFileSync, statSync } from "fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
@@ -124,15 +124,23 @@ check("warning red is spent only on money at risk", () => {
   // is exactly the use the design contract reserves red for — and both carry a glyph
   // as well, so the meaning survives greyscale and colour blindness. The other three
   // tiers must not reach for it, and a check below holds them to that.
+  //
+  // Every entry is a file that exists and renders money at risk. Paths were removed
+  // from this list once for being guesses at where a component might live: an
+  // allowlist entry for a file that does not exist is a hole waiting to be filled by
+  // whoever happens to create that path.
   const ALLOWED = [
     "app/globals.css",
     "lib/palette.ts",
     "lib/stability.ts",
     "components/ui/WarningCard.tsx",
-    "components/run/WarningCard.tsx",
-    "components/run/ArrearsRow.tsx",
+    "components/ui/ArrearsNote.tsx",
     "components/ui/MoneyRow.tsx",
   ];
+  const missing = ALLOWED.filter((f) => !existsSync(join(ROOT, f)));
+  if (missing.length) {
+    throw new Error(`allowlisted files that do not exist: ${missing.join(", ")}`);
+  }
   const offenders = [];
   for (const file of sourceFiles()) {
     if (ALLOWED.includes(file)) continue;

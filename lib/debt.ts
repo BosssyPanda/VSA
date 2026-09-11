@@ -2,7 +2,7 @@ import { fact } from "./facts";
 import { drawFromCushion } from "./costs";
 import { expectedIncome } from "./income";
 import { clamp } from "./format";
-import type { DebtKind, DebtLine, DebtSeed, RunState } from "./types";
+import type { DebtKind, DebtLine, DebtSeed, PlayerLoanKind, RunState } from "./types";
 
 /** Below this a card minimum stops being a percentage and becomes a floor. */
 export const MIN_CARD_PAYMENT = 50;
@@ -241,8 +241,8 @@ export function debtBurden(run: RunState): number {
  * calculator, and the point of the sheet is the comparison: a licensed lender at a
  * legal rate, or a person who will not charge interest and will remember.
  */
-export const PLAYER_LOAN_KINDS = ["licensed-lender", "family"] as const;
-export type PlayerLoanKind = (typeof PLAYER_LOAN_KINDS)[number];
+export const PLAYER_LOAN_KINDS: readonly PlayerLoanKind[] = ["licensed-lender", "family"];
+export type { PlayerLoanKind };
 
 /** A licensed lender's term and rate in this game. Legal, and expensive anyway. */
 export const LOAN_TERM_MONTHS = 12;

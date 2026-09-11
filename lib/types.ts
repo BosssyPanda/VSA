@@ -157,6 +157,13 @@ export type DebtKind =
   | "agency"
   | "bnpl";
 
+/**
+ * The two loans a player may choose to take for themselves. A closed subset of
+ * `DebtKind`, declared here rather than in `lib/debt.ts` because the screens, the
+ * journal and the replay all have to agree on it.
+ */
+export type PlayerLoanKind = Extract<DebtKind, "licensed-lender" | "family">;
+
 export type DebtSeed = {
   kind: DebtKind;
   label: string;

@@ -1,5 +1,5 @@
-import { Title } from "@/components/screens/Title";
+import { AppShell } from "@/components/AppShell";
 
 export default function Page() {
-  return <Title />;
+  return <AppShell />;
 }

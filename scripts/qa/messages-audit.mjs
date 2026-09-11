@@ -43,6 +43,23 @@ function walk(dir) {
 for (const d of ["app", "components", "lib"]) walk(d);
 
 const used = new Map();
+/**
+ * Keys built from a value: `t(`tier.${id}.title`)`.
+ *
+ * These are real uses and the audit has to see them, or every key a screen reaches
+ * through a variable looks like an orphan — and the fix somebody reaches for then is an
+ * exemption list, which is a hole rather than a check. Instead the template is read as
+ * a pattern, `tier.*.title`, and both directions still hold: a pattern that matches no
+ * catalogue key fails (so a typo in the prefix is caught), and a catalogue key matched
+ * by no static key and no pattern fails (so a dead string is still caught).
+ */
+const patterns = new Map();
+
+function patternToRegExp(pattern) {
+  const escaped = pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\\\*/g, "[^.]+");
+  return new RegExp(`^${escaped}$`);
+}
+
 for (const file of files) {
   const text = readFileSync(join(ROOT, file), "utf8");
   for (const [, key] of text.matchAll(/\bt\(\s*"([a-z][\w.]*)"/gi)) {
@@ -50,6 +67,11 @@ for (const file of files) {
   }
   for (const [, key] of text.matchAll(/\btn\(\s*"([a-z][\w.]*)"/gi)) {
     if (!used.has(key)) used.set(key, file);
+  }
+  for (const [, raw] of text.matchAll(/\btn?\(\s*`([^`]*\$\{[^`]*)`/g)) {
+    const pattern = raw.replace(/\$\{[^}]*\}/g, "*");
+    if (!/^[a-z][\w.*-]*$/i.test(pattern)) continue;
+    if (!patterns.has(pattern)) patterns.set(pattern, file);
   }
 }
 
@@ -59,11 +81,22 @@ for (const [key, file] of used) {
   if (!present) fail(`${file} uses "${key}", which is in no catalogue`);
 }
 
+const patternMatchers = [...patterns].map(([pattern, file]) => ({
+  pattern,
+  file,
+  re: patternToRegExp(pattern),
+}));
+
+for (const { pattern, file, re } of patternMatchers) {
+  const matches = enKeys.filter((k) => re.test(k) || re.test(k.replace(/\.(one|other|few|many|zero|two)$/, "")));
+  if (matches.length === 0) fail(`${file} builds "${pattern}", which matches nothing in the catalogue`);
+}
+
 for (const key of enKeys) {
   const base = key.replace(/\.(one|other|few|many|zero|two)$/, "");
-  if (!used.has(key) && !used.has(base)) {
-    fail(`messages/en.json has "${key}", which no screen uses`);
-  }
+  if (used.has(key) || used.has(base)) continue;
+  if (patternMatchers.some(({ re }) => re.test(key) || re.test(base))) continue;
+  fail(`messages/en.json has "${key}", which no screen uses`);
 }
 
 // ── Per-locale coverage ─────────────────────────────────────────────────────
