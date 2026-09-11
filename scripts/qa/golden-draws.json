@@ -1,0 +1,4157 @@
+{
+  "note": "Regenerate with `npm run qa:golden -- --write` and read the diff before committing it.",
+  "runVersion": 1,
+  "months": 12,
+  "factsAsOf": "2026-06-30",
+  "facts": {
+    "agency-fee-cap-pct": {
+      "value": 0.1,
+      "unit": "pct",
+      "asOf": "2018-02-09"
+    },
+    "cpi-yoy": {
+      "value": 0.017,
+      "unit": "pct",
+      "asOf": "2026-03-31"
+    },
+    "deception-share-of-crime": {
+      "value": 0.485,
+      "unit": "pct",
+      "asOf": "2025-12-31"
+    },
+    "lender-apr-cap": {
+      "value": 0.48,
+      "unit": "pct",
+      "asOf": "2022-12-30"
+    },
+    "lender-extortionate-apr": {
+      "value": 0.36,
+      "unit": "pct",
+      "asOf": "2022-12-30"
+    },
+    "mdw-food-allowance": {
+      "value": 1236,
+      "unit": "HKD/month",
+      "asOf": "2025-09-30"
+    },
+    "mdw-min-wage": {
+      "value": 5100,
+      "unit": "HKD/month",
+      "asOf": "2025-09-30"
+    },
+    "min-wage-hourly": {
+      "value": 43.1,
+      "unit": "HKD/hr",
+      "asOf": "2026-05-01"
+    },
+    "mpf-contribution-cap": {
+      "value": 1500,
+      "unit": "HKD/month",
+      "asOf": "2014-06-01"
+    },
+    "mpf-exempt-floor": {
+      "value": 7100,
+      "unit": "HKD/month",
+      "asOf": "2013-11-01"
+    },
+    "mpf-income-cap": {
+      "value": 30000,
+      "unit": "HKD/month",
+      "asOf": "2014-06-01"
+    },
+    "mpf-rate": {
+      "value": 0.05,
+      "unit": "pct",
+      "asOf": "2014-06-01"
+    },
+    "prh-wait-years": {
+      "value": 4.8,
+      "unit": "years",
+      "asOf": "2026-06-30"
+    },
+    "sdu-count": {
+      "value": 220000,
+      "unit": "people",
+      "asOf": "2025-10-03"
+    },
+    "sdu-deposit-max-months": {
+      "value": 2,
+      "unit": "months",
+      "asOf": "2022-01-22"
+    },
+    "sdu-rent-rise-cap-pct": {
+      "value": 0.1,
+      "unit": "pct",
+      "asOf": "2022-01-22"
+    }
+  },
+  "verdicts": {
+    "cushioned": {
+      "title": "Cushioned",
+      "glyph": "▲▲"
+    },
+    "steady": {
+      "title": "Steady",
+      "glyph": "▲"
+    },
+    "tight": {
+      "title": "Tight",
+      "glyph": "▬"
+    },
+    "behind": {
+      "title": "Behind",
+      "glyph": "▼"
+    },
+    "trapped": {
+      "title": "Stuck",
+      "glyph": "▼▼"
+    }
+  },
+  "years": {
+    "careful/sa-youth/1": {
+      "months": [
+        {
+          "m": 1,
+          "cards": [
+            "auto-top-up"
+          ],
+          "income": 9376,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2776,
+          "savingsEnd": 700,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 2,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 10114,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3514,
+          "savingsEnd": 3176,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 3,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 9908,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3308,
+          "savingsEnd": 5890,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 4,
+          "cards": [
+            "parcel-on-hold"
+          ],
+          "income": 8844,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2244,
+          "savingsEnd": 8398,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 5,
+          "cards": [
+            "contract-in-chinese",
+            "send-more-home"
+          ],
+          "income": 9827,
+          "fixed": 8000,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2627,
+          "savingsEnd": 9842,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 6,
+          "cards": [
+            "agency-wants-more"
+          ],
+          "income": 9376,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2776,
+          "savingsEnd": 11669,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 7,
+          "cards": [
+            "friend-needs-2000",
+            "cash-in-30-minutes"
+          ],
+          "income": 9499,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2875,
+          "savingsEnd": 11669,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 8,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 9990,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3390,
+          "savingsEnd": 13744,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 9,
+          "cards": [
+            "hours-cut",
+            "a-good-month"
+          ],
+          "income": 8926,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2326,
+          "savingsEnd": 17834,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 10,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 9623,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3023,
+          "savingsEnd": 19360,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 11,
+          "cards": [
+            "a-good-month",
+            "hours-cut"
+          ],
+          "income": 8885,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2285,
+          "savingsEnd": 21583,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 12,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 8639,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2039,
+          "savingsEnd": 23068,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        }
+      ],
+      "end": {
+        "reason": "complete",
+        "tier": "cushioned",
+        "cash": 2039,
+        "savings": 23068,
+        "debt": 0,
+        "cushionMonths": 2.4496,
+        "strain": 0.1,
+        "flags": [
+          "lives-with-family"
+        ],
+        "trapCost": 0,
+        "interestPaid": 0,
+        "trapsSpotted": 3,
+        "rules": [
+          "where-to-help",
+          "borrowing-cost",
+          "cushion"
+        ],
+        "weakSpots": []
+      }
+    },
+    "careful/sa-youth/42": {
+      "months": [
+        {
+          "m": 1,
+          "cards": [
+            "auto-top-up"
+          ],
+          "income": 9786,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3186,
+          "savingsEnd": 700,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 2,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 9868,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3268,
+          "savingsEnd": 3586,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 3,
+          "cards": [
+            "agency-wants-more"
+          ],
+          "income": 9908,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3308,
+          "savingsEnd": 6054,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 4,
+          "cards": [
+            "hours-cut",
+            "contract-in-chinese"
+          ],
+          "income": 8926,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2326,
+          "savingsEnd": 8562,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 5,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 10155,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3555,
+          "savingsEnd": 10088,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 6,
+          "cards": [
+            "send-more-home"
+          ],
+          "income": 9786,
+          "fixed": 8000,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2586,
+          "savingsEnd": 12843,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 7,
+          "cards": [
+            "friend-needs-2000"
+          ],
+          "income": 9540,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2726,
+          "savingsEnd": 12843,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 8,
+          "cards": [
+            "cash-in-30-minutes",
+            "hours-cut"
+          ],
+          "income": 9540,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2940,
+          "savingsEnd": 14769,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 9,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 9949,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3349,
+          "savingsEnd": 16909,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 10,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 9049,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2449,
+          "savingsEnd": 20958,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 11,
+          "cards": [
+            "parcel-on-hold"
+          ],
+          "income": 9376,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2776,
+          "savingsEnd": 22607,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 12,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 9704,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3104,
+          "savingsEnd": 24583,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        }
+      ],
+      "end": {
+        "reason": "complete",
+        "tier": "cushioned",
+        "cash": 3104,
+        "savings": 24583,
+        "debt": 0,
+        "cushionMonths": 2.6105,
+        "strain": 0.1,
+        "flags": [
+          "lives-with-family"
+        ],
+        "trapCost": 0,
+        "interestPaid": 0,
+        "trapsSpotted": 3,
+        "rules": [
+          "where-to-help",
+          "borrowing-cost",
+          "cushion"
+        ],
+        "weakSpots": []
+      }
+    },
+    "careful/sa-youth/7919": {
+      "months": [
+        {
+          "m": 1,
+          "cards": [
+            "auto-top-up"
+          ],
+          "income": 9295,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2695,
+          "savingsEnd": 700,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 2,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 9581,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2981,
+          "savingsEnd": 4095,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 3,
+          "cards": [
+            "parcel-on-hold"
+          ],
+          "income": 10236,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3636,
+          "savingsEnd": 6276,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 4,
+          "cards": [
+            "a-good-month",
+            "send-more-home"
+          ],
+          "income": 10114,
+          "fixed": 8000,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2914,
+          "savingsEnd": 9112,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 5,
+          "cards": [
+            "cash-in-30-minutes"
+          ],
+          "income": 9171,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2571,
+          "savingsEnd": 11226,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 6,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 9704,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3104,
+          "savingsEnd": 12997,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 7,
+          "cards": [
+            "agency-wants-more"
+          ],
+          "income": 8762,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2162,
+          "savingsEnd": 15301,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 8,
+          "cards": [
+            "friend-needs-2000",
+            "a-good-month"
+          ],
+          "income": 10032,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2794,
+          "savingsEnd": 15301,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 9,
+          "cards": [
+            "a-good-month",
+            "hours-cut"
+          ],
+          "income": 9704,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3104,
+          "savingsEnd": 17295,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 10,
+          "cards": [
+            "contract-in-chinese"
+          ],
+          "income": 9254,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2654,
+          "savingsEnd": 19599,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 11,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 9704,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3104,
+          "savingsEnd": 21453,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 12,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 9130,
+          "fixed": 7400,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2530,
+          "savingsEnd": 23757,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        }
+      ],
+      "end": {
+        "reason": "complete",
+        "tier": "cushioned",
+        "cash": 2530,
+        "savings": 23757,
+        "debt": 0,
+        "cushionMonths": 2.5228,
+        "strain": 0.05,
+        "flags": [
+          "lives-with-family"
+        ],
+        "trapCost": 0,
+        "interestPaid": 0,
+        "trapsSpotted": 3,
+        "rules": [
+          "where-to-help",
+          "borrowing-cost",
+          "cushion"
+        ],
+        "weakSpots": []
+      }
+    },
+    "careful/mdw/1": {
+      "months": [
+        {
+          "m": 1,
+          "cards": [
+            "auto-top-up"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 915,
+          "interest": 103,
+          "fromCushion": 0,
+          "cashEnd": 1185,
+          "savingsEnd": 0,
+          "debtEnd": 3288,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 2,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 915,
+          "interest": 82,
+          "fromCushion": 0,
+          "cashEnd": 1385,
+          "savingsEnd": 85,
+          "debtEnd": 2455,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 3,
+          "cards": [
+            "parcel-on-hold"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 915,
+          "interest": 61,
+          "fromCushion": 0,
+          "cashEnd": 1385,
+          "savingsEnd": 670,
+          "debtEnd": 1601,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 4,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 915,
+          "interest": 40,
+          "fromCushion": 0,
+          "cashEnd": 1385,
+          "savingsEnd": 1255,
+          "debtEnd": 726,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 5,
+          "cards": [
+            "send-more-home",
+            "agency-wants-more"
+          ],
+          "income": 5100,
+          "fixed": 4200,
+          "debtPaid": 744,
+          "interest": 18,
+          "fromCushion": 0,
+          "cashEnd": 956,
+          "savingsEnd": 1840,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 6,
+          "cards": [
+            "friend-needs-2000"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 1956,
+          "savingsEnd": 1840,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 7,
+          "cards": [
+            "a-good-month",
+            "cash-in-30-minutes"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2300,
+          "savingsEnd": 4496,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 8,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2300,
+          "savingsEnd": 5996,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 9,
+          "cards": [
+            "hours-cut",
+            "a-good-month"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2300,
+          "savingsEnd": 7496,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 10,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2300,
+          "savingsEnd": 8996,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 11,
+          "cards": [
+            "a-good-month",
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2300,
+          "savingsEnd": 10496,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 12,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2300,
+          "savingsEnd": 11996,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        }
+      ],
+      "end": {
+        "reason": "complete",
+        "tier": "cushioned",
+        "cash": 2300,
+        "savings": 11996,
+        "debt": 0,
+        "cushionMonths": 2.3522,
+        "strain": 0.1,
+        "flags": [
+          "live-in",
+          "sends-money-home"
+        ],
+        "trapCost": 0,
+        "interestPaid": 304,
+        "trapsSpotted": 3,
+        "rules": [
+          "cushion",
+          "where-to-help",
+          "borrowing-cost"
+        ],
+        "weakSpots": []
+      }
+    },
+    "careful/mdw/42": {
+      "months": [
+        {
+          "m": 1,
+          "cards": [
+            "auto-top-up"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 915,
+          "interest": 103,
+          "fromCushion": 0,
+          "cashEnd": 1185,
+          "savingsEnd": 0,
+          "debtEnd": 3288,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 2,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3200,
+          "debtPaid": 915,
+          "interest": 82,
+          "fromCushion": 0,
+          "cashEnd": 1785,
+          "savingsEnd": 385,
+          "debtEnd": 2455,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 3,
+          "cards": [
+            "friend-needs-2000"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 915,
+          "interest": 61,
+          "fromCushion": 0,
+          "cashEnd": 1385,
+          "savingsEnd": 870,
+          "debtEnd": 1601,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 4,
+          "cards": [
+            "hours-cut",
+            "send-more-home"
+          ],
+          "income": 5100,
+          "fixed": 4200,
+          "debtPaid": 915,
+          "interest": 40,
+          "fromCushion": 0,
+          "cashEnd": 785,
+          "savingsEnd": 1455,
+          "debtEnd": 726,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 5,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 744,
+          "interest": 18,
+          "fromCushion": 0,
+          "cashEnd": 1541,
+          "savingsEnd": 1455,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 6,
+          "cards": [
+            "agency-wants-more"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2300,
+          "savingsEnd": 2196,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 7,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2300,
+          "savingsEnd": 5196,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 8,
+          "cards": [
+            "cash-in-30-minutes",
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2300,
+          "savingsEnd": 6696,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 9,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2300,
+          "savingsEnd": 8196,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 10,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2300,
+          "savingsEnd": 9696,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 11,
+          "cards": [
+            "parcel-on-hold"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2300,
+          "savingsEnd": 11196,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 12,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2300,
+          "savingsEnd": 12696,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        }
+      ],
+      "end": {
+        "reason": "complete",
+        "tier": "cushioned",
+        "cash": 2300,
+        "savings": 12696,
+        "debt": 0,
+        "cushionMonths": 2.4894,
+        "strain": 0.05,
+        "flags": [
+          "live-in",
+          "sends-money-home"
+        ],
+        "trapCost": 0,
+        "interestPaid": 304,
+        "trapsSpotted": 3,
+        "rules": [
+          "cushion",
+          "where-to-help",
+          "borrowing-cost"
+        ],
+        "weakSpots": []
+      }
+    },
+    "careful/mdw/7919": {
+      "months": [
+        {
+          "m": 1,
+          "cards": [
+            "auto-top-up"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 915,
+          "interest": 103,
+          "fromCushion": 0,
+          "cashEnd": 1185,
+          "savingsEnd": 0,
+          "debtEnd": 3288,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 2,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 915,
+          "interest": 82,
+          "fromCushion": 0,
+          "cashEnd": 1385,
+          "savingsEnd": 1885,
+          "debtEnd": 2455,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 3,
+          "cards": [
+            "parcel-on-hold"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 915,
+          "interest": 61,
+          "fromCushion": 0,
+          "cashEnd": 1385,
+          "savingsEnd": 2470,
+          "debtEnd": 1601,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 4,
+          "cards": [
+            "a-good-month",
+            "send-more-home"
+          ],
+          "income": 5100,
+          "fixed": 4200,
+          "debtPaid": 915,
+          "interest": 40,
+          "fromCushion": 0,
+          "cashEnd": 785,
+          "savingsEnd": 3055,
+          "debtEnd": 726,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 5,
+          "cards": [
+            "cash-in-30-minutes"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 744,
+          "interest": 18,
+          "fromCushion": 0,
+          "cashEnd": 1541,
+          "savingsEnd": 3055,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 6,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2300,
+          "savingsEnd": 3796,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 7,
+          "cards": [
+            "friend-needs-2000"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 1800,
+          "savingsEnd": 3796,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 8,
+          "cards": [
+            "agency-wants-more",
+            "a-good-month"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2300,
+          "savingsEnd": 4796,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 9,
+          "cards": [
+            "a-good-month",
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2300,
+          "savingsEnd": 6296,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 10,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2300,
+          "savingsEnd": 7796,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 11,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2300,
+          "savingsEnd": 9296,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 12,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2300,
+          "savingsEnd": 10796,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        }
+      ],
+      "end": {
+        "reason": "complete",
+        "tier": "cushioned",
+        "cash": 2300,
+        "savings": 10796,
+        "debt": 0,
+        "cushionMonths": 2.1169,
+        "strain": 0.1,
+        "flags": [
+          "live-in",
+          "sends-money-home"
+        ],
+        "trapCost": 0,
+        "interestPaid": 304,
+        "trapsSpotted": 3,
+        "rules": [
+          "where-to-help",
+          "borrowing-cost",
+          "cushion"
+        ],
+        "weakSpots": []
+      }
+    },
+    "careful/sdu-family/1": {
+      "months": [
+        {
+          "m": 1,
+          "cards": [
+            "auto-top-up"
+          ],
+          "income": 8148,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 1648,
+          "savingsEnd": 1200,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 2,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 9623,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3123,
+          "savingsEnd": 2048,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 3,
+          "cards": [
+            "parcel-on-hold"
+          ],
+          "income": 9130,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2630,
+          "savingsEnd": 4371,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 4,
+          "cards": [
+            "cash-in-30-minutes"
+          ],
+          "income": 7042,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 542,
+          "savingsEnd": 6201,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 5,
+          "cards": [
+            "friend-needs-2000",
+            "a-good-month"
+          ],
+          "income": 9049,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 1791,
+          "savingsEnd": 7701,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 6,
+          "cards": [
+            "rent-review"
+          ],
+          "income": 8107,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 1607,
+          "savingsEnd": 8692,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 7,
+          "cards": [
+            "a-good-month",
+            "hours-cut"
+          ],
+          "income": 8352,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 1852,
+          "savingsEnd": 9499,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 8,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 9376,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2876,
+          "savingsEnd": 10551,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 9,
+          "cards": [
+            "hours-cut",
+            "a-good-month"
+          ],
+          "income": 7248,
+          "fixed": 7720,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 328,
+          "savingsEnd": 12627,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 10,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 8558,
+          "fixed": 7720,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 1166,
+          "savingsEnd": 12627,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 11,
+          "cards": [
+            "a-good-month",
+            "hours-cut"
+          ],
+          "income": 7124,
+          "fixed": 7720,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 204,
+          "savingsEnd": 12993,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 12,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 7025,
+          "fixed": 7720,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 491,
+          "cashEnd": 0,
+          "savingsEnd": 12502,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        }
+      ],
+      "end": {
+        "reason": "complete",
+        "tier": "cushioned",
+        "cash": 0,
+        "savings": 12502,
+        "debt": 0,
+        "cushionMonths": 1.5267,
+        "strain": 0,
+        "flags": [
+          "subdivided-flat",
+          "waiting-for-public-housing"
+        ],
+        "trapCost": 0,
+        "interestPaid": 0,
+        "trapsSpotted": 2,
+        "rules": [
+          "cushion",
+          "where-to-help",
+          "borrowing-cost"
+        ],
+        "weakSpots": []
+      }
+    },
+    "careful/sdu-family/42": {
+      "months": [
+        {
+          "m": 1,
+          "cards": [
+            "auto-top-up"
+          ],
+          "income": 8967,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2467,
+          "savingsEnd": 1200,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 2,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 9090,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2590,
+          "savingsEnd": 2867,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 3,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 9130,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2630,
+          "savingsEnd": 6157,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 4,
+          "cards": [
+            "parcel-on-hold",
+            "friend-needs-2000"
+          ],
+          "income": 7207,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 537,
+          "savingsEnd": 6157,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 5,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 9704,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2941,
+          "savingsEnd": 6157,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 6,
+          "cards": [
+            "rent-review"
+          ],
+          "income": 8967,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2467,
+          "savingsEnd": 8298,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 7,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 8476,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 1976,
+          "savingsEnd": 9965,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 8,
+          "cards": [
+            "cash-in-30-minutes",
+            "hours-cut"
+          ],
+          "income": 8435,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 1935,
+          "savingsEnd": 11141,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 9,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 9254,
+          "fixed": 7720,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2334,
+          "savingsEnd": 12276,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 10,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 7493,
+          "fixed": 7720,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 573,
+          "savingsEnd": 13810,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 11,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 8066,
+          "fixed": 7720,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 919,
+          "savingsEnd": 13810,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 12,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 8721,
+          "fixed": 7720,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 1801,
+          "savingsEnd": 13929,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        }
+      ],
+      "end": {
+        "reason": "complete",
+        "tier": "cushioned",
+        "cash": 1801,
+        "savings": 13929,
+        "debt": 0,
+        "cushionMonths": 1.7009,
+        "strain": 0,
+        "flags": [
+          "subdivided-flat",
+          "waiting-for-public-housing"
+        ],
+        "trapCost": 0,
+        "interestPaid": 0,
+        "trapsSpotted": 2,
+        "rules": [
+          "cushion",
+          "where-to-help",
+          "borrowing-cost"
+        ],
+        "weakSpots": []
+      }
+    },
+    "careful/sdu-family/7919": {
+      "months": [
+        {
+          "m": 1,
+          "cards": [
+            "auto-top-up"
+          ],
+          "income": 7902,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 1402,
+          "savingsEnd": 1200,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 2,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 8558,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2058,
+          "savingsEnd": 3302,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 3,
+          "cards": [
+            "parcel-on-hold"
+          ],
+          "income": 9786,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3286,
+          "savingsEnd": 4560,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 4,
+          "cards": [
+            "hours-cut",
+            "friend-needs-2000"
+          ],
+          "income": 9623,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3123,
+          "savingsEnd": 5046,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 5,
+          "cards": [
+            "cash-in-30-minutes"
+          ],
+          "income": 7657,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 1157,
+          "savingsEnd": 7369,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 6,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 8804,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2304,
+          "savingsEnd": 7726,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "steady"
+        },
+        {
+          "m": 7,
+          "cards": [
+            "rent-review"
+          ],
+          "income": 6879,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 379,
+          "savingsEnd": 9230,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 8,
+          "cards": [
+            "a-good-month",
+            "hours-cut"
+          ],
+          "income": 9458,
+          "fixed": 7300,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2537,
+          "savingsEnd": 9230,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 9,
+          "cards": [
+            "a-good-month",
+            "hours-cut"
+          ],
+          "income": 8762,
+          "fixed": 7720,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 1842,
+          "savingsEnd": 10967,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 10,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 7820,
+          "fixed": 7720,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 900,
+          "savingsEnd": 12009,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 11,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 8762,
+          "fixed": 7720,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 1842,
+          "savingsEnd": 12109,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        },
+        {
+          "m": 12,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 7616,
+          "fixed": 7720,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 696,
+          "savingsEnd": 13151,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "cushioned"
+        }
+      ],
+      "end": {
+        "reason": "complete",
+        "tier": "cushioned",
+        "cash": 696,
+        "savings": 13151,
+        "debt": 0,
+        "cushionMonths": 1.6059,
+        "strain": 0,
+        "flags": [
+          "subdivided-flat",
+          "waiting-for-public-housing"
+        ],
+        "trapCost": 0,
+        "interestPaid": 0,
+        "trapsSpotted": 2,
+        "rules": [
+          "cushion",
+          "where-to-help",
+          "borrowing-cost"
+        ],
+        "weakSpots": []
+      }
+    },
+    "reckless/sa-youth/1": {
+      "months": [
+        {
+          "m": 1,
+          "cards": [
+            "auto-top-up"
+          ],
+          "income": 9376,
+          "fixed": 7550,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3326,
+          "savingsEnd": 0,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 2,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 10114,
+          "fixed": 7550,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 5590,
+          "savingsEnd": 0,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 3,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 9908,
+          "fixed": 7550,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 7948,
+          "savingsEnd": 0,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 4,
+          "cards": [
+            "parcel-on-hold"
+          ],
+          "income": 8844,
+          "fixed": 7550,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 7442,
+          "savingsEnd": 0,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 5,
+          "cards": [
+            "contract-in-chinese",
+            "send-more-home"
+          ],
+          "income": 9827,
+          "fixed": 7550,
+          "debtPaid": 500,
+          "interest": 83,
+          "fromCushion": 0,
+          "cashEnd": 5219,
+          "savingsEnd": 0,
+          "debtEnd": 2083,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 6,
+          "cards": [
+            "agency-wants-more"
+          ],
+          "income": 9376,
+          "fixed": 7550,
+          "debtPaid": 1100,
+          "interest": 129,
+          "fromCushion": 0,
+          "cashEnd": 5945,
+          "savingsEnd": 0,
+          "debtEnd": 4112,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 7,
+          "cards": [
+            "friend-needs-2000",
+            "cash-in-30-minutes"
+          ],
+          "income": 9499,
+          "fixed": 7400,
+          "debtPaid": 2360,
+          "interest": 564,
+          "fromCushion": 0,
+          "cashEnd": 11684,
+          "savingsEnd": 0,
+          "debtEnd": 12316,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 8,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 9990,
+          "fixed": 7400,
+          "debtPaid": 2360,
+          "interest": 498,
+          "fromCushion": 0,
+          "cashEnd": 11914,
+          "savingsEnd": 0,
+          "debtEnd": 10454,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 9,
+          "cards": [
+            "hours-cut",
+            "a-good-month"
+          ],
+          "income": 8926,
+          "fixed": 7400,
+          "debtPaid": 2360,
+          "interest": 430,
+          "fromCushion": 0,
+          "cashEnd": 10480,
+          "savingsEnd": 900,
+          "debtEnd": 8524,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 10,
+          "cards": [
+            "minimum-payment"
+          ],
+          "income": 9623,
+          "fixed": 7400,
+          "debtPaid": 2141,
+          "interest": 358,
+          "fromCushion": 0,
+          "cashEnd": 10562,
+          "savingsEnd": 900,
+          "debtEnd": 6741,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 11,
+          "cards": [
+            "a-good-month",
+            "hours-cut"
+          ],
+          "income": 8885,
+          "fixed": 7400,
+          "debtPaid": 1453,
+          "interest": 292,
+          "fromCushion": 0,
+          "cashEnd": 10594,
+          "savingsEnd": 900,
+          "debtEnd": 5580,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 12,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 8639,
+          "fixed": 7400,
+          "debtPaid": 1260,
+          "interest": 239,
+          "fromCushion": 0,
+          "cashEnd": 10573,
+          "savingsEnd": 900,
+          "debtEnd": 4559,
+          "familyCovered": true,
+          "tier": "tight"
+        }
+      ],
+      "end": {
+        "reason": "complete",
+        "tier": "tight",
+        "cash": 10573,
+        "savings": 900,
+        "debt": 4559,
+        "cushionMonths": 0.0956,
+        "strain": 0.35,
+        "flags": [
+          "card-compromised",
+          "illegal-loan",
+          "lives-with-family",
+          "referee-named"
+        ],
+        "trapCost": 12800,
+        "interestPaid": 2593,
+        "trapsSpotted": 0,
+        "rules": [
+          "borrowing-cost",
+          "payments-cards",
+          "family-money"
+        ],
+        "weakSpots": [
+          "borrowing-cost",
+          "scam-recognition",
+          "rent-rights",
+          "family-money",
+          "payments-cards"
+        ]
+      }
+    },
+    "reckless/sa-youth/42": {
+      "months": [
+        {
+          "m": 1,
+          "cards": [
+            "auto-top-up"
+          ],
+          "income": 9786,
+          "fixed": 7550,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3736,
+          "savingsEnd": 0,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 2,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 9868,
+          "fixed": 7150,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 6454,
+          "savingsEnd": 0,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 3,
+          "cards": [
+            "agency-wants-more"
+          ],
+          "income": 9908,
+          "fixed": 7550,
+          "debtPaid": 600,
+          "interest": 60,
+          "fromCushion": 0,
+          "cashEnd": 8212,
+          "savingsEnd": 0,
+          "debtEnd": 2460,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 4,
+          "cards": [
+            "hours-cut",
+            "contract-in-chinese"
+          ],
+          "income": 8926,
+          "fixed": 7550,
+          "debtPaid": 600,
+          "interest": 49,
+          "fromCushion": 0,
+          "cashEnd": 7488,
+          "savingsEnd": 0,
+          "debtEnd": 1909,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 5,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 10155,
+          "fixed": 7550,
+          "debtPaid": 600,
+          "interest": 38,
+          "fromCushion": 0,
+          "cashEnd": 9493,
+          "savingsEnd": 0,
+          "debtEnd": 1347,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 6,
+          "cards": [
+            "send-more-home"
+          ],
+          "income": 9786,
+          "fixed": 7550,
+          "debtPaid": 1100,
+          "interest": 110,
+          "fromCushion": 0,
+          "cashEnd": 8129,
+          "savingsEnd": 0,
+          "debtEnd": 2857,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 7,
+          "cards": [
+            "friend-needs-2000"
+          ],
+          "income": 9540,
+          "fixed": 7400,
+          "debtPaid": 1160,
+          "interest": 144,
+          "fromCushion": 0,
+          "cashEnd": 7109,
+          "savingsEnd": 0,
+          "debtEnd": 3841,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 8,
+          "cards": [
+            "cash-in-30-minutes",
+            "hours-cut"
+          ],
+          "income": 9540,
+          "fixed": 7400,
+          "debtPaid": 753,
+          "interest": 119,
+          "fromCushion": 0,
+          "cashEnd": 7996,
+          "savingsEnd": 0,
+          "debtEnd": 3207,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 9,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 9949,
+          "fixed": 7400,
+          "debtPaid": 560,
+          "interest": 100,
+          "fromCushion": 0,
+          "cashEnd": 9385,
+          "savingsEnd": 900,
+          "debtEnd": 2747,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 10,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 9049,
+          "fixed": 7400,
+          "debtPaid": 560,
+          "interest": 85,
+          "fromCushion": 0,
+          "cashEnd": 10474,
+          "savingsEnd": 900,
+          "debtEnd": 2272,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 11,
+          "cards": [
+            "parcel-on-hold"
+          ],
+          "income": 9376,
+          "fixed": 7400,
+          "debtPaid": 341,
+          "interest": 69,
+          "fromCushion": 0,
+          "cashEnd": 10309,
+          "savingsEnd": 900,
+          "debtEnd": 2000,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 12,
+          "cards": [
+            "minimum-payment"
+          ],
+          "income": 9704,
+          "fixed": 7400,
+          "debtPaid": 60,
+          "interest": 60,
+          "fromCushion": 0,
+          "cashEnd": 12553,
+          "savingsEnd": 900,
+          "debtEnd": 2000,
+          "familyCovered": true,
+          "tier": "tight"
+        }
+      ],
+      "end": {
+        "reason": "complete",
+        "tier": "tight",
+        "cash": 12553,
+        "savings": 900,
+        "debt": 2000,
+        "cushionMonths": 0.0956,
+        "strain": 0.1,
+        "flags": [
+          "card-compromised",
+          "lives-with-family"
+        ],
+        "trapCost": 5300,
+        "interestPaid": 834,
+        "trapsSpotted": 0,
+        "rules": [
+          "borrowing-cost",
+          "payments-cards",
+          "scam-recognition"
+        ],
+        "weakSpots": [
+          "borrowing-cost",
+          "scam-recognition",
+          "rent-rights",
+          "family-money",
+          "payments-cards"
+        ]
+      }
+    },
+    "reckless/sa-youth/7919": {
+      "months": [
+        {
+          "m": 1,
+          "cards": [
+            "auto-top-up"
+          ],
+          "income": 9295,
+          "fixed": 7550,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3245,
+          "savingsEnd": 0,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 2,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 9581,
+          "fixed": 7550,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 4676,
+          "savingsEnd": 900,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 3,
+          "cards": [
+            "parcel-on-hold"
+          ],
+          "income": 10236,
+          "fixed": 7550,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 5562,
+          "savingsEnd": 900,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 4,
+          "cards": [
+            "a-good-month",
+            "send-more-home"
+          ],
+          "income": 10114,
+          "fixed": 7550,
+          "debtPaid": 500,
+          "interest": 83,
+          "fromCushion": 0,
+          "cashEnd": 5126,
+          "savingsEnd": 900,
+          "debtEnd": 2083,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 5,
+          "cards": [
+            "cash-in-30-minutes"
+          ],
+          "income": 9171,
+          "fixed": 7550,
+          "debtPaid": 1700,
+          "interest": 469,
+          "fromCushion": 0,
+          "cashEnd": 13047,
+          "savingsEnd": 900,
+          "debtEnd": 8852,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 6,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 9704,
+          "fixed": 7550,
+          "debtPaid": 1700,
+          "interest": 415,
+          "fromCushion": 0,
+          "cashEnd": 13501,
+          "savingsEnd": 900,
+          "debtEnd": 7567,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 7,
+          "cards": [
+            "agency-wants-more"
+          ],
+          "income": 8762,
+          "fixed": 7400,
+          "debtPaid": 2300,
+          "interest": 418,
+          "fromCushion": 0,
+          "cashEnd": 12563,
+          "savingsEnd": 900,
+          "debtEnd": 8685,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 8,
+          "cards": [
+            "friend-needs-2000",
+            "a-good-month"
+          ],
+          "income": 10032,
+          "fixed": 7400,
+          "debtPaid": 2360,
+          "interest": 408,
+          "fromCushion": 0,
+          "cashEnd": 10835,
+          "savingsEnd": 900,
+          "debtEnd": 8733,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 9,
+          "cards": [
+            "minimum-payment",
+            "hours-cut"
+          ],
+          "income": 9704,
+          "fixed": 7400,
+          "debtPaid": 2141,
+          "interest": 335,
+          "fromCushion": 0,
+          "cashEnd": 10698,
+          "savingsEnd": 900,
+          "debtEnd": 6927,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 10,
+          "cards": [
+            "contract-in-chinese"
+          ],
+          "income": 9254,
+          "fixed": 7400,
+          "debtPaid": 1860,
+          "interest": 266,
+          "fromCushion": 0,
+          "cashEnd": 9192,
+          "savingsEnd": 900,
+          "debtEnd": 5333,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 11,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 9704,
+          "fixed": 7400,
+          "debtPaid": 1860,
+          "interest": 203,
+          "fromCushion": 0,
+          "cashEnd": 9636,
+          "savingsEnd": 900,
+          "debtEnd": 3676,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 12,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 9130,
+          "fixed": 7400,
+          "debtPaid": 1453,
+          "interest": 138,
+          "fromCushion": 0,
+          "cashEnd": 9913,
+          "savingsEnd": 900,
+          "debtEnd": 2361,
+          "familyCovered": true,
+          "tier": "tight"
+        }
+      ],
+      "end": {
+        "reason": "complete",
+        "tier": "tight",
+        "cash": 9913,
+        "savings": 900,
+        "debt": 2361,
+        "cushionMonths": 0.0956,
+        "strain": 0.35,
+        "flags": [
+          "card-compromised",
+          "illegal-loan",
+          "lives-with-family",
+          "referee-named"
+        ],
+        "trapCost": 12800,
+        "interestPaid": 2735,
+        "trapsSpotted": 0,
+        "rules": [
+          "borrowing-cost",
+          "payments-cards",
+          "family-money"
+        ],
+        "weakSpots": [
+          "borrowing-cost",
+          "scam-recognition",
+          "rent-rights",
+          "family-money",
+          "payments-cards"
+        ]
+      }
+    },
+    "reckless/mdw/1": {
+      "months": [
+        {
+          "m": 1,
+          "cards": [
+            "auto-top-up"
+          ],
+          "income": 5100,
+          "fixed": 3750,
+          "debtPaid": 915,
+          "interest": 103,
+          "fromCushion": 0,
+          "cashEnd": 1035,
+          "savingsEnd": 0,
+          "debtEnd": 3288,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 2,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3750,
+          "debtPaid": 915,
+          "interest": 82,
+          "fromCushion": 0,
+          "cashEnd": 1170,
+          "savingsEnd": 0,
+          "debtEnd": 2455,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 3,
+          "cards": [
+            "parcel-on-hold"
+          ],
+          "income": 5100,
+          "fixed": 3750,
+          "debtPaid": 720,
+          "interest": 61,
+          "fromCushion": 0,
+          "cashEnd": 0,
+          "savingsEnd": 0,
+          "debtEnd": 1796,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 4,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3750,
+          "debtPaid": 915,
+          "interest": 45,
+          "fromCushion": 0,
+          "cashEnd": 435,
+          "savingsEnd": 0,
+          "debtEnd": 926,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 5,
+          "cards": [
+            "send-more-home",
+            "agency-wants-more"
+          ],
+          "income": 5100,
+          "fixed": 3750,
+          "debtPaid": 0,
+          "interest": 166,
+          "fromCushion": 0,
+          "cashEnd": -715,
+          "savingsEnd": 0,
+          "debtEnd": 6592,
+          "familyCovered": false,
+          "tier": "behind"
+        },
+        {
+          "m": 6,
+          "cards": [
+            "friend-needs-2000"
+          ],
+          "income": 5100,
+          "fixed": 3750,
+          "debtPaid": 0,
+          "interest": 231,
+          "fromCushion": 0,
+          "cashEnd": -1365,
+          "savingsEnd": 0,
+          "debtEnd": 8823,
+          "familyCovered": false,
+          "tier": "behind"
+        },
+        {
+          "m": 7,
+          "cards": [
+            "minimum-payment",
+            "cash-in-30-minutes"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 3277,
+          "interest": 637,
+          "fromCushion": 0,
+          "cashEnd": 4858,
+          "savingsEnd": 0,
+          "debtEnd": 14183,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 8,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 2446,
+          "interest": 551,
+          "fromCushion": 0,
+          "cashEnd": 3912,
+          "savingsEnd": 0,
+          "debtEnd": 12288,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 9,
+          "cards": [
+            "hours-cut",
+            "a-good-month"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 2362,
+          "interest": 482,
+          "fromCushion": 0,
+          "cashEnd": 2450,
+          "savingsEnd": 900,
+          "debtEnd": 10408,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 10,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 2362,
+          "interest": 412,
+          "fromCushion": 0,
+          "cashEnd": 1588,
+          "savingsEnd": 900,
+          "debtEnd": 8458,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 11,
+          "cards": [
+            "a-good-month",
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 2362,
+          "interest": 339,
+          "fromCushion": 0,
+          "cashEnd": 726,
+          "savingsEnd": 900,
+          "debtEnd": 6435,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 12,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 2079,
+          "interest": 263,
+          "fromCushion": 0,
+          "cashEnd": 147,
+          "savingsEnd": 900,
+          "debtEnd": 4619,
+          "familyCovered": true,
+          "tier": "tight"
+        }
+      ],
+      "end": {
+        "reason": "complete",
+        "tier": "tight",
+        "cash": 147,
+        "savings": 900,
+        "debt": 4619,
+        "cushionMonths": 0.1765,
+        "strain": 0.75,
+        "flags": [
+          "card-compromised",
+          "illegal-loan",
+          "live-in",
+          "missed-payment",
+          "referee-named",
+          "sends-money-home"
+        ],
+        "trapCost": 12800,
+        "interestPaid": 3372,
+        "trapsSpotted": 0,
+        "rules": [
+          "borrowing-cost",
+          "payments-cards",
+          "family-money"
+        ],
+        "weakSpots": [
+          "borrowing-cost",
+          "scam-recognition",
+          "family-money",
+          "payments-cards"
+        ]
+      }
+    },
+    "reckless/mdw/42": {
+      "months": [
+        {
+          "m": 1,
+          "cards": [
+            "auto-top-up"
+          ],
+          "income": 5100,
+          "fixed": 3750,
+          "debtPaid": 915,
+          "interest": 103,
+          "fromCushion": 0,
+          "cashEnd": 1035,
+          "savingsEnd": 0,
+          "debtEnd": 3288,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 2,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3350,
+          "debtPaid": 915,
+          "interest": 82,
+          "fromCushion": 0,
+          "cashEnd": 1870,
+          "savingsEnd": 0,
+          "debtEnd": 2455,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 3,
+          "cards": [
+            "friend-needs-2000"
+          ],
+          "income": 5100,
+          "fixed": 3750,
+          "debtPaid": 975,
+          "interest": 121,
+          "fromCushion": 0,
+          "cashEnd": 245,
+          "savingsEnd": 0,
+          "debtEnd": 3601,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 4,
+          "cards": [
+            "hours-cut",
+            "send-more-home"
+          ],
+          "income": 5100,
+          "fixed": 3750,
+          "debtPaid": 0,
+          "interest": 183,
+          "fromCushion": 0,
+          "cashEnd": -905,
+          "savingsEnd": 0,
+          "debtEnd": 6284,
+          "familyCovered": false,
+          "tier": "behind"
+        },
+        {
+          "m": 5,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3750,
+          "debtPaid": 445,
+          "interest": 189,
+          "fromCushion": 0,
+          "cashEnd": 0,
+          "savingsEnd": 0,
+          "debtEnd": 6028,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 6,
+          "cards": [
+            "agency-wants-more"
+          ],
+          "income": 5100,
+          "fixed": 3750,
+          "debtPaid": 1350,
+          "interest": 244,
+          "fromCushion": 0,
+          "cashEnd": 0,
+          "savingsEnd": 0,
+          "debtEnd": 7922,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 7,
+          "cards": [
+            "minimum-payment"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 1500,
+          "interest": 214,
+          "fromCushion": 0,
+          "cashEnd": 0,
+          "savingsEnd": 0,
+          "debtEnd": 6636,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 8,
+          "cards": [
+            "cash-in-30-minutes",
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 1000,
+          "interest": 181,
+          "fromCushion": 0,
+          "cashEnd": 0,
+          "savingsEnd": 0,
+          "debtEnd": 5817,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 9,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 1164,
+          "interest": 158,
+          "fromCushion": 0,
+          "cashEnd": 336,
+          "savingsEnd": 0,
+          "debtEnd": 4811,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 10,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 1164,
+          "interest": 132,
+          "fromCushion": 0,
+          "cashEnd": 72,
+          "savingsEnd": 900,
+          "debtEnd": 3779,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 11,
+          "cards": [
+            "parcel-on-hold"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 672,
+          "interest": 106,
+          "fromCushion": 900,
+          "cashEnd": 0,
+          "savingsEnd": 0,
+          "debtEnd": 3213,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 12,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 810,
+          "interest": 88,
+          "fromCushion": 0,
+          "cashEnd": 690,
+          "savingsEnd": 0,
+          "debtEnd": 2491,
+          "familyCovered": true,
+          "tier": "tight"
+        }
+      ],
+      "end": {
+        "reason": "complete",
+        "tier": "tight",
+        "cash": 690,
+        "savings": 0,
+        "debt": 2491,
+        "cushionMonths": 0,
+        "strain": 0.65,
+        "flags": [
+          "card-compromised",
+          "live-in",
+          "missed-payment",
+          "sends-money-home"
+        ],
+        "trapCost": 5300,
+        "interestPaid": 1801,
+        "trapsSpotted": 0,
+        "rules": [
+          "borrowing-cost",
+          "payments-cards",
+          "scam-recognition"
+        ],
+        "weakSpots": [
+          "borrowing-cost",
+          "scam-recognition",
+          "family-money",
+          "payments-cards"
+        ]
+      }
+    },
+    "reckless/mdw/7919": {
+      "months": [
+        {
+          "m": 1,
+          "cards": [
+            "auto-top-up"
+          ],
+          "income": 5100,
+          "fixed": 3750,
+          "debtPaid": 915,
+          "interest": 103,
+          "fromCushion": 0,
+          "cashEnd": 1035,
+          "savingsEnd": 0,
+          "debtEnd": 3288,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 2,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 5100,
+          "fixed": 3750,
+          "debtPaid": 915,
+          "interest": 82,
+          "fromCushion": 0,
+          "cashEnd": 870,
+          "savingsEnd": 900,
+          "debtEnd": 2455,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 3,
+          "cards": [
+            "parcel-on-hold"
+          ],
+          "income": 5100,
+          "fixed": 3750,
+          "debtPaid": 915,
+          "interest": 61,
+          "fromCushion": 495,
+          "cashEnd": 0,
+          "savingsEnd": 405,
+          "debtEnd": 1601,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 4,
+          "cards": [
+            "a-good-month",
+            "send-more-home"
+          ],
+          "income": 5100,
+          "fixed": 3750,
+          "debtPaid": 0,
+          "interest": 123,
+          "fromCushion": 405,
+          "cashEnd": -745,
+          "savingsEnd": 0,
+          "debtEnd": 4224,
+          "familyCovered": false,
+          "tier": "behind"
+        },
+        {
+          "m": 5,
+          "cards": [
+            "cash-in-30-minutes"
+          ],
+          "income": 5100,
+          "fixed": 3750,
+          "debtPaid": 2615,
+          "interest": 527,
+          "fromCushion": 0,
+          "cashEnd": 5990,
+          "savingsEnd": 0,
+          "debtEnd": 10136,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 6,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3350,
+          "debtPaid": 2486,
+          "interest": 451,
+          "fromCushion": 0,
+          "cashEnd": 5254,
+          "savingsEnd": 0,
+          "debtEnd": 8101,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 7,
+          "cards": [
+            "friend-needs-2000"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 1760,
+          "interest": 436,
+          "fromCushion": 0,
+          "cashEnd": 2994,
+          "savingsEnd": 0,
+          "debtEnd": 8777,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 8,
+          "cards": [
+            "minimum-payment",
+            "agency-wants-more"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 2360,
+          "interest": 437,
+          "fromCushion": 0,
+          "cashEnd": 2134,
+          "savingsEnd": 0,
+          "debtEnd": 9854,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 9,
+          "cards": [
+            "a-good-month",
+            "hours-cut"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 2360,
+          "interest": 365,
+          "fromCushion": 0,
+          "cashEnd": 1274,
+          "savingsEnd": 0,
+          "debtEnd": 7859,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 10,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 2242,
+          "interest": 289,
+          "fromCushion": 0,
+          "cashEnd": 532,
+          "savingsEnd": 0,
+          "debtEnd": 5906,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 11,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 1860,
+          "interest": 215,
+          "fromCushion": 0,
+          "cashEnd": 172,
+          "savingsEnd": 0,
+          "debtEnd": 4261,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 12,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 5100,
+          "fixed": 3600,
+          "debtPaid": 1672,
+          "interest": 149,
+          "fromCushion": 0,
+          "cashEnd": 0,
+          "savingsEnd": 0,
+          "debtEnd": 2738,
+          "familyCovered": true,
+          "tier": "behind"
+        }
+      ],
+      "end": {
+        "reason": "complete",
+        "tier": "behind",
+        "cash": 0,
+        "savings": 0,
+        "debt": 2738,
+        "cushionMonths": 0,
+        "strain": 0.45,
+        "flags": [
+          "card-compromised",
+          "illegal-loan",
+          "live-in",
+          "missed-payment",
+          "referee-named",
+          "sends-money-home"
+        ],
+        "trapCost": 12800,
+        "interestPaid": 3238,
+        "trapsSpotted": 0,
+        "rules": [
+          "borrowing-cost",
+          "payments-cards",
+          "family-money"
+        ],
+        "weakSpots": [
+          "borrowing-cost",
+          "scam-recognition",
+          "family-money",
+          "payments-cards"
+        ]
+      }
+    },
+    "reckless/sdu-family/1": {
+      "months": [
+        {
+          "m": 1,
+          "cards": [
+            "auto-top-up"
+          ],
+          "income": 8148,
+          "fixed": 7450,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2698,
+          "savingsEnd": 0,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 2,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 9623,
+          "fixed": 7450,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 4571,
+          "savingsEnd": 0,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 3,
+          "cards": [
+            "parcel-on-hold"
+          ],
+          "income": 9130,
+          "fixed": 7450,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 4451,
+          "savingsEnd": 0,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 4,
+          "cards": [
+            "cash-in-30-minutes"
+          ],
+          "income": 7042,
+          "fixed": 7450,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3543,
+          "savingsEnd": 0,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 5,
+          "cards": [
+            "friend-needs-2000",
+            "a-good-month"
+          ],
+          "income": 9049,
+          "fixed": 7450,
+          "debtPaid": 60,
+          "interest": 60,
+          "fromCushion": 0,
+          "cashEnd": 2482,
+          "savingsEnd": 900,
+          "debtEnd": 2000,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 6,
+          "cards": [
+            "rent-review"
+          ],
+          "income": 8107,
+          "fixed": 7450,
+          "debtPaid": 60,
+          "interest": 60,
+          "fromCushion": 0,
+          "cashEnd": 3079,
+          "savingsEnd": 900,
+          "debtEnd": 2000,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 7,
+          "cards": [
+            "minimum-payment",
+            "hours-cut"
+          ],
+          "income": 8352,
+          "fixed": 7300,
+          "debtPaid": 60,
+          "interest": 60,
+          "fromCushion": 0,
+          "cashEnd": 4071,
+          "savingsEnd": 900,
+          "debtEnd": 2000,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 8,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 9376,
+          "fixed": 7300,
+          "debtPaid": 60,
+          "interest": 60,
+          "fromCushion": 0,
+          "cashEnd": 6087,
+          "savingsEnd": 900,
+          "debtEnd": 2000,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 9,
+          "cards": [
+            "hours-cut",
+            "a-good-month"
+          ],
+          "income": 7248,
+          "fixed": 7720,
+          "debtPaid": 60,
+          "interest": 60,
+          "fromCushion": 0,
+          "cashEnd": 5555,
+          "savingsEnd": 900,
+          "debtEnd": 2000,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 10,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 8558,
+          "fixed": 7720,
+          "debtPaid": 60,
+          "interest": 60,
+          "fromCushion": 0,
+          "cashEnd": 6333,
+          "savingsEnd": 900,
+          "debtEnd": 2000,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 11,
+          "cards": [
+            "a-good-month",
+            "hours-cut"
+          ],
+          "income": 7124,
+          "fixed": 7720,
+          "debtPaid": 60,
+          "interest": 60,
+          "fromCushion": 0,
+          "cashEnd": 5677,
+          "savingsEnd": 900,
+          "debtEnd": 2000,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 12,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 7025,
+          "fixed": 7720,
+          "debtPaid": 60,
+          "interest": 60,
+          "fromCushion": 0,
+          "cashEnd": 4922,
+          "savingsEnd": 900,
+          "debtEnd": 2000,
+          "familyCovered": true,
+          "tier": "tight"
+        }
+      ],
+      "end": {
+        "reason": "complete",
+        "tier": "tight",
+        "cash": 4922,
+        "savings": 900,
+        "debt": 2000,
+        "cushionMonths": 0.1099,
+        "strain": 0.15,
+        "flags": [
+          "card-compromised",
+          "subdivided-flat",
+          "waiting-for-public-housing"
+        ],
+        "trapCost": 2300,
+        "interestPaid": 480,
+        "trapsSpotted": 0,
+        "rules": [
+          "payments-cards",
+          "borrowing-cost",
+          "scam-recognition"
+        ],
+        "weakSpots": [
+          "borrowing-cost",
+          "scam-recognition",
+          "rent-rights",
+          "family-money",
+          "payments-cards"
+        ]
+      }
+    },
+    "reckless/sdu-family/42": {
+      "months": [
+        {
+          "m": 1,
+          "cards": [
+            "auto-top-up"
+          ],
+          "income": 8967,
+          "fixed": 7450,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3517,
+          "savingsEnd": 0,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 2,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 9090,
+          "fixed": 7050,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 5557,
+          "savingsEnd": 0,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 3,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 9130,
+          "fixed": 7450,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 6637,
+          "savingsEnd": 900,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 4,
+          "cards": [
+            "parcel-on-hold",
+            "friend-needs-2000"
+          ],
+          "income": 7207,
+          "fixed": 7450,
+          "debtPaid": 60,
+          "interest": 60,
+          "fromCushion": 0,
+          "cashEnd": 2534,
+          "savingsEnd": 900,
+          "debtEnd": 2000,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 5,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 9704,
+          "fixed": 7450,
+          "debtPaid": 60,
+          "interest": 60,
+          "fromCushion": 0,
+          "cashEnd": 4728,
+          "savingsEnd": 900,
+          "debtEnd": 2000,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 6,
+          "cards": [
+            "rent-review"
+          ],
+          "income": 8967,
+          "fixed": 7450,
+          "debtPaid": 60,
+          "interest": 60,
+          "fromCushion": 0,
+          "cashEnd": 6185,
+          "savingsEnd": 900,
+          "debtEnd": 2000,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 7,
+          "cards": [
+            "minimum-payment"
+          ],
+          "income": 8476,
+          "fixed": 7300,
+          "debtPaid": 60,
+          "interest": 60,
+          "fromCushion": 0,
+          "cashEnd": 7301,
+          "savingsEnd": 900,
+          "debtEnd": 2000,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 8,
+          "cards": [
+            "cash-in-30-minutes",
+            "hours-cut"
+          ],
+          "income": 8435,
+          "fixed": 7300,
+          "debtPaid": 60,
+          "interest": 60,
+          "fromCushion": 0,
+          "cashEnd": 7876,
+          "savingsEnd": 900,
+          "debtEnd": 2000,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 9,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 9254,
+          "fixed": 7720,
+          "debtPaid": 60,
+          "interest": 60,
+          "fromCushion": 0,
+          "cashEnd": 9350,
+          "savingsEnd": 900,
+          "debtEnd": 2000,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 10,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 7493,
+          "fixed": 7720,
+          "debtPaid": 60,
+          "interest": 60,
+          "fromCushion": 0,
+          "cashEnd": 9063,
+          "savingsEnd": 900,
+          "debtEnd": 2000,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 11,
+          "cards": [
+            "hours-cut"
+          ],
+          "income": 8066,
+          "fixed": 7720,
+          "debtPaid": 60,
+          "interest": 60,
+          "fromCushion": 0,
+          "cashEnd": 9349,
+          "savingsEnd": 900,
+          "debtEnd": 2000,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 12,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 8721,
+          "fixed": 7720,
+          "debtPaid": 60,
+          "interest": 60,
+          "fromCushion": 0,
+          "cashEnd": 10290,
+          "savingsEnd": 900,
+          "debtEnd": 2000,
+          "familyCovered": true,
+          "tier": "tight"
+        }
+      ],
+      "end": {
+        "reason": "complete",
+        "tier": "tight",
+        "cash": 10290,
+        "savings": 900,
+        "debt": 2000,
+        "cushionMonths": 0.1099,
+        "strain": 0.1,
+        "flags": [
+          "card-compromised",
+          "subdivided-flat",
+          "waiting-for-public-housing"
+        ],
+        "trapCost": 2300,
+        "interestPaid": 540,
+        "trapsSpotted": 0,
+        "rules": [
+          "payments-cards",
+          "borrowing-cost",
+          "scam-recognition"
+        ],
+        "weakSpots": [
+          "borrowing-cost",
+          "scam-recognition",
+          "rent-rights",
+          "family-money",
+          "payments-cards"
+        ]
+      }
+    },
+    "reckless/sdu-family/7919": {
+      "months": [
+        {
+          "m": 1,
+          "cards": [
+            "auto-top-up"
+          ],
+          "income": 7902,
+          "fixed": 7450,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2452,
+          "savingsEnd": 0,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 2,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 8558,
+          "fixed": 7450,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 2960,
+          "savingsEnd": 900,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 3,
+          "cards": [
+            "parcel-on-hold"
+          ],
+          "income": 9786,
+          "fixed": 7450,
+          "debtPaid": 0,
+          "interest": 0,
+          "fromCushion": 0,
+          "cashEnd": 3496,
+          "savingsEnd": 900,
+          "debtEnd": 0,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 4,
+          "cards": [
+            "hours-cut",
+            "friend-needs-2000"
+          ],
+          "income": 9623,
+          "fixed": 7050,
+          "debtPaid": 60,
+          "interest": 60,
+          "fromCushion": 0,
+          "cashEnd": 4009,
+          "savingsEnd": 900,
+          "debtEnd": 2000,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 5,
+          "cards": [
+            "cash-in-30-minutes"
+          ],
+          "income": 7657,
+          "fixed": 7450,
+          "debtPaid": 1260,
+          "interest": 460,
+          "fromCushion": 0,
+          "cashEnd": 10956,
+          "savingsEnd": 900,
+          "debtEnd": 9200,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 6,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 8804,
+          "fixed": 7450,
+          "debtPaid": 1260,
+          "interest": 420,
+          "fromCushion": 0,
+          "cashEnd": 11050,
+          "savingsEnd": 900,
+          "debtEnd": 8360,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 7,
+          "cards": [
+            "rent-review"
+          ],
+          "income": 6879,
+          "fixed": 7300,
+          "debtPaid": 1260,
+          "interest": 378,
+          "fromCushion": 0,
+          "cashEnd": 9369,
+          "savingsEnd": 900,
+          "debtEnd": 7478,
+          "familyCovered": true,
+          "tier": "behind"
+        },
+        {
+          "m": 8,
+          "cards": [
+            "a-good-month",
+            "minimum-payment"
+          ],
+          "income": 9458,
+          "fixed": 7300,
+          "debtPaid": 1260,
+          "interest": 334,
+          "fromCushion": 0,
+          "cashEnd": 10267,
+          "savingsEnd": 900,
+          "debtEnd": 6552,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 9,
+          "cards": [
+            "a-good-month",
+            "hours-cut"
+          ],
+          "income": 8762,
+          "fixed": 7720,
+          "debtPaid": 1260,
+          "interest": 288,
+          "fromCushion": 0,
+          "cashEnd": 10049,
+          "savingsEnd": 900,
+          "debtEnd": 5580,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 10,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 7820,
+          "fixed": 7720,
+          "debtPaid": 1260,
+          "interest": 239,
+          "fromCushion": 0,
+          "cashEnd": 8889,
+          "savingsEnd": 900,
+          "debtEnd": 4559,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 11,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 8762,
+          "fixed": 7720,
+          "debtPaid": 1260,
+          "interest": 188,
+          "fromCushion": 0,
+          "cashEnd": 8671,
+          "savingsEnd": 900,
+          "debtEnd": 3487,
+          "familyCovered": true,
+          "tier": "tight"
+        },
+        {
+          "m": 12,
+          "cards": [
+            "a-good-month"
+          ],
+          "income": 7616,
+          "fixed": 7720,
+          "debtPaid": 1260,
+          "interest": 134,
+          "fromCushion": 0,
+          "cashEnd": 7307,
+          "savingsEnd": 900,
+          "debtEnd": 2361,
+          "familyCovered": true,
+          "tier": "tight"
+        }
+      ],
+      "end": {
+        "reason": "complete",
+        "tier": "tight",
+        "cash": 7307,
+        "savings": 900,
+        "debt": 2361,
+        "cushionMonths": 0.1099,
+        "strain": 0.3,
+        "flags": [
+          "card-compromised",
+          "illegal-loan",
+          "referee-named",
+          "subdivided-flat",
+          "waiting-for-public-housing"
+        ],
+        "trapCost": 9800,
+        "interestPaid": 2501,
+        "trapsSpotted": 0,
+        "rules": [
+          "borrowing-cost",
+          "payments-cards",
+          "scam-recognition"
+        ],
+        "weakSpots": [
+          "borrowing-cost",
+          "scam-recognition",
+          "rent-rights",
+          "family-money",
+          "payments-cards"
+        ]
+      }
+    }
+  }
+}

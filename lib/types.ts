@@ -93,11 +93,11 @@ export type FactId =
   | "sdu-deposit-max-months"
   | "sdu-rent-rise-cap-pct"
   | "prh-wait-years"
-  | "sdu-median-rent"
+  | "sdu-count"
   | "deception-share-of-crime"
   | "cpi-yoy";
 
-export type FactUnit = "HKD" | "HKD/hr" | "HKD/month" | "pct" | "years" | "months";
+export type FactUnit = "HKD" | "HKD/hr" | "HKD/month" | "pct" | "years" | "months" | "people";
 
 /**
  * One real, dated, sourced number.
@@ -364,6 +364,8 @@ export type MonthClose = {
   fixed: number;
   debtPaid: number;
   interest: number;
+  /** Money moved back out of the cushion to cover the month. The receipt says so. */
+  fromCushion: number;
   cashEnd: number;
   savingsEnd: number;
   debtEnd: number;

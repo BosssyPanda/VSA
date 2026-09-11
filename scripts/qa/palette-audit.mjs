@@ -115,11 +115,19 @@ check(`every declared pairing clears ${MIN}:1`, () => {
 
 check("warning red is spent only on money at risk", () => {
   // A colour that appears in a decorative place stops meaning what it means. The
-  // warning token may only be referenced by components that render a risk: the
-  // warning card, the arrears row, and the tokens file itself.
+  // warning token may only be referenced where something is actually at risk: the
+  // warning card, the arrears row, the two end-of-year tiers that mean a payment is
+  // unpaid or the debt is growing, and the tokens files themselves.
+  //
+  // `lib/stability.ts` is on this list deliberately and narrowly. Behind and Stuck are
+  // the two states where money is genuinely at risk and where help is cheapest, which
+  // is exactly the use the design contract reserves red for — and both carry a glyph
+  // as well, so the meaning survives greyscale and colour blindness. The other three
+  // tiers must not reach for it, and a check below holds them to that.
   const ALLOWED = [
     "app/globals.css",
     "lib/palette.ts",
+    "lib/stability.ts",
     "components/ui/WarningCard.tsx",
     "components/run/WarningCard.tsx",
     "components/run/ArrearsRow.tsx",
@@ -137,6 +145,19 @@ check("warning red is spent only on money at risk", () => {
     throw new Error(`warning colour referenced outside the allowlist: ${offenders.join(", ")}`);
   }
   return `${ALLOWED.length} files may spend it`;
+});
+
+check("only the two at-risk verdicts are painted red", () => {
+  // The allowance granted to lib/stability.ts above, held to what it was granted for.
+  const text = readFileSync(join(ROOT, "lib/stability.ts"), "utf8");
+  const warn = [...text.matchAll(/(\w[\w-]*):\s*\{[\s\S]{0,600}?hex:\s*PALETTE\.(\w+)/g)];
+  if (warn.length < 5) throw new Error(`read ${warn.length} verdict colours, expected five`);
+  const red = warn.filter(([, , token]) => token === "warn").map(([, tier]) => tier).sort();
+  const expected = ["behind", "trapped"];
+  if (red.join(",") !== expected.join(",")) {
+    throw new Error(`red verdicts are ${red.join(", ") || "(none)"}; only ${expected.join(" and ")} may be`);
+  }
+  return `${red.join(" and ")} only`;
 });
 
 console.log(`\n${checks - failures}/${checks} palette checks passed`);
