@@ -6,9 +6,11 @@
 // that the buttons exist, that the screens follow one another, and that twelve months
 // of decisions end on a final statement with words on it. Those are different failures
 // and neither suite catches the other's.
-import { mkdirSync } from "fs";
+import { mkdirSync, readFileSync } from "fs";
 import { join } from "path";
-import { POISON, ROOT, VIEWPORTS, newPage, overflowOf, withServer } from "./browser.mjs";
+import { POISON, ROOT, VIEWPORTS, newPage, offendersOf, overflowOf, withServer } from "./browser.mjs";
+
+const EN = JSON.parse(readFileSync(join(ROOT, "messages/en.json"), "utf8"));
 
 const OUT = process.env.QA_SHOT_DIR ?? join(ROOT, ".shots");
 mkdirSync(OUT, { recursive: true });
@@ -26,7 +28,10 @@ async function scan(page, where) {
   const poison = body.match(POISON);
   if (poison) fail(`${where}: page prints "${poison[0]}"`);
   const overflow = await overflowOf(page);
-  if (overflow > 1) fail(`${where}: ${overflow}px of horizontal overflow`);
+  if (overflow > 1) {
+    const offenders = await offendersOf(page);
+    fail(`${where}: ${overflow}px of horizontal overflow — ${offenders.join(" · ")}`);
+  }
   // The voice rules are not decoration. A blaming sentence reaching a player is a
   // product failure, and it is cheap to check on every screen a journey touches.
   for (const phrase of ["should have", "your fault", "you failed", "too late"]) {
@@ -140,8 +145,13 @@ await withServer(async ({ browser, base }) => {
 
   const report = await scan(page, "final statement");
   await shot(page, "07-final-statement");
-  for (const must of ["Three things worth remembering", "What the traps took", "Free help"]) {
-    if (!report.includes(must)) fail(`final statement: missing "${must}"`);
+  // The words come from the catalogue, not from this file. A gate that hardcodes the
+  // English it expects starts failing the day somebody improves the copy, and the fix
+  // reached for then is to edit the gate — which teaches everybody that gates lie. What
+  // is worth asserting is that each section of the statement reached the screen at all.
+  for (const key of ["final.rules", "final.trapCost", "final.help"]) {
+    const must = EN[key];
+    if (!report.includes(must)) fail(`final statement: missing ${key} — "${must}"`);
   }
   if (!/18222/.test(report)) fail("final statement: no help line number on it");
   ok("final statement carries rules, trap cost and help lines");

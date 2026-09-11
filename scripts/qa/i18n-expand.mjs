@@ -12,7 +12,7 @@
 // plumbing is the messages audit's job; this is about whether the boxes survive.
 import { mkdirSync } from "fs";
 import { join } from "path";
-import { ROOT, VIEWPORTS, newPage, overflowOf, withServer } from "./browser.mjs";
+import { ROOT, VIEWPORTS, newPage, offendersOf, overflowOf, withServer } from "./browser.mjs";
 
 const OUT = process.env.QA_SHOT_DIR ?? join(ROOT, ".shots");
 mkdirSync(OUT, { recursive: true });
@@ -89,7 +89,9 @@ async function check(page, where) {
   if (grown === 0) fail(`${where}: nothing on screen grew — the gate measured nothing`);
   await page.waitForTimeout(80);
   const overflow = await overflowOf(page);
-  if (overflow > 1) fail(`${where}: ${overflow}px of horizontal overflow with longer words`);
+  if (overflow > 1) {
+    fail(`${where}: ${overflow}px of horizontal overflow with longer words — ${(await offendersOf(page)).join(" · ")}`);
+  }
   const clipped = await page.evaluate(CLIPPED);
   if (clipped.length) fail(`${where}: clipped — ${clipped.join("; ")}`);
   if (grown > 0 && overflow <= 1 && clipped.length === 0) ok(where);

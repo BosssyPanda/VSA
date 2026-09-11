@@ -65,7 +65,7 @@ export const VERDICTS: Record<StabilityTier, Verdict> = {
   tight: {
     tier: "tight",
     title: "Tight",
-    blurb: "Payments are made, but there is nothing spare. One thin month is all it would take.",
+    blurb: "Payments are made, but there is nothing spare. If your income falls for one month, you may not have enough.",
     hex: PALETTE.ink,
     glyph: "▬",
   },

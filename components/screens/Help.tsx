@@ -7,7 +7,7 @@ import { Column } from "@/components/ui/Column";
 import { FactsAsOf } from "@/components/ui/FactsAsOf";
 import { FACTS_AS_OF, allFacts } from "@/lib/facts";
 import { HELP_LINE_IDS, helpLine } from "@/lib/helpLines";
-import { asOfDate, hkd, pct } from "@/lib/format";
+import { asOfDate, hkd, pct, siteName } from "@/lib/format";
 import { readyLocales } from "@/lib/i18n";
 import type { Fact, HelpLine, Locale } from "@/lib/types";
 
@@ -141,9 +141,9 @@ export function HelpLineCard({ line }: { line: HelpLine }) {
           href={line.url}
           target="_blank"
           rel="noreferrer noopener"
-          className="text-[length:var(--text-label)] leading-[var(--leading-label)] text-accent underline underline-offset-4"
+          className="text-[length:var(--text-label)] leading-[var(--leading-label)] text-accent underline underline-offset-4 [overflow-wrap:anywhere]"
         >
-          {line.url.replace(/^https:\/\//, "")}
+          {siteName(line.url)}
         </a>
       ) : null}
     </Card>

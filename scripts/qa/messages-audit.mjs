@@ -13,8 +13,10 @@
 // and checked here. Stale status fails the build rather than shipping a half-translated
 // locale to somebody who chose it in good faith.
 import { readdirSync, readFileSync, statSync, writeFileSync } from "fs";
+import { createRequire } from "module";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
+import { engineDir } from "./build-engine.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const WRITE = process.argv.includes("--write");
@@ -97,6 +99,74 @@ for (const key of enKeys) {
   if (used.has(key) || used.has(base)) continue;
   if (patternMatchers.some(({ re }) => re.test(key) || re.test(base))) continue;
   fail(`messages/en.json has "${key}", which no screen uses`);
+}
+
+// ── The words the engine carries, and the words the screen shows ────────────
+//
+// Four registries in `lib/` hold English prose next to the data that justifies it: a
+// help line's `what` sits beside the page it was read off and the date it was read, a
+// fact's label beside its source, a tier's blurb beside the rule that awards it. That
+// co-location is worth keeping — a sentence about what a hotline does is only checkable
+// next to the hotline's own page — but it means the same sentence exists twice, once
+// for the headless gates and once for the screen, and two copies drift.
+//
+// They have drifted twice already. `helpLine.basic-housing.org` was renamed in the
+// engine and not in the catalogue, so the Sources page and the Help page named the same
+// government line differently. `tier.tight.blurb` was rewritten in the catalogue during
+// the plain-words pass and not in the engine, so the screen and the share text
+// disagreed about what Tight means.
+//
+// So: they must be identical, character for character. Whichever side is right, the
+// other is edited to match before this passes.
+const require_ = createRequire(import.meta.url);
+const engine = (mod) => require_(`${engineDir()}/lib/${mod}.js`);
+
+const { HELP_LINE_IDS, helpLine } = engine("helpLines");
+const { FACTS } = engine("facts");
+const { PERSONA_IDS, getPersona } = engine("personas");
+const { VERDICTS } = engine("stability");
+
+const before = failures;
+
+/** `optional` marks a field the engine is allowed to leave out, like a help line's note. */
+const engineStrings = [];
+const carries = (key, text, optional = false) => engineStrings.push({ key, text, optional });
+
+for (const id of HELP_LINE_IDS) {
+  const line = helpLine(id);
+  carries(`helpLine.${id}.org`, line.org);
+  carries(`helpLine.${id}.what`, line.what);
+  carries(`helpLine.${id}.hours`, line.hours, true);
+  carries(`helpLine.${id}.note`, line.note, true);
+}
+for (const [id, fact] of Object.entries(FACTS)) carries(`fact.${id}.label`, fact.label);
+for (const id of PERSONA_IDS) {
+  const persona = getPersona(id);
+  carries(`persona.${id}.name`, persona.name);
+  carries(`persona.${id}.blurb`, persona.blurb);
+}
+for (const [tier, verdict] of Object.entries(VERDICTS)) {
+  carries(`tier.${tier}.title`, verdict.title);
+  carries(`tier.${tier}.blurb`, verdict.blurb);
+}
+
+for (const { key, text, optional } of engineStrings) {
+  const shown = catalogues.en[key];
+  if (text === undefined) {
+    if (shown !== undefined) {
+      fail(`messages/en.json has "${key}", which the engine no longer carries`);
+    }
+    continue;
+  }
+  if (shown === undefined) {
+    const where = optional ? "an optional field" : "a required field";
+    fail(`messages/en.json has no "${key}" (${where}) — the engine says: ${text}`);
+  } else if (shown !== text) {
+    fail(`"${key}" has drifted\n       engine:    ${text}\n       catalogue: ${shown}`);
+  }
+}
+if (failures === before) {
+  console.log(`  ok   ${engineStrings.filter((s) => s.text !== undefined).length} strings say what the engine says`);
 }
 
 // ── Per-locale coverage ─────────────────────────────────────────────────────

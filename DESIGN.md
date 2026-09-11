@@ -262,6 +262,20 @@ Layouts must survive text about 35% longer than English: labels sit above values
 beside them; buttons are full width and wrap; nothing truncates; no text is baked into
 an image.
 
+## Links
+
+A link is shown as the site it goes to — `had.gov.hk`, `cyberdefender.hk` — never as the
+whole address. Two reasons, and the second is the one that matters: a government path can
+run past sixty characters with no space in it, which on a 390px phone is a line that
+cannot wrap and a page that scrolls sideways; and the part of an address that tells a
+person whether to trust it is the domain, which is exactly why a browser's own address bar
+emphasises it. In a product about not being tricked, printing the path on top of the
+domain buries the only part worth reading.
+
+Nothing on any screen may make the page scroll sideways, at any width down to 320px. A
+figure, a table or a diagram that genuinely needs more room gets its own scrolling pane;
+a line of text never does.
+
 ## Numbers on screen
 
 Every figure traces to a dated, sourced entry in the facts ledger, and every screen that

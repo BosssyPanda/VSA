@@ -8,7 +8,7 @@
 // 768px. This checks the promise rather than trusting the media queries.
 import { mkdirSync } from "fs";
 import { join } from "path";
-import { POISON, ROOT, VIEWPORTS, newPage, overflowOf, withServer } from "./browser.mjs";
+import { POISON, ROOT, VIEWPORTS, newPage, offendersOf, overflowOf, withServer } from "./browser.mjs";
 
 const OUT = process.env.QA_SHOT_DIR ?? join(ROOT, ".shots");
 mkdirSync(OUT, { recursive: true });
@@ -50,7 +50,9 @@ await withServer(async ({ browser, base }) => {
     if (poison) fail(`${vp.width}px: page prints "${poison[0]}"`);
 
     const overflow = await overflowOf(page);
-    if (overflow > 1) fail(`${vp.width}px: ${overflow}px of horizontal overflow`);
+    if (overflow > 1) {
+      fail(`${vp.width}px: ${overflow}px of horizontal overflow — ${(await offendersOf(page)).join(" · ")}`);
+    }
 
     const nav = await navPosition(page);
     if (!nav) {

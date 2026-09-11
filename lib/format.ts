@@ -58,6 +58,20 @@ export function asOfDate(iso: string, locale: Locale = "en"): string {
   }).format(d);
 }
 
+/**
+ * A link shown as the site it goes to: `had.gov.hk`, not the whole path.
+ *
+ * Two reasons, and the second is the one that matters. A government path can run to
+ * sixty characters with no space in it, which on a 390px phone is a line that will not
+ * wrap and a page that scrolls sideways. And the part of a link that tells a person
+ * whether to trust it is the domain — which is exactly why a browser's own address bar
+ * emphasises it. In a product about not being tricked, printing the path on top of the
+ * domain buries the only part worth reading.
+ */
+export function siteName(url: string): string {
+  return url.replace(/^https?:\/\//, "").replace(/^www\./, "").split("/")[0];
+}
+
 export function clamp(n: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, n));
 }

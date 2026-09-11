@@ -109,3 +109,41 @@ export function overflowOf(page) {
     () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
   );
 }
+
+/**
+ * What is making the page wider than the screen, in its own words.
+ *
+ * "149px of horizontal overflow" says a screen is broken and nothing about which part,
+ * and the reflex it produces is to open devtools and repeat the whole journey by hand.
+ *
+ * Two different things widen a page and only one of them has a box you can measure. A
+ * card that sticks out has a rect past the edge. A line of text that will not wrap does
+ * not: the element is still the width its parent allows, and the text spills out of it,
+ * which shows up as `scrollWidth` past `clientWidth` and in no rectangle at all. The
+ * first version of this helper only looked at rects, reported "(none)" against a real
+ * 149px overflow, and sent the search off in the wrong direction for an hour. Both are
+ * checked here, and only the deepest offender in any branch is named, because every
+ * ancestor of a spilling line spills too.
+ */
+export function offendersOf(page, limit = 3) {
+  return page.evaluate((max) => {
+    const edge = document.documentElement.clientWidth;
+    const flagged = [];
+    for (const el of document.querySelectorAll("body *")) {
+      const r = el.getBoundingClientRect();
+      const sticksOut = r.width > 0 && (r.right > edge + 1 || r.left < -1);
+      // A pane that is meant to scroll sideways — a wide table, say — is not a fault.
+      const scrollable = /auto|scroll|hidden/.test(getComputedStyle(el).overflowX);
+      const spills = !scrollable && el.scrollWidth > el.clientWidth + 1;
+      if (sticksOut || spills) flagged.push({ el, over: Math.max(Math.round(r.right - edge), el.scrollWidth - el.clientWidth) });
+    }
+    return flagged
+      .filter(({ el }) => !flagged.some((other) => other.el !== el && el.contains(other.el)))
+      .sort((a, b) => b.over - a.over)
+      .slice(0, max)
+      .map(({ el, over }) => {
+        const text = (el.textContent || "").replace(/\s+/g, " ").trim().slice(0, 60);
+        return `<${el.tagName.toLowerCase()}> ${over}px over: "${text}"`;
+      });
+  }, limit);
+}

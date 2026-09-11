@@ -10,7 +10,7 @@ import { HelpLineCard } from "@/components/screens/Help";
 import { MoneyRow } from "@/components/ui/MoneyRow";
 import { hkd } from "@/lib/format";
 import { getPersona, needsCommunityReview } from "@/lib/personas";
-import { runReport } from "@/lib/report";
+import { runReport, topHelpLinesFor } from "@/lib/report";
 import { buildShareText, shareText, type ShareOutcome } from "@/lib/share";
 import type { RunState } from "@/lib/types";
 
@@ -108,9 +108,13 @@ export function FinalStatement({
           />
         </Card>
 
+        {/* The two or three that match what went wrong this year, not the directory.
+            Opening every service to every life made this section twelve cards long,
+            which is a filing cabinet handed to somebody who has just finished a hard
+            year. The rest are one tap away under Help. */}
         <section className="flex flex-col gap-3">
           <Label>{t("final.help")}</Label>
-          {report.helpLines.map((line) => (
+          {topHelpLinesFor(run).map((line) => (
             <HelpLineCard key={line.id} line={line} />
           ))}
         </section>
