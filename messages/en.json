@@ -1,0 +1,22 @@
+{
+  "app.name": "Month End",
+  "app.tagline": "Get to the end of the month with money left.",
+
+  "title.sub": "A short game about money traps in Hong Kong, and how to spot them before they cost you.",
+  "title.start": "Start",
+  "title.help": "Help and phone numbers",
+  "title.language": "Language",
+  "title.languageMore": "Tagalog and Bahasa Indonesia are being translated by our community partners.",
+  "title.figuresAsOf": "Figures as of {date}",
+  "title.privacy": "Nothing leaves your browser. No sign-up, no account.",
+  "title.notAdvice": "This is a game, not financial advice.",
+
+  "error.title": "Something went wrong",
+  "error.body": "Your month is saved. Try again, or start from the beginning.",
+  "error.retry": "Try again",
+  "error.home": "Back to the start",
+
+  "notFound.title": "That page is not here",
+  "notFound.body": "The link may be old, or the address may have a typo in it.",
+  "notFound.home": "Back to the start"
+}

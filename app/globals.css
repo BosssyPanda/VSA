@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+/*
+ * Month End — Companion design tokens.
+ *
+ * Mirrors `lib/palette.ts`; `scripts/qa/palette-audit.mjs` fails if they drift.
+ * Type sizes have a hard floor of 14px (`--text-min`), enforced by
+ * `scripts/qa/type-floor.mjs`. There is no smaller step in this system, because
+ * the audience includes people reading a cheap phone in daylight.
+ */
+@theme {
+  --color-ground: #f3f2ee;
+  --color-card: #ffffff;
+  --color-ink: #1b1b19;
+  --color-muted: #5b5a55;
+  --color-line: #e3e1db;
+  --color-accent: #0f6e56;
+  --color-accent-tint: #e4efea;
+  --color-warn: #b42318;
+  --color-warn-tint: #fcebe8;
+
+  /* Type ramp. Nothing below --text-min exists. */
+  --text-min: 0.875rem; /* 14px — nav labels, the smallest text in the product */
+  --text-label: 0.9375rem; /* 15px — field labels, secondary lines */
+  --text-body: 1.0625rem; /* 17px — body copy, buttons, choices */
+  --text-title: 1.1875rem; /* 19px — card titles, the player's name */
+  --text-figure: 2.125rem; /* 34px — the one big money figure per screen */
+
+  --leading-min: 1.125rem;
+  --leading-label: 1.375rem;
+  --leading-body: 1.5rem;
+  --leading-title: 1.625rem;
+  --leading-figure: 2.5rem;
+
+  /* Shape. Cards, buttons, bars — three radii, no others. */
+  --radius-card: 16px;
+  --radius-button: 12px;
+  --radius-bar: 999px;
+
+  /* The column. Phone, tablet, and the two desktop columns. */
+  --w-column: 480px;
+  --w-column-wide: 560px;
+  --w-rail: 360px;
+
+  --font-sans: var(--font-public-sans), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/*
+ * Reset. No shadows, no gradients, no decoration: every visual difference in this
+ * product has to mean something, and a shadow means nothing.
+ */
+html {
+  background: var(--color-ground);
+  color: var(--color-ink);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ground);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  /* Money columns must align digit-for-digit. */
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Every number in this product is a money figure or a count. Both want tabular. */
+:where(h1, h2, h3, p, li, span, button, a, td, th) {
+  font-variant-numeric: tabular-nums;
+}
+
+:where(button, a):focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/*
+ * Motion is a fade or a short slide, and nothing else. No shake, no scramble, no
+ * count-up, no flip. A person deciding whether to take a loan is not to be
+ * entertained while they do it.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
