@@ -22,6 +22,7 @@ export const debt = lib("debt");
 export const income = lib("income");
 export const mpf = lib("mpf");
 export const facts = lib("facts");
+export const helpLines = lib("helpLines");
 export const concepts = lib("concepts");
 export const replayLib = lib("replay");
 export const report = lib("report");

@@ -75,7 +75,7 @@ export const CONCEPTS: Record<ConceptId, Concept> = {
     title: "Where to get help",
     def: "Free, confidential help exists for debt, wages, scams and housing, and using it is not an admission of failure.",
     rule: "Ask early. The free helpline costs nothing and the loan costs everything.",
-    keywords: ["help", "hotline", "caritas", "labour", "unison", "enrich", "scameter", "18222"],
+    keywords: ["help", "hotline", "caritas", "labour", "enrich", "scameter", "18222"],
   },
 };
 

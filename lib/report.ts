@@ -2,8 +2,19 @@ import { getCard, isTrap } from "./cards";
 import { CONCEPT_IDS, concept } from "./concepts";
 import { cushionMonths } from "./costs";
 import { debtTotal } from "./debt";
+import { HELP_LINES, helpLine } from "./helpLines";
+import { getPersona } from "./personas";
 import { deriveVerdict } from "./stability";
-import type { Card, Concept, ConceptId, Outcome, RunState, TellId, Verdict } from "./types";
+import type {
+  Card,
+  Concept,
+  ConceptId,
+  HelpLine,
+  Outcome,
+  RunState,
+  TellId,
+  Verdict,
+} from "./types";
 
 /**
  * What a run hands back.
@@ -178,6 +189,31 @@ export function rulesOfThumb(run: RunState, limit = RULES_ON_REPORT): Concept[] 
   return order.slice(0, limit).map(concept);
 }
 
+// ── Where to go next ────────────────────────────────────────────────────────
+/**
+ * The help lines for this run, most relevant first.
+ *
+ * Ordered by what actually happened, not by an editor's idea of importance: a player
+ * who walked into a lender SMS sees the debt counsellor before the housing line. The
+ * persona's own list comes first because it was curated for that life, and the rest
+ * follow if they speak to a concept this year raised.
+ */
+export function helpLinesFor(run: RunState): HelpLine[] {
+  const raised = new Set(conceptsSeen(run));
+  const ordered: HelpLine[] = getPersona(run.personaId).helpLines.map(helpLine);
+  const already = new Set(ordered.map((l) => l.id));
+
+  for (const line of Object.values(HELP_LINES)) {
+    if (already.has(line.id)) continue;
+    const forThisLife = line.personas === "all" || line.personas.includes(run.personaId);
+    if (!forThisLife) continue;
+    if (!line.concepts.some((id) => raised.has(id))) continue;
+    ordered.push(line);
+  }
+
+  return ordered;
+}
+
 // ── The statement ───────────────────────────────────────────────────────────
 export type RunReport = {
   verdict: Verdict;
@@ -197,6 +233,7 @@ export type RunReport = {
   conceptsSeen: ConceptId[];
   tellsSeen: TellId[];
   weakSpots: ConceptId[];
+  helpLines: HelpLine[];
   factsAsOf: string;
 };
 
@@ -219,6 +256,7 @@ export function runReport(run: RunState): RunReport {
     conceptsSeen: conceptsSeen(run),
     tellsSeen: tellsSeen(run),
     weakSpots: weakSpotsFrom(run),
+    helpLines: helpLinesFor(run),
     factsAsOf: run.factsAsOf,
   };
 }

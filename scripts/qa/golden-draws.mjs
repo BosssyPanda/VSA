@@ -16,6 +16,7 @@ import {
   debt,
   engine,
   facts,
+  helpLines,
   play,
   reckless,
   report,
@@ -84,6 +85,14 @@ function record() {
       Object.values(facts.FACTS)
         .sort((a, b) => a.id.localeCompare(b.id))
         .map((f) => [f.id, { value: f.value, unit: f.unit, asOf: f.asOf }]),
+    ),
+    // Not for the arithmetic — for the numbers. A phone number edited by hand should
+    // be a diff somebody reads, not a silent change to what a frightened player dials.
+    helpLines: Object.fromEntries(
+      helpLines.HELP_LINE_IDS.map((id) => {
+        const line = helpLines.helpLine(id);
+        return [id, { org: line.org, phone: line.phone ?? null, url: line.url ?? null, checkedOn: line.checkedOn }];
+      }),
     ),
     verdicts: Object.fromEntries(
       Object.values(stability.VERDICTS).map((v) => [v.tier, { title: v.title, glyph: v.glyph }]),

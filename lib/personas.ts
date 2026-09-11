@@ -55,7 +55,7 @@ export const PERSONAS: Record<PersonaId, Persona> = {
       dependants: 0,
       flags: ["lives-with-family"],
     },
-    helpLines: ["unison", "scameter", "anti-scam", "labour"],
+    helpLines: ["eoc", "scameter", "anti-scam", "caritas-debt"],
     partnerOrg: "Ethnic minority and domestic worker NGO partner",
   },
 
@@ -131,7 +131,7 @@ export const PERSONAS: Record<PersonaId, Persona> = {
       dependants: 1,
       flags: ["subdivided-flat", "waiting-for-public-housing"],
     },
-    helpLines: ["caritas", "soco", "anti-scam", "scameter"],
+    helpLines: ["basic-housing", "caritas-debt", "anti-scam", "scameter"],
     // Nobody has reviewed this life yet, and the game says so on her tile and on her
     // final statement rather than hoping a player will not notice.
     partnerOrg: null,

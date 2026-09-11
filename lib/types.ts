@@ -329,7 +329,7 @@ export type Persona = {
     dependants: number;
     flags: string[];
   };
-  helpLines: string[];
+  helpLines: HelpLineId[];
   /**
    * The community organisation whose reviewers sign off this persona's cards.
    * `null` means nobody has reviewed this life yet, and the game says so on screen.
@@ -420,8 +420,23 @@ export type GlossaryTerm = {
   concept?: ConceptId;
 };
 
+/**
+ * A closed set, so a persona cannot name a service that does not exist — or one that
+ * has closed. The first draft of this game carried an ethnic-minority NGO that had
+ * been dissolved for eighteen months, and only a typed id makes that a build error
+ * rather than a phone number a frightened person dials for nothing.
+ */
+export type HelpLineId =
+  | "anti-scam"
+  | "scameter"
+  | "caritas-debt"
+  | "labour-fdh"
+  | "enrich"
+  | "eoc"
+  | "basic-housing";
+
 export type HelpLine = {
-  id: string;
+  id: HelpLineId;
   org: string;
   what: string;
   phone?: string;
@@ -429,4 +444,10 @@ export type HelpLine = {
   hours?: string;
   personas: PersonaId[] | "all";
   concepts: ConceptId[];
+  /** The page this was read off. Every number in this product traces to one. */
+  source: string;
+  /** ISO date the number was last confirmed against that page. */
+  checkedOn: string;
+  /** One plain sentence of caveat, when the source page carries one. */
+  note?: string;
 };

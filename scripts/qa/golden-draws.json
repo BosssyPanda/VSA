@@ -85,6 +85,50 @@
       "asOf": "2022-01-22"
     }
   },
+  "helpLines": {
+    "anti-scam": {
+      "org": "Anti-Scam Helpline 18222",
+      "phone": "18222",
+      "url": "https://www.adcc.gov.hk/en-hk/contact-us.html",
+      "checkedOn": "2026-09-11"
+    },
+    "scameter": {
+      "org": "Scameter",
+      "phone": null,
+      "url": "https://cyberdefender.hk/en-us/scameter/",
+      "checkedOn": "2026-09-11"
+    },
+    "caritas-debt": {
+      "org": "Caritas debt counselling",
+      "phone": "3161 0102",
+      "url": "https://family.caritas.org.hk/eng/service03_debt",
+      "checkedOn": "2026-09-11"
+    },
+    "labour-fdh": {
+      "org": "Labour Department helper hotline",
+      "phone": "2157 9537",
+      "url": "https://www.fdh.labour.gov.hk/en/contact_us.html",
+      "checkedOn": "2026-09-11"
+    },
+    "enrich": {
+      "org": "Enrich HK",
+      "phone": "5981 3754",
+      "url": "https://enrichhk.org/contact-enrich",
+      "checkedOn": "2026-09-11"
+    },
+    "eoc": {
+      "org": "Equal Opportunities Commission",
+      "phone": "2511 8211",
+      "url": "https://www.eoc.org.hk/en/about-the-eoc/contact-us",
+      "checkedOn": "2026-09-11"
+    },
+    "basic-housing": {
+      "org": "Subdivided flats enquiry line",
+      "phone": "3611 0248",
+      "url": "https://www.bhu.gov.hk/eng/contact-us",
+      "checkedOn": "2026-09-11"
+    }
+  },
   "verdicts": {
     "cushioned": {
       "title": "Cushioned",

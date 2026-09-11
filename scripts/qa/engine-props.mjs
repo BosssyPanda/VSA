@@ -17,6 +17,7 @@ import {
   deferrer,
   engine,
   facts,
+  helpLines,
   income,
   mpf,
   personas,
@@ -796,6 +797,67 @@ check("P20d every outcome of every choice is reachable", () => {
       }
       for (let i = 0; i < choice.outcomes.length; i++) {
         ok(rolled.has(i), `"${card.id}:${choice.id}" outcome ${i} is unreachable`);
+      }
+    }
+  }
+});
+
+// ── P21. Every number a frightened person might dial ────────────────────────
+console.log("\nP21 help lines");
+
+check("P21 every help line carries a source and the date it was checked", () => {
+  const ids = helpLines.HELP_LINE_IDS;
+  ok(ids.length > 0, "no help lines at all");
+  for (const id of ids) {
+    const line = helpLines.helpLine(id);
+    eq(line.id, id, `"${id}" is filed under the wrong key`);
+    ok(/^https:\/\//.test(line.source), `"${id}" has no source URL`);
+    ok(/^\d{4}-\d{2}-\d{2}$/.test(line.checkedOn), `"${id}" does not say when it was checked`);
+    ok(Boolean(line.phone || line.url), `"${id}" offers no way to reach it`);
+    if (line.phone) ok(/^[\d ]{4,}$/.test(line.phone), `"${id}" has a phone number that is not one: "${line.phone}"`);
+    if (line.url) ok(/^https:\/\//.test(line.url), `"${id}" has a non-https link`);
+    ok(line.what.length > 20, `"${id}" does not say what it is for`);
+    for (const concept of line.concepts) {
+      ok(concepts.CONCEPT_IDS.includes(concept), `"${id}": unknown concept "${concept}"`);
+    }
+  }
+});
+
+check("P21b a help line was checked recently enough to trust", () => {
+  // Numbers go stale and organisations close. Eighteen months is the outer edge of
+  // what this file may claim without somebody reading the page again.
+  const limit = 18 * 30 * 24 * 60 * 60 * 1000;
+  for (const id of helpLines.HELP_LINE_IDS) {
+    const line = helpLines.helpLine(id);
+    const age = Date.now() - Date.parse(line.checkedOn);
+    ok(age < limit, `"${id}" was last checked on ${line.checkedOn}; re-read the page and update it`);
+    ok(age > -86_400_000, `"${id}" claims to have been checked in the future`);
+  }
+});
+
+check("P21c every life is offered help, and only help written for it", () => {
+  for (const personaId of PERSONA_IDS) {
+    const persona = personas.getPersona(personaId);
+    ok(persona.helpLines.length >= 3, `${personaId} is offered only ${persona.helpLines.length} places to go`);
+    for (const id of persona.helpLines) {
+      const line = helpLines.helpLine(id);
+      ok(Boolean(line), `${personaId} names a help line that does not exist: "${id}"`);
+      const forThisLife = line.personas === "all" || line.personas.includes(personaId);
+      ok(forThisLife, `${personaId} is offered "${id}", which is not written for this life`);
+    }
+    ok(new Set(persona.helpLines).size === persona.helpLines.length, `${personaId} lists the same help line twice`);
+  }
+});
+
+check("P21d the report always ends with somewhere to go", () => {
+  for (const policy of POLICIES) {
+    for (const { personaId, seed } of cases(range(1, 31))) {
+      const lines = report.helpLinesFor(play(personaId, seed, policy));
+      ok(lines.length >= 3, `${policy.name} ${personaId} seed ${seed}: only ${lines.length} help lines`);
+      ok(new Set(lines.map((l) => l.id)).size === lines.length, `${policy.name} ${personaId} seed ${seed}: a help line was listed twice`);
+      for (const line of lines) {
+        const forThisLife = line.personas === "all" || line.personas.includes(personaId);
+        ok(forThisLife, `${policy.name} ${personaId} seed ${seed}: offered "${line.id}"`);
       }
     }
   }
