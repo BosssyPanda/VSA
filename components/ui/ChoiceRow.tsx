@@ -103,7 +103,7 @@ export function ChoiceGroup({
 }) {
   return (
     <fieldset className="m-0 flex flex-col gap-2.5 border-0 p-0">
-      <legend className="mb-2 p-0 text-[length:var(--text-label)] leading-[var(--leading-label)] font-medium text-muted">
+      <legend className="mb-2 p-0 text-[length:var(--text-section)] leading-[var(--leading-section)] font-semibold">
         {legend}
       </legend>
       {options.map((option) => (

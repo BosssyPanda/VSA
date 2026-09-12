@@ -41,7 +41,7 @@ export function Title({
           <h1 className="m-0 text-[length:var(--text-display)] leading-[var(--leading-display)] font-semibold">
             {t("app.name")}
           </h1>
-          <p className="text-[length:var(--text-title)] leading-[var(--leading-title)]">
+          <p className="text-[length:var(--text-title)] leading-[var(--leading-title)] font-semibold">
             {t("app.tagline")}
           </p>
           <p className="text-[length:var(--text-body)] leading-[var(--leading-body)] text-muted">

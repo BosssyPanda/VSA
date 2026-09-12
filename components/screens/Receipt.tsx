@@ -32,8 +32,11 @@ export function Receipt({ record, onContinue }: { record: MonthRecord; onContinu
             {t("receipt.title", { month: record.m })}
           </h1>
           <p
-            className="m-0 text-[length:var(--text-title)] leading-[var(--leading-title)] font-medium"
-            style={{ color: verdict.hex }}
+            className={
+              verdict.tone === "atRisk"
+                ? "m-0 text-[length:var(--text-title)] leading-[var(--leading-title)] font-semibold text-warn"
+                : "m-0 text-[length:var(--text-title)] leading-[var(--leading-title)] font-semibold"
+            }
           >
             <span aria-hidden="true" className="mr-2">
               {verdict.glyph}

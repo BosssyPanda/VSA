@@ -56,7 +56,7 @@ export function Sheet({
         if (event.target === ref.current) onClose();
       }}
       className={[
-        "m-0 mt-auto w-full max-w-[var(--w-column)] bg-transparent p-0 backdrop:bg-black/40",
+        "m-0 mt-auto w-full max-w-[var(--w-column)] bg-transparent p-0 backdrop:bg-[var(--scrim)]",
         "md:mx-auto md:my-auto md:max-w-[var(--w-column-wide)]",
       ].join(" ")}
     >
@@ -64,7 +64,7 @@ export function Sheet({
         onClick={(event) => event.stopPropagation()}
         className="rounded-t-[var(--radius-card)] border border-line bg-card p-5 md:rounded-[var(--radius-card)]"
       >
-        <h2 className="mt-0 mb-3 text-[length:var(--text-title)] leading-[var(--leading-title)] font-medium">
+        <h2 className="mt-0 mb-3 text-[length:var(--text-title)] leading-[var(--leading-title)] font-semibold">
           {title}
         </h2>
         {children}

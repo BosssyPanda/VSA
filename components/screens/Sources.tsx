@@ -32,7 +32,7 @@ export function Sources({ onBack, backLabel }: { onBack: () => void; backLabel: 
         <button
           type="button"
           onClick={onBack}
-          className="self-start min-h-12 text-[length:var(--text-body)] leading-[var(--leading-body)] text-accent underline underline-offset-4"
+          className="self-start min-h-12 text-[length:var(--text-body)] leading-[var(--leading-body)] underline underline-offset-4"
         >
           {backLabel}
         </button>
@@ -76,7 +76,7 @@ export function Sources({ onBack, backLabel }: { onBack: () => void; backLabel: 
                     href={line.source}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="text-[length:var(--text-label)] leading-[var(--leading-label)] text-accent underline underline-offset-4 [overflow-wrap:anywhere]"
+                    className="text-[length:var(--text-label)] leading-[var(--leading-label)] underline underline-offset-4 [overflow-wrap:anywhere]"
                   >
                     {siteName(line.source)}
                   </a>
@@ -120,7 +120,7 @@ function FactRow({ fact, locale }: { fact: Fact; locale: Locale }) {
         href={fact.source.url}
         target="_blank"
         rel="noreferrer noopener"
-        className="text-[length:var(--text-label)] leading-[var(--leading-label)] text-accent underline underline-offset-4 [overflow-wrap:anywhere]"
+        className="text-[length:var(--text-label)] leading-[var(--leading-label)] underline underline-offset-4 [overflow-wrap:anywhere]"
       >
         {fact.source.name}
       </a>

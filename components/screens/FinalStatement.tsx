@@ -46,8 +46,11 @@ export function FinalStatement({
         <header className="flex flex-col gap-1">
           <Label>{t("final.title", { name: run.name })}</Label>
           <h1
-            className="m-0 text-[length:var(--text-display)] leading-[var(--leading-display)] font-semibold"
-            style={{ color: report.verdict.hex }}
+            className={
+              report.verdict.tone === "atRisk"
+                ? "m-0 text-[length:var(--text-display)] leading-[var(--leading-display)] font-semibold text-warn"
+                : "m-0 text-[length:var(--text-display)] leading-[var(--leading-display)] font-semibold"
+            }
           >
             <span aria-hidden="true" className="mr-2">
               {report.verdict.glyph}
@@ -62,19 +65,34 @@ export function FinalStatement({
           ) : null}
         </header>
 
-        <Card className="flex flex-col gap-1">
-          <Label>{t("final.rules")}</Label>
-          <ol className="m-0 flex list-none flex-col gap-3 p-0">
-            {report.rules.map((rule) => (
-              <li key={rule.id} className="flex flex-col gap-0.5">
-                <span className="text-[length:var(--text-body)] leading-[var(--leading-body)] font-medium">
-                  {rule.rule}
-                </span>
-                <Label>{rule.title}</Label>
-              </li>
-            ))}
-          </ol>
-        </Card>
+        {/* The heading is a heading, not a caption inside the box it introduces, and the
+            rules are numbered because "three things" that arrive as three identical
+            blocks are not visibly three things. */}
+        <section className="flex flex-col gap-2.5">
+          <h2 className="m-0 text-[length:var(--text-section)] leading-[var(--leading-section)] font-semibold">
+            {t("final.rules")}
+          </h2>
+          <Card>
+            <ol className="m-0 flex list-none flex-col gap-3.5 p-0">
+              {report.rules.map((rule, i) => (
+                <li key={rule.id} className="flex gap-3">
+                  <span
+                    aria-hidden="true"
+                    className="w-4 shrink-0 text-[length:var(--text-body)] leading-[var(--leading-body)] font-medium text-muted"
+                  >
+                    {i + 1}
+                  </span>
+                  <span className="flex flex-col gap-0.5">
+                    <span className="text-[length:var(--text-body)] leading-[var(--leading-body)] font-medium">
+                      {rule.rule}
+                    </span>
+                    <Label>{rule.title}</Label>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </Card>
+        </section>
 
         <Card className="flex flex-col">
           <MoneyRow

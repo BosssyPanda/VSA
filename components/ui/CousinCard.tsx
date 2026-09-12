@@ -12,6 +12,9 @@ import { cx } from "@/lib/cx";
  * Dismissible, and small. The guide is help, not a narrator: a player who does not
  * need the explanation should be able to make it go away and not meet it again on that
  * card. This is why the design is a short card and explicitly not a chat thread.
+ *
+ * The tint is what says whose voice this is. The name above it is ink: `accent` is the
+ * colour of the one thing worth pressing, and a speaker's name is not a thing to press.
  */
 export function CousinCard({
   name,
@@ -33,7 +36,7 @@ export function CousinCard({
         className,
       )}
     >
-      <p className="m-0 mb-1 text-[length:var(--text-label)] leading-[var(--leading-label)] font-medium text-accent">
+      <p className="m-0 mb-1 text-[length:var(--text-label)] leading-[var(--leading-label)] font-medium">
         {name}
       </p>
       <div className="text-[length:var(--text-body)] leading-[var(--leading-body)]">{children}</div>

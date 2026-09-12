@@ -31,7 +31,7 @@ export function MoneyRow({
       <Label>{label}</Label>
       <span
         className={cx(
-          "text-[length:var(--text-title)] leading-[var(--leading-title)] font-medium",
+          "text-[length:var(--text-title)] leading-[var(--leading-title)] font-semibold",
           atRisk && "text-warn",
         )}
       >

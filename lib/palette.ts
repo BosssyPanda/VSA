@@ -41,7 +41,16 @@ export const PALETTE = {
    */
   lineStrong: "#8a8780",
 
-  /** Safe action: primary buttons, progress fill, links, the Cousin monogram. */
+  /**
+   * Safe action. Primary buttons, and the focus ring that says where the keyboard is.
+   *
+   * Nothing else. This comment used to also list "progress fill, links" — which made
+   * the file contradict its own header six lines above: if green marks a progress bar
+   * and a back link as well as the one button worth pressing, then green marks nothing
+   * and a person scanning for what to do next has to read every word to find it. Links
+   * are ink with an underline, which is what actually tells a reader a thing is a link,
+   * and which keeps working for the reader who cannot see the difference anyway.
+   */
   accent: "#0f6e56",
   accentTint: "#e4efea",
   /**
@@ -100,6 +109,10 @@ export const MIN_CONTRAST = 4.5;
 export const BOUNDARY_PAIRS: ReadonlyArray<readonly [PaletteKey, PaletteKey]> = [
   ["lineStrong", "card"],
   ["lineStrong", "ground"],
+  // A progress bar's fill against its own track. Declared because it had never been
+  // measured: the fill was `accent` on a `line` track for the life of this build, and
+  // no list here had heard of the pairing, so nothing checked it was visible at all.
+  ["muted", "line"],
   // The selected row in a group of choices. Ink rather than accent, deliberately:
   // accent means "the safe thing to do next", and the row a player has selected is a
   // state, not a recommendation. Painting selection green would tell them they had

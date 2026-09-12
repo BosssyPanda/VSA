@@ -180,6 +180,11 @@ check("warning red is spent only on money at risk", () => {
     // outcome that may say "why this could cost you money", because before a decision
     // that sentence answers the question the game is asking.
     "components/screens/Outcome.tsx",
+    // The two end-of-year screens. They render the Behind and Stuck tiers, which are the
+    // at-risk pair lib/stability.ts is allowlisted for. They arrive here by name now
+    // rather than as an injected hex, which is the whole reason this gate can see them.
+    "components/screens/FinalStatement.tsx",
+    "components/screens/Receipt.tsx",
   ];
   const missing = ALLOWED.filter((f) => !existsSync(join(ROOT, f)));
   if (missing.length) {
@@ -202,9 +207,9 @@ check("warning red is spent only on money at risk", () => {
 check("only the two at-risk verdicts are painted red", () => {
   // The allowance granted to lib/stability.ts above, held to what it was granted for.
   const text = readFileSync(join(ROOT, "lib/stability.ts"), "utf8");
-  const warn = [...text.matchAll(/(\w[\w-]*):\s*\{[\s\S]{0,600}?hex:\s*PALETTE\.(\w+)/g)];
+  const warn = [...text.matchAll(/(\w[\w-]*):\s*\{[\s\S]{0,600}?tone:\s*"(\w+)"/g)];
   if (warn.length < 5) throw new Error(`read ${warn.length} verdict colours, expected five`);
-  const red = warn.filter(([, , token]) => token === "warn").map(([, tier]) => tier).sort();
+  const red = warn.filter(([, , tone]) => tone === "atRisk").map(([, tier]) => tier).sort();
   const expected = ["behind", "trapped"];
   if (red.join(",") !== expected.join(",")) {
     throw new Error(`red verdicts are ${red.join(", ") || "(none)"}; only ${expected.join(" and ")} may be`);

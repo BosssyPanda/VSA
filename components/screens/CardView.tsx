@@ -53,46 +53,51 @@ export function CardView({
     .map((reason) => fillIn(reason, { name: playerName }));
 
   return (
-    <Card className="flex flex-col gap-4">
-      <h2 className="m-0 text-[length:var(--text-title)] leading-[var(--leading-title)] font-semibold">
-        {say(card.title)}
-      </h2>
+    <div className="flex flex-col gap-5">
+      <Card className="flex flex-col gap-4">
+        <h2 className="m-0 text-[length:var(--text-title)] leading-[var(--leading-title)] font-semibold">
+          {say(card.title)}
+        </h2>
 
-      {card.pitch ? (
-        <Pitch
-          from={t(`channel.${card.pitch.channel}`, { from: card.pitch.from })}
-          lines={card.pitch.lines.map(say)}
-        />
-      ) : null}
+        {card.pitch ? (
+          <Pitch
+            from={t(`channel.${card.pitch.channel}`, { from: card.pitch.from })}
+            lines={card.pitch.lines.map(say)}
+          />
+        ) : null}
 
-      <p className="m-0 text-[length:var(--text-body)] leading-[var(--leading-body)]">
-        {say(card.prompt)}
-      </p>
-
-      {card.deferrable ? (
-        <p className="m-0 text-[length:var(--text-label)] leading-[var(--leading-label)] text-muted">
-          {t("card.leaveIt")}
+        <p className="m-0 text-[length:var(--text-body)] leading-[var(--leading-body)]">
+          {say(card.prompt)}
         </p>
-      ) : null}
 
-      <ChoiceGroup
-        name={`card-${card.id}`}
-        legend={t("card.decide")}
-        options={open.map((choice) => ({
-          id: choice.id,
-          label: say(choice.label),
-          blurb: say(choice.blurb),
-        }))}
-        value={picked}
-        onSelect={setPicked}
-        unavailable={shut}
-      />
+        {card.deferrable ? (
+          <p className="m-0 text-[length:var(--text-label)] leading-[var(--leading-label)] text-muted">
+            {t("card.leaveIt")}
+          </p>
+        ) : null}
 
-      {picked ? (
-        <Button kind="primary" onClick={() => onChoose(picked)}>
-          {t("card.continue")}
-        </Button>
-      ) : null}
-    </Card>
+      </Card>
+
+      <div className="flex flex-col gap-3">
+        <ChoiceGroup
+          name={`card-${card.id}`}
+          legend={t("card.decide")}
+          options={open.map((choice) => ({
+            id: choice.id,
+            label: say(choice.label),
+            blurb: say(choice.blurb),
+          }))}
+          value={picked}
+          onSelect={setPicked}
+          unavailable={shut}
+        />
+
+        {picked ? (
+          <Button kind="primary" onClick={() => onChoose(picked)}>
+            {t("card.continue")}
+          </Button>
+        ) : null}
+      </div>
+    </div>
   );
 }

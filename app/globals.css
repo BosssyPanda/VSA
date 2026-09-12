@@ -4,9 +4,10 @@
  * Month End — Companion design tokens.
  *
  * Mirrors `lib/palette.ts`; `scripts/qa/palette-audit.mjs` fails if they drift.
- * Type sizes have a hard floor of 14px (`--text-min`), enforced by
- * `scripts/qa/type-floor.mjs`. There is no smaller step in this system, because
- * the audience includes people reading a cheap phone in daylight.
+ * Type sizes have a hard floor of 14px, enforced by `scripts/qa/type-floor.mjs`,
+ * because the audience includes people reading a cheap phone in daylight. The ramp
+ * below does not go anywhere near it: the smallest step is `--text-label` at 15px and
+ * nothing in the product is set smaller than that.
  */
 @theme {
   --color-ground: #f3f2ee;
@@ -24,13 +25,12 @@
   --color-warn-tint: #fcebe8;
 
   /*
-   * Type ramp. Nothing below --text-min exists.
+   * Type ramp. Six steps, smallest first at 15px.
    *
    * Each step also has a weight, because an earlier version of this file specified
    * size and leading and left weight to whoever wrote the component — which is how
    * 19px shipped at three different weights on three different screens.
    */
-  --text-min: 0.875rem; /* 14px / 500 — nav labels, the smallest text in the product */
   --text-label: 0.9375rem; /* 15px / 400, or 500 as a label above a figure */
   --text-body: 1.0625rem; /* 17px / 400 — body copy, buttons, choice rows */
   --text-title: 1.1875rem; /* 19px / 600 — card titles, the player's name */
@@ -65,6 +65,15 @@
 
   --font-sans: var(--font-public-sans), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /*
+   * The dim behind a sheet. Not a --color-* token on purpose: it is translucent, it is
+   * never painted under text, and there is no pairing to measure, so it does not belong
+   * in lib/palette.ts and the palette gate would rightly reject it there. It was a bare
+   * `bg-black/40` inside one Tailwind class — a colour this product paints that neither
+   * tokens file had heard of, which is the drift every gate here exists to stop.
+   */
+  --scrim: rgb(0 0 0 / 0.4);
 }
 
 /*

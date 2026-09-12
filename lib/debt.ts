@@ -248,11 +248,20 @@ export type { PlayerLoanKind };
 export const LOAN_TERM_MONTHS = 12;
 export const LICENSED_APR = 0.3;
 
-/** Monthly payment that clears `balance` over `months` at `apr`, the ordinary way. */
+/**
+ * Monthly payment that clears `balance` over `months` at `apr`, the ordinary way.
+ *
+ * Rounded UP, never to nearest, and the difference is the whole honesty of the Borrow
+ * sheet. At HK$ 1,000 the exact instalment is HK$ 97.49; rounding it down to HK$ 97
+ * leaves a few dollars of balance standing after the twelfth payment, so the engine
+ * takes a thirteenth of HK$ 19 — and the sheet, which promises twelve months, becomes
+ * a lie of exactly the kind this product exists to teach people to catch. A dollar up
+ * costs the player one dollar a month and makes the term on the screen the real term.
+ */
 function amortised(balance: number, apr: number, months: number): number {
   const r = apr / 12;
   if (r <= 0) return Math.ceil(balance / months);
-  return Math.round((balance * r) / (1 - Math.pow(1 + r, -months)));
+  return Math.ceil((balance * r) / (1 - Math.pow(1 + r, -months)));
 }
 
 /**

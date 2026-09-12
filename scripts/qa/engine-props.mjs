@@ -465,8 +465,13 @@ check("P11 a family loan never charges interest, and strain stays in bounds", ()
   }
 });
 
+// The four amounts the Borrow sheet actually offers, plus one outside the picker.
+// The earlier version of this check tested 500, 2000 and 7500 — three amounts that
+// happened to clear in exactly twelve months — while HK$ 1,000 and HK$ 5,000, two of
+// the four a player can actually tap, needed a thirteenth payment. A gate that tests
+// amounts the interface never offers is not testing the interface.
 check("P11b the borrow sheet's figures are the figures the run charges", () => {
-  for (const amount of [500, 2000, 7500]) {
+  for (const amount of [500, 1000, 2000, 5000, 7500]) {
     const seed = debt.loanOffer("licensed-lender", amount);
     const projection = debt.projectLoan(seed);
     let run = engine.initRun("sa-youth", "", 11);
@@ -484,6 +489,14 @@ check("P11b the borrow sheet's figures are the figures the run charges", () => {
     eq(paid, projection.total, `HK$${amount}: projected total`);
     ok(projection.total > amount, `HK$${amount}: a loan at 30% cost nothing`);
     eq(projection.monthly, seed.instalment, `HK$${amount}: projected first payment`);
+    // The sheet prints the term in words: "HK$ 98, for 12 months". If the engine ever
+    // needs a thirteenth payment to clear the balance, that sentence is false and the
+    // player is being told a twelve-month loan is shorter than it is.
+    eq(
+      projection.months,
+      debt.LOAN_TERM_MONTHS,
+      `HK$${amount}: a twelve-month loan took ${projection.months} months`,
+    );
   }
 });
 

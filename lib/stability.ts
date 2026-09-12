@@ -1,4 +1,3 @@
-import { PALETTE } from "./palette";
 import { cushionMonths } from "./costs";
 import { debtBurden, debtTrend, worstArrears } from "./debt";
 import type { RunState, StabilityTier, Verdict } from "./types";
@@ -52,35 +51,35 @@ export const VERDICTS: Record<StabilityTier, Verdict> = {
     tier: "cushioned",
     title: "Cushioned",
     blurb: "A month of pay set aside, nothing behind, everyone covered. A bad month would not become a loan.",
-    hex: PALETTE.accent,
+    tone: "neutral",
     glyph: "▲▲",
   },
   steady: {
     tier: "steady",
     title: "Steady",
     blurb: "The month works. Something is set aside, and nothing is chasing you.",
-    hex: PALETTE.accent,
+    tone: "neutral",
     glyph: "▲",
   },
   tight: {
     tier: "tight",
     title: "Tight",
     blurb: "Payments are made, but there is nothing spare. If your income falls for one month, you may not have enough.",
-    hex: PALETTE.ink,
+    tone: "neutral",
     glyph: "▬",
   },
   behind: {
     tier: "behind",
     title: "Behind",
     blurb: "Something is unpaid or the debt is growing. This is the point where help is cheapest.",
-    hex: PALETTE.warn,
+    tone: "atRisk",
     glyph: "▼",
   },
   trapped: {
     tier: "trapped",
     title: "Stuck",
     blurb: "The payments are bigger than the pay. This is not a personal failure, and there are people whose job is exactly this.",
-    hex: PALETTE.warn,
+    tone: "atRisk",
     glyph: "▼▼",
   },
 };

@@ -351,7 +351,16 @@ export type Verdict = {
   tier: StabilityTier;
   title: string;
   blurb: string;
-  hex: string;
+  /**
+   * What the tier means, not what colour to paint it.
+   *
+   * This was a raw `hex` lifted off PALETTE and injected as an inline style, which put
+   * a literal colour in the DOM that `app/globals.css` had never authorised and that
+   * the palette gate could not see — it greps for the token name, and a hex arriving
+   * through a data object carries no token name. It also painted the two good tiers
+   * accent green, and accent means "the safe thing to do next", never "you did well".
+   */
+  tone: "neutral" | "atRisk";
   /** Colour is never the only channel. */
   glyph: string;
 };

@@ -61,7 +61,7 @@ export function Help({
           <button
             type="button"
             onClick={() => setView("topics")}
-            className="self-start min-h-12 text-[length:var(--text-body)] leading-[var(--leading-body)] text-accent underline underline-offset-4"
+            className="self-start min-h-12 text-[length:var(--text-body)] leading-[var(--leading-body)] underline underline-offset-4"
           >
             {t("help.allTopics")}
           </button>
@@ -141,7 +141,7 @@ export function Help({
                     often while upset, often one-handed on a bus. */}
                 <a
                   href={`tel:${line.phone.replace(/\s/g, "")}`}
-                  className="inline-flex min-h-12 items-center text-[length:var(--text-body)] leading-[var(--leading-body)] font-medium text-accent underline underline-offset-4"
+                  className="inline-flex min-h-12 items-center text-[length:var(--text-body)] leading-[var(--leading-body)] font-medium underline underline-offset-4"
                 >
                   {line.phone}
                 </a>
@@ -191,7 +191,7 @@ export function HelpLineCard({ line }: { line: HelpLine }) {
           href={line.url}
           target="_blank"
           rel="noreferrer noopener"
-          className="text-[length:var(--text-label)] leading-[var(--leading-label)] text-accent underline underline-offset-4 [overflow-wrap:anywhere]"
+          className="text-[length:var(--text-label)] leading-[var(--leading-label)] underline underline-offset-4 [overflow-wrap:anywhere]"
         >
           {siteName(line.url)}
         </a>
@@ -228,7 +228,7 @@ function Number({ line }: { line: HelpLine }) {
   return (
     <a
       href={`tel:${line.phone.replace(/\s/g, "")}`}
-      className="inline-flex min-h-12 items-center text-[length:var(--text-title)] leading-[var(--leading-title)] font-semibold text-accent underline underline-offset-4"
+      className="inline-flex min-h-12 items-center text-[length:var(--text-title)] leading-[var(--leading-title)] font-semibold underline underline-offset-4"
     >
       {line.phone}
     </a>

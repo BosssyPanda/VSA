@@ -34,8 +34,8 @@ function AmountPicker({
           aria-pressed={amount === value}
           className={
             amount === value
-              ? "min-h-12 rounded-[var(--radius-button)] bg-accent-tint px-4 py-3 text-[length:var(--text-body)] font-medium text-accent"
-              : "min-h-12 rounded-[var(--radius-button)] border border-line bg-card px-4 py-3 text-[length:var(--text-body)]"
+              ? "min-h-12 rounded-[var(--radius-button)] border border-ink bg-ground px-4 py-3 text-[length:var(--text-body)] leading-[var(--leading-body)] font-medium"
+              : "min-h-12 rounded-[var(--radius-button)] border border-line-strong bg-card px-4 py-3 text-[length:var(--text-body)] leading-[var(--leading-body)] hover:bg-ground"
           }
         >
           {hkd(amount, locale)}
@@ -53,8 +53,8 @@ function AmountPicker({
  * A lender advertises the monthly payment; the total is the number that matters, and
  * putting them side by side is most of what this product has to teach about borrowing.
  *
- * The way out is the primary button. Not borrowing is the safe action, and the design
- * language of this product puts the safe action first everywhere else too.
+ * The way out is drawn by `Sheet` itself, so this sheet cannot ship without one. Both
+ * actions carry the same weight on purpose — see the comment above them for why.
  */
 export function BorrowSheet({
   open,
@@ -86,8 +86,8 @@ export function BorrowSheet({
                 aria-pressed={option === kind}
                 className={
                   option === kind
-                    ? "min-h-12 rounded-[var(--radius-button)] bg-accent-tint px-4 py-3 text-left text-[length:var(--text-body)] font-medium text-accent"
-                    : "min-h-12 rounded-[var(--radius-button)] border border-line bg-card px-4 py-3 text-left text-[length:var(--text-body)]"
+                    ? "min-h-12 rounded-[var(--radius-button)] border border-ink bg-ground px-4 py-3 text-left text-[length:var(--text-body)] leading-[var(--leading-body)] font-medium"
+                    : "min-h-12 rounded-[var(--radius-button)] border border-line-strong bg-card px-4 py-3 text-left text-[length:var(--text-body)] leading-[var(--leading-body)] hover:bg-ground"
                 }
               >
                 {t(`borrow.kind.${option}`)}
@@ -126,11 +126,9 @@ export function BorrowSheet({
             leaning on the player's elbow — and a player who needs the money that month
             reads the nudge as being told off. The sheet's job is to show what the loan
             costs over one month and over twelve, plainly, and then get out of the way. */}
-        <div className="flex flex-col gap-2.5">
-          <Button kind="secondary" onClick={() => onConfirm(kind, amount)}>
-            {t("borrow.take", { amount: hkd(amount, locale) })}
-          </Button>
-        </div>
+        <Button kind="secondary" onClick={() => onConfirm(kind, amount)}>
+          {t("borrow.take", { amount: hkd(amount, locale) })}
+        </Button>
       </div>
     </Sheet>
   );
@@ -183,11 +181,9 @@ export function SetAsideSheet({
             </div>
           </>
         ) : (
-          <>
-            <p className="m-0 text-[length:var(--text-body)] leading-[var(--leading-body)]">
-              {t("aside.nothingSpare")}
-            </p>
-          </>
+          <p className="m-0 text-[length:var(--text-body)] leading-[var(--leading-body)]">
+            {t("aside.nothingSpare")}
+          </p>
         )}
       </div>
     </Sheet>
@@ -199,13 +195,11 @@ export function RepaySheet({
   open,
   onClose,
   run,
-  guideName,
   onConfirm,
 }: {
   open: boolean;
   onClose: () => void;
   run: RunState;
-  guideName: string;
   onConfirm: (debtId: string, amount: number) => void;
 }) {
   const { t, locale } = useI18n();
@@ -230,8 +224,8 @@ export function RepaySheet({
                 aria-pressed={d.id === line?.id}
                 className={
                   d.id === line?.id
-                    ? "min-h-12 rounded-[var(--radius-button)] bg-accent-tint px-4 py-3 text-left text-[length:var(--text-body)] font-medium text-accent"
-                    : "min-h-12 rounded-[var(--radius-button)] border border-line bg-card px-4 py-3 text-left text-[length:var(--text-body)]"
+                    ? "min-h-12 rounded-[var(--radius-button)] border border-ink bg-ground px-4 py-3 text-left text-[length:var(--text-body)] leading-[var(--leading-body)] font-medium"
+                    : "min-h-12 rounded-[var(--radius-button)] border border-line-strong bg-card px-4 py-3 text-left text-[length:var(--text-body)] leading-[var(--leading-body)] hover:bg-ground"
                 }
               >
                 {d.label} · {hkd(d.balance, locale)}
@@ -261,11 +255,9 @@ export function RepaySheet({
             </Button>
           </>
         ) : (
-          <>
-            <p className="m-0 text-[length:var(--text-body)] leading-[var(--leading-body)]">
-              {t("repay.nothingSpare", { name: guideName })}
-            </p>
-          </>
+          <p className="m-0 text-[length:var(--text-body)] leading-[var(--leading-body)]">
+            {t("repay.nothingSpare")}
+          </p>
         )}
       </div>
     </Sheet>

@@ -116,8 +116,13 @@ is why they are a later locale rather than a later font switch.
 | `--text-section` | 22px | 28px | 600 | the heading above a group |
 | `--text-title` | 19px | 26px | 600 | card titles, the player's name |
 | `--text-body` | 17px | 24px | 400 | body copy, buttons, choice rows |
-| `--text-label` | 15px | 22px | 400, or 500 above a figure | field labels, secondary lines |
-| `--text-min` | 14px | 18px | 500 | navigation labels — the smallest text that exists |
+| `--text-label` | 15px | 22px | 400, or 500 above a figure | field labels, secondary lines — the smallest text that exists |
+
+There used to be a seventh row here, `--text-min` at 14px, described as the size of the
+navigation labels. No component ever used it: the navigation labels are 17px, which is
+the right size for somebody who is not confident with phones and is the reason nothing
+in this product is set at 14px. The hard floor is still 14px and `qa:type-floor` still
+enforces it — the ramp simply never goes down there.
 
 **Every step carries a weight, and that is not decoration.** An earlier version of this
 table gave a size and a line height and left weight to whoever wrote the component, so

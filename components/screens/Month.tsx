@@ -41,8 +41,7 @@ export function Month({ api }: { api: RunApi }) {
 
   const whereIAm = (
     <section className="flex flex-col gap-2">
-      <Label>{t("month.where")}</Label>
-      <h1 className="m-0 text-[length:var(--text-title)] leading-[var(--leading-title)] font-semibold">
+      <h1 className="m-0 text-[length:var(--text-section)] leading-[var(--leading-section)] font-semibold">
         {t("month.heading", { name: run.name, month: run.month, total: run.months })}
       </h1>
       <StepBar step={run.month - 1} steps={run.months} />
@@ -109,14 +108,15 @@ export function Month({ api }: { api: RunApi }) {
   return (
     <main className="py-6 pb-28 md:pb-10">
       <div className="mx-auto flex w-full max-w-[var(--w-column)] flex-col gap-5 px-5 md:max-w-[var(--w-column-wide)] lg:max-w-[var(--w-shell)] lg:flex-row lg:items-start lg:gap-6">
-        <div className="flex flex-col gap-4 lg:sticky lg:top-16 lg:w-[var(--w-rail)] lg:shrink-0">
+        <div className="flex flex-col gap-4 lg:w-[var(--w-rail)] lg:shrink-0">
           {whereIAm}
           <MoneyModule run={run} />
+          <div className="hidden lg:block">{moving}</div>
         </div>
         <div className="flex flex-col gap-5 lg:w-[var(--w-column-wide)]">
           {situation}
           {finish}
-          {moving}
+          <div className="lg:hidden">{moving}</div>
         </div>
       </div>
 
@@ -141,7 +141,6 @@ export function Month({ api }: { api: RunApi }) {
         open={sheet === "repay"}
         onClose={() => setSheet("none")}
         run={run}
-        guideName={persona.guideName}
         onConfirm={(debtId, amount) => {
           api.repay(debtId, amount);
           setSheet("none");
