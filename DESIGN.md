@@ -1,8 +1,13 @@
 # Month End — design contract
 
 This file is binding. `scripts/qa/palette-audit.mjs`, `scripts/qa/type-floor.mjs`,
-`scripts/qa/no-literals.mjs` and `scripts/qa/messages-audit.mjs` enforce the parts of
-it that a machine can check. The rest is enforced at review.
+`scripts/qa/no-literals.mjs`, `scripts/qa/messages-audit.mjs` and — in a real browser —
+`scripts/qa/smoke.mjs`, `responsive.mjs`, `i18n-expand.mjs` and `a11y.mjs` enforce the
+parts of it that a machine can check. The rest is enforced at review.
+
+`qa:a11y` begins by breaking a page on purpose and watching each of its own probes fire,
+because a check that searches for something and can never find it reports a clean page
+forever. Two of them were exactly that until the self-test caught them.
 
 ## Who this is for
 
@@ -40,8 +45,13 @@ The month screen shows these, in this order, and nothing else:
    three unrelated topics, which is exactly what they are not.
 3. **Today's situation** — one card. A life event, or a message that arrived.
 4. **What you decide** — the choices, as equally weighted rows. See below.
-5. **Cousin** — a short optional explanation, only when it helps.
-6. **Navigation** — Month, Help, and the language control.
+5. **Move your money** — set aside, pay back, borrow. Below the decision, not above it:
+   these three lived inside the money module, read well, and pushed today's situation
+   past the fold on a 390px phone. The one thing the screen exists to show was off the
+   bottom of it, behind three controls most months do not need. Nothing is hidden and
+   nothing is greyed; they are simply after the month's task rather than in front of it.
+6. **Cousin** — a short optional explanation, only when it helps.
+7. **Navigation** — Month, Help, and the language control.
 
 Rules of thumb: understandable in three to five seconds; one main task per section;
 never more than three or four actions on screen at once.
@@ -81,8 +91,9 @@ timers, no countdowns, no card that must be answered now.
 
 ## Actions that are not available
 
-**Nothing in this product is a greyed-out button.** An action is either available, or it
-is absent and one plain line says what would make it available — "Answer today's message
+**Nothing in this product is a greyed-out button**, and `Button`'s own type refuses a
+`disabled` prop so the compiler holds the rule rather than a reviewer's memory. An action
+is either available, or it is absent and one plain line says what would make it available — "Answer today's message
 to finish the month" rather than a dead grey control that says only *no*. A disabled
 control makes a person wonder whether they have broken something; a sentence tells them
 what to do next.
@@ -127,7 +138,7 @@ Numbers are tabular everywhere, so money columns line up digit for digit.
 
 ## Colour
 
-Ten tokens. Mirrored in `lib/palette.ts` and the `@theme` block of
+Eleven tokens. Mirrored in `lib/palette.ts` and the `@theme` block of
 `app/globals.css`; a change means both files and this section, in one commit.
 
 | Token | Hex | Meaning |
@@ -140,6 +151,7 @@ Ten tokens. Mirrored in `lib/palette.ts` and the `@theme` block of
 | `line-strong` | `#8a8780` | the edge of anything a person can operate |
 | `accent` | `#0f6e56` | **the safe thing to do next** |
 | `accent-tint` | `#e4efea` | a quiet accent surface |
+| `accent-deep` | `#0c5a47` | the primary button under a finger, and nothing else |
 | `warn` | `#b42318` | **this could cost you money** |
 | `warn-tint` | `#fcebe8` | the warning header |
 
@@ -161,6 +173,20 @@ one it was never good enough for.
 
 Colour is never the only channel: a tier, a delta or a warning also carries a word or a
 glyph.
+
+## Buttons
+
+Two kinds, and neither of them says anything about risk. `primary` is the way forward
+from this screen — Continue, Finish the month, Start. `secondary` is a side action still
+available here. There is no third kind: `quiet` used to dress the risky path as an
+underlined text link, which taught one skill — press the filled green one — and that
+skill does not survive contact with a real lender's SMS.
+
+A sheet that confirms something the player deliberately opened has two secondary buttons
+and no primary. The borrow sheet used to make "Not now" the filled green button and the
+loan a quiet link; a player who needs the money that month reads that as being told off.
+The sheet's job is to show the cost over one month and over twelve, plainly, and then get
+out of the way.
 
 ## Shape and motion
 
@@ -294,5 +320,10 @@ The explaining happens after a decision, in the outcome and in "why this may be 
 ## No pressure, ever
 
 No timers. No countdowns. No disappearing offers enforced by the game. Every trap card
-can be left unanswered: it comes back next month once, at no cost. Safe actions are
-listed first; the risky path is present, honest and quiet.
+can be left unanswered: it comes back next month once, at no cost, and that exit sits
+above the choices rather than under them.
+
+Safe actions are listed first, in the order the deck was written. The risky path is
+present and honest and drawn no differently — "quiet" was a styling word from the design
+this one replaced, and a risky option rendered as small grey underlined text is the
+interface doing the player's noticing for them.

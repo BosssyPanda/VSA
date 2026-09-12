@@ -73,7 +73,7 @@ export function BorrowSheet({
   const projection = offer ? projectLoan(offer) : null;
 
   return (
-    <Sheet open={open} onClose={onClose} title={t("borrow.title")}>
+    <Sheet open={open} onClose={onClose} title={t("borrow.title")} closeLabel={t("borrow.notNow")}>
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
           <Label>{t("borrow.from")}</Label>
@@ -121,11 +121,13 @@ export function BorrowSheet({
           </p>
         )}
 
+        {/* Two actions of equal weight. An earlier version made "Not now" the filled
+            green button and the loan a quiet underlined link, which is the product
+            leaning on the player's elbow — and a player who needs the money that month
+            reads the nudge as being told off. The sheet's job is to show what the loan
+            costs over one month and over twelve, plainly, and then get out of the way. */}
         <div className="flex flex-col gap-2.5">
-          <Button kind="primary" onClick={onClose}>
-            {t("borrow.notNow")}
-          </Button>
-          <Button kind="quiet" onClick={() => onConfirm(kind, amount)}>
+          <Button kind="secondary" onClick={() => onConfirm(kind, amount)}>
             {t("borrow.take", { amount: hkd(amount, locale) })}
           </Button>
         </div>
@@ -151,7 +153,7 @@ export function SetAsideSheet({
   const affordable = AMOUNTS.filter((a) => a <= Math.max(0, run.cash));
 
   return (
-    <Sheet open={open} onClose={onClose} title={t("aside.title")}>
+    <Sheet open={open} onClose={onClose} title={t("aside.title")} closeLabel={t("sheet.close")}>
       <div className="flex flex-col gap-4">
         <MoneyRow label={t("aside.have")} value={hkd(run.cash, locale)} />
 
@@ -174,7 +176,7 @@ export function SetAsideSheet({
                 {t("aside.confirm")}
               </Button>
               {run.savings > 0 ? (
-                <Button kind="quiet" onClick={() => onConfirm(-run.savings)}>
+                <Button kind="secondary" onClick={() => onConfirm(-run.savings)}>
                   {t("aside.takeBack", { amount: hkd(run.savings, locale) })}
                 </Button>
               ) : null}
@@ -185,9 +187,6 @@ export function SetAsideSheet({
             <p className="m-0 text-[length:var(--text-body)] leading-[var(--leading-body)]">
               {t("aside.nothingSpare")}
             </p>
-            <Button kind="primary" onClick={onClose}>
-              {t("sheet.close")}
-            </Button>
           </>
         )}
       </div>
@@ -218,7 +217,7 @@ export function RepaySheet({
   const [amount, setAmount] = useState(AMOUNTS[0]);
 
   return (
-    <Sheet open={open} onClose={onClose} title={t("repay.title")}>
+    <Sheet open={open} onClose={onClose} title={t("repay.title")} closeLabel={t("sheet.close")}>
       <div className="flex flex-col gap-4">
         {lines.length > 1 ? (
           <div className="flex flex-col gap-2">
@@ -266,9 +265,6 @@ export function RepaySheet({
             <p className="m-0 text-[length:var(--text-body)] leading-[var(--leading-body)]">
               {t("repay.nothingSpare", { name: guideName })}
             </p>
-            <Button kind="primary" onClick={onClose}>
-              {t("sheet.close")}
-            </Button>
           </>
         )}
       </div>

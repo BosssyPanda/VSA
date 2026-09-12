@@ -121,7 +121,7 @@ for (const key of enKeys) {
 const require_ = createRequire(import.meta.url);
 const engine = (mod) => require_(`${engineDir()}/lib/${mod}.js`);
 
-const { HELP_LINE_IDS, helpLine } = engine("helpLines");
+const { HELP_LINE_IDS, HELP_TOPICS, helpLine } = engine("helpLines");
 const { FACTS } = engine("facts");
 const { PERSONA_IDS, getPersona } = engine("personas");
 const { VERDICTS } = engine("stability");
@@ -138,6 +138,10 @@ for (const id of HELP_LINE_IDS) {
   carries(`helpLine.${id}.what`, line.what);
   carries(`helpLine.${id}.hours`, line.hours, true);
   carries(`helpLine.${id}.note`, line.note, true);
+}
+for (const topic of HELP_TOPICS) {
+  carries(`helpTopic.${topic.id}.label`, topic.label);
+  carries(`helpTopic.${topic.id}.blurb`, topic.blurb);
 }
 for (const [id, fact] of Object.entries(FACTS)) carries(`fact.${id}.label`, fact.label);
 for (const id of PERSONA_IDS) {
@@ -183,6 +187,20 @@ for (const locale of LOCALES) {
     `  ${status[locale].complete ? "ok  " : "note"} ${locale}: ${translated}/${enKeys.length} translated` +
       (status[locale].complete ? "" : " — hidden from the language picker"),
   );
+}
+
+// ── The catalogue stays in order ─────────────────────────────────────────────
+// Not aesthetics. A file whose order is arbitrary gets a new key appended wherever the
+// person adding it happened to be looking, which makes every future diff a hunt and
+// makes two people adding keys in the same week a merge conflict.
+const sorted = [...enKeys].sort();
+const outOfOrder = enKeys.findIndex((k, i) => k !== sorted[i]);
+if (outOfOrder !== -1) {
+  fail(
+    `messages/en.json is out of order: "${enKeys[outOfOrder]}" should be "${sorted[outOfOrder]}"`,
+  );
+} else {
+  console.log(`  ok   ${enKeys.length} keys in order`);
 }
 
 // ── status.json must match what we just computed ────────────────────────────

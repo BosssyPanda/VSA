@@ -173,9 +173,13 @@ check("warning red is spent only on money at risk", () => {
     "app/globals.css",
     "lib/palette.ts",
     "lib/stability.ts",
-    "components/ui/WarningCard.tsx",
     "components/ui/ArrearsNote.tsx",
     "components/ui/MoneyRow.tsx",
+    "components/ui/MoneyModule.tsx",
+    // Where the red moved to when the warning frame came off the trap card. It is the
+    // outcome that may say "why this could cost you money", because before a decision
+    // that sentence answers the question the game is asking.
+    "components/screens/Outcome.tsx",
   ];
   const missing = ALLOWED.filter((f) => !existsSync(join(ROOT, f)));
   if (missing.length) {

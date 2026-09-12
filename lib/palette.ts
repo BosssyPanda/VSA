@@ -44,6 +44,14 @@ export const PALETTE = {
   /** Safe action: primary buttons, progress fill, links, the Cousin monogram. */
   accent: "#0f6e56",
   accentTint: "#e4efea",
+  /**
+   * The primary button under a finger or a cursor.
+   *
+   * It exists as a token because it was previously a bare `#0c5a47` inside one Tailwind
+   * class — a colour this product paints that this file had never heard of, which is the
+   * precise drift every gate here is built to stop. 8.17:1 against white.
+   */
+  accentDeep: "#0c5a47",
 
   /** Money at risk: warning headers and strokes, arrears rows. Nowhere else. */
   warn: "#b42318",
@@ -69,6 +77,7 @@ export const CONTRAST_PAIRS: ReadonlyArray<readonly [PaletteKey, PaletteKey]> = 
   ["accent", "card"],
   ["accent", "accentTint"],
   ["card", "accent"],
+  ["card", "accentDeep"],
   ["warn", "ground"],
   ["warn", "card"],
   ["warn", "warnTint"],
@@ -91,6 +100,12 @@ export const MIN_CONTRAST = 4.5;
 export const BOUNDARY_PAIRS: ReadonlyArray<readonly [PaletteKey, PaletteKey]> = [
   ["lineStrong", "card"],
   ["lineStrong", "ground"],
+  // The selected row in a group of choices. Ink rather than accent, deliberately:
+  // accent means "the safe thing to do next", and the row a player has selected is a
+  // state, not a recommendation. Painting selection green would tell them they had
+  // chosen well before the game had decided anything.
+  ["ink", "card"],
+  ["ink", "ground"],
   ["accent", "card"],
   ["accent", "ground"],
   ["accent", "accentTint"],

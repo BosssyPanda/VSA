@@ -27,6 +27,7 @@ import type {
   FactId,
   FixedCosts,
   HelpLineId,
+  HelpTopic,
   PersonaId,
   StabilityTier,
   TellId,
@@ -47,6 +48,7 @@ type Needs<K extends MessageKey> = K;
 type _channels = Needs<`channel.${TrapPitch["channel"]}`>;
 type _facts = Needs<`fact.${FactId}.label`>;
 type _helpLines = Needs<`helpLine.${HelpLineId}.${"org" | "what"}`>;
+type _helpTopics = Needs<`helpTopic.${HelpTopic}.${"label" | "blurb"}`>;
 type _loanKinds = Needs<`borrow.kind.${PlayerLoanKind}`>;
 type _personas = Needs<`persona.${PersonaId}.${"name" | "who" | "blurb"}`>;
 type _shareOutcomes = Needs<`final.shared.${ShareOutcome}`>;

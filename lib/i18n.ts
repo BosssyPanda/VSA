@@ -56,6 +56,19 @@ export async function loadMessages(locale: Locale): Promise<Messages> {
   }
 }
 
+/**
+ * `{name}` → the value.
+ *
+ * Exported because card content needs it too, and for one specific reason: the lender's
+ * SMS in the deck opens "Hi {name}!". A scam that knows your name is not a flourish, it
+ * is the oldest reason people believe one — and the card printed the braces on screen
+ * until a screenshot caught it. One function, used by the catalogue and by the deck, so
+ * there is one place where this can be wrong.
+ */
+export function fillIn(template: string, vars?: Record<string, string | number>): string {
+  return interpolate(template, vars);
+}
+
 function interpolate(template: string, vars?: Record<string, string | number>): string {
   if (!vars) return template;
   return template.replace(/\{(\w+)\}/g, (whole, name: string) =>

@@ -1,15 +1,24 @@
 "use client";
 
 import { cx } from "@/lib/cx";
-import type { ChoiceKind } from "@/lib/types";
+
+/** Two kinds, and neither of them says anything about risk. */
+export type ButtonKind = "primary" | "secondary";
 
 /**
  * The only button in the product.
  *
- * Three kinds, and the kind carries meaning rather than emphasis: `primary` and
- * `secondary` are safe things to do, `quiet` is the risky path. A risky action is
- * never dressed as a button, and it is never hidden either — a game that hides the
- * option a real lender is pushing teaches nothing about resisting it.
+ * `primary` is the way forward from this screen — continue, finish the month, start.
+ * `secondary` is a side action that is still available here. That is the whole system,
+ * and it deliberately no longer has a third kind: `quiet` used to dress the risky path
+ * as an underlined text link, which taught the player to press the filled green one and
+ * to distrust the small grey one. Neither skill survives contact with a real money
+ * lender's SMS. Risk is drawn nowhere; it is decided by reading.
+ *
+ * There is no `disabled`, and the type refuses it, so the compiler holds the rule rather
+ * than a reviewer's memory. An action in this product is available, or it is absent with
+ * one plain line saying what would make it available. A greyed-out control makes a person
+ * wonder what they broke; a sentence tells them what to do next.
  *
  * Full width and wrapping text on purpose: a translated label is often half again as
  * long as the English one, and a label that truncates is a label that lies.
@@ -18,17 +27,16 @@ export function Button({
   kind = "primary",
   className,
   ...rest
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & { kind?: ChoiceKind }) {
+}: Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "disabled"> & { kind?: ButtonKind }) {
   return (
     <button
       type="button"
       className={cx(
-        "w-full min-h-12 px-4 py-3.5 text-[length:var(--text-body)] leading-[var(--leading-body)]",
+        "w-full min-h-12 rounded-[var(--radius-button)] px-4 py-3.5",
+        "text-[length:var(--text-body)] leading-[var(--leading-body)]",
         "font-medium text-balance transition-colors duration-150",
-        kind === "primary" && "rounded-[var(--radius-button)] bg-accent text-card hover:bg-[#0c5a47]",
-        kind === "secondary" &&
-          "rounded-[var(--radius-button)] border-[1.5px] border-accent bg-card text-accent hover:bg-accent-tint",
-        kind === "quiet" && "text-muted underline underline-offset-4 hover:text-ink",
+        kind === "primary" && "bg-accent text-card hover:bg-accent-deep",
+        kind === "secondary" && "border border-line-strong bg-card text-ink hover:bg-ground",
         className,
       )}
       {...rest}

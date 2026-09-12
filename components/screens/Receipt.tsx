@@ -28,7 +28,9 @@ export function Receipt({ record, onContinue }: { record: MonthRecord; onContinu
     <main className="py-6 pb-28 md:pt-20 md:pb-10">
       <Column className="flex flex-col gap-4">
         <header className="flex flex-col gap-1">
-          <Label>{t("receipt.title", { month: record.m })}</Label>
+          <h1 className="m-0 text-[length:var(--text-section)] leading-[var(--leading-section)] font-semibold">
+            {t("receipt.title", { month: record.m })}
+          </h1>
           <p
             className="m-0 text-[length:var(--text-title)] leading-[var(--leading-title)] font-medium"
             style={{ color: verdict.hex }}

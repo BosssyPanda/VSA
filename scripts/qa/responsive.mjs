@@ -25,23 +25,35 @@ async function intoMonth(page, base) {
   await page.goto(base, { waitUntil: "networkidle" });
   await page.getByRole("button", { name: /^Start$/ }).click();
   await page.waitForTimeout(200);
-  await page.getByRole("button", { name: /Amir/ }).click();
+  await page.getByRole("radio", { name: /Amir/ }).check();
   await page.getByRole("button", { name: /Start the year/ }).click();
   await page.waitForTimeout(300);
 }
 
-/** Where the navigation sits, as a fraction down the viewport. */
+/**
+ * Where the navigation sits.
+ *
+ * There are two `<nav>` elements in the markup — one in the top bar, one fixed to the
+ * bottom — and exactly one of them is ever painted. The first version of this read
+ * `querySelector("nav")` and would happily have measured the hidden one, reported it at
+ * 0,0 and called the phone layout correct. So: every nav with a box, and the count, so a
+ * build that shows both at once fails rather than passing on whichever came first.
+ */
 function navPosition(page) {
   return page.evaluate(() => {
-    const nav = document.querySelector("nav");
-    if (!nav) return null;
-    const box = nav.getBoundingClientRect();
-    return { top: box.top, height: box.height, viewport: window.innerHeight };
+    const shown = [...document.querySelectorAll("nav")].filter((nav) => {
+      const box = nav.getBoundingClientRect();
+      return box.width > 0 && box.height > 0;
+    });
+    if (shown.length === 0) return null;
+    const box = shown[0].getBoundingClientRect();
+    return { top: box.top, height: box.height, viewport: window.innerHeight, count: shown.length };
   });
 }
 
 await withServer(async ({ browser, base }) => {
   for (const vp of [VIEWPORTS.small, VIEWPORTS.tablet, VIEWPORTS.computer]) {
+    const before = problems.length;
     const page = await newPage(browser, { width: vp.width, height: vp.height });
     await intoMonth(page, base);
 
@@ -58,10 +70,22 @@ await withServer(async ({ browser, base }) => {
     if (!nav) {
       fail(`${vp.width}px: no navigation on the month screen`);
     } else {
-      const atBottom = nav.top + nav.height >= nav.viewport - 2;
-      const atTop = nav.top <= 2;
+      // Measured as a share of the viewport rather than against zero: the top bar pads
+      // its own contents, so the <nav> inside it starts eight pixels down and a `<= 2`
+      // rule failed a layout that was correct.
+      const atBottom = nav.top >= nav.viewport * 0.75;
+      const atTop = nav.top + nav.height <= nav.viewport * 0.25;
+      if (nav.count !== 1) fail(`${vp.width}px: ${nav.count} navigations on screen at once`);
       if (vp.width < 768 && !atBottom) fail(`${vp.width}px: navigation is not at the bottom`);
       if (vp.width >= 768 && !atTop) fail(`${vp.width}px: navigation is not at the top`);
+    }
+
+    // The language control is in the header on every screen at every width, because
+    // somebody who cannot read the interface cannot be asked to find a settings page
+    // written in it.
+    const language = await page.getByRole("button", { name: /Choose your language/ }).count();
+    if (language !== 1) {
+      fail(`${vp.width}px: ${language} language controls in the header, expected one`);
     }
 
     // Nothing may be clipped or squeezed below the type floor at any width.
@@ -80,7 +104,7 @@ await withServer(async ({ browser, base }) => {
     if (vp.width < 768) {
       const small = await page.evaluate(() => {
         const bad = [];
-        for (const el of document.querySelectorAll("main button, nav button, main a")) {
+        for (const el of document.querySelectorAll("main button, nav button, header button, main a")) {
           const box = el.getBoundingClientRect();
           if (box.height > 0 && box.height < 44) bad.push(`${el.textContent?.trim().slice(0, 24)} (${Math.round(box.height)}px)`);
         }
@@ -91,7 +115,9 @@ await withServer(async ({ browser, base }) => {
 
     await page.screenshot({ path: join(OUT, `responsive-${vp.width}.png`), fullPage: true });
     if (page.qaErrors.length) fail(`${vp.width}px console: ${page.qaErrors[0]}`);
-    ok(`${vp.width}px`);
+    // Only if nothing above failed. The first version printed "ok 768px" on the line
+    // after "FAIL 768px", which is how a suite teaches everybody to skim past it.
+    if (problems.length === before) ok(`${vp.width}px`);
     await page.close();
   }
 });

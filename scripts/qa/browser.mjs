@@ -29,7 +29,9 @@ export const EXECUTABLE = process.env.CHROMIUM_PATH ?? "/opt/pw-browsers/chromiu
  * between HK$ and US$ to exactly the readers who can least afford the confusion, so
  * every figure goes through `hkd()` and prints `HK$`.
  */
-export const POISON = /NaN|undefined|\[object |Infinity|(?<!HK)\$\s?\d/;
+// `\{word\}` is here because a card in the deck greets the player by name and the
+// braces reached the screen unfilled. It catches a missed `t()` variable too.
+export const POISON = /NaN|undefined|\[object |Infinity|(?<!HK)\$\s?\d|\{\w+\}/;
 
 export const VIEWPORTS = {
   phone: { name: "phone", width: 390, height: 844 },
@@ -60,7 +62,14 @@ function freePort() {
  */
 export async function withServer(fn) {
   const port = await freePort();
-  const server = spawn("npx", ["next", "start", "-p", String(port)], { cwd: ROOT, stdio: "pipe" });
+  // `detached` so the server gets its own process group, because SIGTERM to `npx` kills
+  // the wrapper and leaves `next-server` running. Nine of them were found alive on this
+  // box after a morning of gate runs, each holding a port and a few hundred megabytes.
+  const server = spawn("npx", ["next", "start", "-p", String(port)], {
+    cwd: ROOT,
+    stdio: "pipe",
+    detached: true,
+  });
   let log = "";
 
   const ready = new Promise((resolve, reject) => {
@@ -86,7 +95,12 @@ export async function withServer(fn) {
       await browser.close();
     }
   } finally {
-    server.kill("SIGTERM");
+    // The whole group, not the wrapper. A negative pid means "the process group".
+    try {
+      process.kill(-server.pid, "SIGTERM");
+    } catch {
+      server.kill("SIGTERM");
+    }
   }
 }
 
@@ -145,5 +159,41 @@ export function offendersOf(page, limit = 3) {
         const text = (el.textContent || "").replace(/\s+/g, " ").trim().slice(0, 60);
         return `<${el.tagName.toLowerCase()}> ${over}px over: "${text}"`;
       });
+  }, limit);
+}
+
+/**
+ * Anything painted in warning red, inside `main`.
+ *
+ * Colour carries exactly two meanings in this product, and the expensive one is red:
+ * "this could cost you money". A card that wears it before the player has decided
+ * anything is the game answering its own question, so the smoke run asserts the absence
+ * of red on a trap card and its presence on the outcome. Computed styles rather than
+ * class names, because the failure this guards against is visual and a class rename
+ * would walk straight past a check written against markup.
+ *
+ * Border colours are only counted where there is a border wide enough to paint: an
+ * unset `border-color` reports as `currentColor` on every element on the page.
+ */
+export function redOn(page, limit = 3) {
+  return page.evaluate((max) => {
+    const RED = new Set(["rgb(180, 35, 24)", "rgb(252, 235, 232)"]);
+    const sides = ["Top", "Right", "Bottom", "Left"];
+    const hits = [];
+    for (const el of document.querySelectorAll("main, main *")) {
+      const s = getComputedStyle(el);
+      const found = [];
+      if (RED.has(s.color)) found.push("text");
+      if (RED.has(s.backgroundColor)) found.push("background");
+      for (const side of sides) {
+        if (RED.has(s[`border${side}Color`]) && parseFloat(s[`border${side}Width`]) > 0) {
+          found.push(`border-${side.toLowerCase()}`);
+        }
+      }
+      if (found.length === 0) continue;
+      const text = (el.textContent || "").replace(/\s+/g, " ").trim().slice(0, 40);
+      hits.push(`<${el.tagName.toLowerCase()}> ${found.join("+")}: "${text}"`);
+    }
+    return hits.slice(0, max);
   }, limit);
 }

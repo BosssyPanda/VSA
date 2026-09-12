@@ -8,7 +8,7 @@
 // and neither suite catches the other's.
 import { mkdirSync, readFileSync } from "fs";
 import { join } from "path";
-import { POISON, ROOT, VIEWPORTS, newPage, offendersOf, overflowOf, withServer } from "./browser.mjs";
+import { POISON, ROOT, VIEWPORTS, newPage, offendersOf, overflowOf, redOn, withServer } from "./browser.mjs";
 
 const EN = JSON.parse(readFileSync(join(ROOT, "messages/en.json"), "utf8"));
 
@@ -60,9 +60,14 @@ await withServer(async ({ browser, base }) => {
   if (unreviewed !== 3) fail(`pick a life: ${unreviewed} of 3 tiles carry the review label`);
   else ok("all three lives labelled unreviewed");
 
-  await page.getByRole("button", { name: /Maria/ }).click();
+  // The lives are selectable tiles now, not buttons that start the game on one tap.
+  // Start appears once one is picked, and is absent — not greyed — before that.
+  if ((await page.getByRole("button", { name: /^Start the year$/ }).count()) > 0) {
+    fail("pick a life: the start button is on screen before a life has been picked");
+  }
+  await page.getByRole("radio", { name: /Maria/ }).check();
   await page.getByLabel(/Your name/).fill("Ana");
-  await page.getByRole("button", { name: /Start the year/ }).click();
+  await page.getByRole("button", { name: /^Start the year$/ }).click();
   await page.waitForTimeout(300);
 
   const first = await scan(page, "month 1");
@@ -73,12 +78,12 @@ await withServer(async ({ browser, base }) => {
 
   // Play the year. Each pass answers whatever is on the table, then closes the month.
   let months = 0;
-  let sawWarning = false;
-  for (let step = 0; step < 80; step++) {
+  let sawPitch = false;
+  let sawWhy = false;
+  for (let step = 0; step < 140; step++) {
     const heading = await page.locator("h1, h2").first().innerText().catch(() => "");
 
-    const finished = await page.getByRole("button", { name: /Play another life/ }).count();
-    if (finished > 0) break;
+    if ((await page.getByRole("button", { name: /Play another life/ }).count()) > 0) break;
 
     const next = page.getByRole("button", { name: /^Next month$/ });
     if ((await next.count()) > 0) {
@@ -91,57 +96,83 @@ await withServer(async ({ browser, base }) => {
 
     const carryOn = page.getByRole("button", { name: /^Carry on$/ });
     if ((await carryOn.count()) > 0) {
-      await scan(page, `outcome ${months}`);
-      if (!sawWarning && (await page.getByText(/Why this could cost you money/).count()) === 0) {
-        // an outcome screen, nothing to record
-      }
+      const body = await scan(page, `outcome ${months}`);
+      // The reasons moved here; they did not disappear. Without this, deleting the
+      // block outright would pass every other check in this file.
+      if (body.includes("Why this could cost you money")) sawWhy = true;
       if (months <= 4) await shot(page, `05-outcome-m${months}`);
       await carryOn.click();
       await page.waitForTimeout(150);
       continue;
     }
 
-    if ((await page.getByText(/^Warning · /).count()) > 0 && !sawWarning) {
-      sawWarning = true;
-      await shot(page, "06-warning-card");
-      await scan(page, "warning card");
-      const leave = await page.getByText(/Not sure\? Leave it\./).count();
-      if (leave === 0) fail("warning card: no 'leave it' note, which every trap must carry");
-      else ok("warning card carries the no-pressure note");
+    // A message that arrived. Structural, not a phrase: the pitch is the one <figure>
+    // in this product, so this check survives every future rewording of the channel line.
+    const pitch = page.locator("main figure");
+    if ((await pitch.count()) > 0 && !sawPitch) {
+      sawPitch = true;
+      await shot(page, "06-trap-card");
+      await scan(page, "trap card");
+
+      if ((await page.getByText(/Not sure\? Leave it\./).count()) === 0) {
+        fail("trap card: no 'leave it' note, which every trap must carry");
+      } else {
+        ok("trap card carries the no-pressure note");
+      }
+
+      // The rule the whole redesign turns on: before a decision, a trap looks like a
+      // life card. No red rule, no warning banner, no list of reasons. A player who
+      // learns "the red one is the scam" has learned a colour their own phone will
+      // never draw.
+      const red = await redOn(page);
+      if (red.length > 0) fail(`trap card is painted red before the decision: ${red.join(" · ")}`);
+      else ok("a trap card carries no warning colour until it is answered");
+
+      if ((await page.getByText(/Why this could cost you money/).count()) > 0) {
+        fail("trap card gives the reasons away before the player decides");
+      } else {
+        ok("the reasons are held back for the outcome");
+      }
     }
 
-    // Answer today's situation by taking the first offered choice, then close.
-    const close = page.getByRole("button", { name: /^Finish the month$/ });
-    const enabled = (await close.count()) > 0 && (await close.isEnabled());
-    if (enabled) {
+    // Answer today's situation: choose, confirm, and only then close the month.
+    const choices = page.locator("main fieldset input[type=radio]");
+    const cont = page.getByRole("button", { name: /^Continue$/ });
+    if ((await cont.count()) > 0) {
+      await cont.click();
+      await page.waitForTimeout(150);
+      continue;
+    }
+    if ((await choices.count()) > 0) {
       await scan(page, `month ${months + 1}`);
-      await close.click();
+      await choices.first().check();
+      await page.waitForTimeout(100);
+      if ((await page.getByRole("button", { name: /^Continue$/ }).count()) === 0) {
+        fail("a choice was selected and no way to confirm it appeared");
+        break;
+      }
+      continue;
+    }
+
+    const finish = page.getByRole("button", { name: /^Finish the month$/ });
+    if ((await finish.count()) > 0) {
+      await scan(page, `month ${months + 1}`);
+      await finish.click();
       months += 1;
       await page.waitForTimeout(200);
       continue;
     }
 
-    const choices = page.locator("main button:not([disabled])");
-    const count = await choices.count();
-    let clicked = false;
-    for (let i = 0; i < count; i++) {
-      const label = await choices.nth(i).innerText();
-      if (/Set money aside|Borrow money|Pay some back|Finish the month/.test(label)) continue;
-      await choices.nth(i).click();
-      clicked = true;
-      break;
-    }
-    if (!clicked) {
-      fail(`stuck on "${heading}" with nothing to press`);
-      break;
-    }
-    await page.waitForTimeout(150);
+    fail(`stuck on "${heading}" with nothing to press`);
+    break;
   }
 
   if (months < 12) fail(`the year stopped after ${months} months`);
   else ok(`played all ${months} months`);
-  if (!sawWarning) fail("no trap card appeared in twelve months");
+  if (!sawPitch) fail("no trap card appeared in twelve months");
   else ok("met at least one trap");
+  if (!sawWhy) fail("no outcome ever explained why a trap could cost money");
+  else ok("the outcome explains what the card held back");
 
   const report = await scan(page, "final statement");
   await shot(page, "07-final-statement");
@@ -155,6 +186,44 @@ await withServer(async ({ browser, base }) => {
   }
   if (!/18222/.test(report)) fail("final statement: no help line number on it");
   ok("final statement carries rules, trap cost and help lines");
+
+  // Help, which is entered by problem rather than by organisation. Nobody arrives
+  // knowing that the body which enforces the rent cap is the Rating and Valuation
+  // Department, so the first screen asks one question in the words a person would use.
+  await page.getByRole("button", { name: /^Help$/ }).first().click();
+  await page.waitForTimeout(250);
+  const help = await scan(page, "help");
+  await shot(page, "08-help");
+
+  const topics = Object.keys(EN)
+    .filter((k) => /^helpTopic\..+\.label$/.test(k))
+    .map((k) => EN[k]);
+  if (!help.includes(EN["help.question"])) fail(`help: "${EN["help.question"]}" is not on the screen`);
+  const missing = topics.filter((label) => !help.includes(label));
+  if (missing.length) fail(`help: ${missing.length} topics missing — ${missing.join(" · ")}`);
+  else ok(`help asks one question and offers ${topics.length} answers`);
+  if (!/18222/.test(help)) fail("help: the emergency number is not one tap from the top");
+
+  await page.getByRole("button", { name: topics[0] }).click();
+  await page.waitForTimeout(250);
+  await scan(page, "help topic");
+  await shot(page, "09-help-topic");
+  const dialable = await page.locator('main a[href^="tel:"]').count();
+  // P21e holds this in the engine; this proves the screen renders what the engine holds.
+  if (dialable < 2) fail(`help topic: ${dialable} numbers to call, and a topic must offer two`);
+  else ok(`a help topic leads to ${dialable} places to call`);
+
+  await page.getByRole("button", { name: EN["help.allTopics"] }).click();
+  await page.waitForTimeout(200);
+  await page.getByRole("button", { name: EN["help.figures"] }).click();
+  await page.waitForTimeout(250);
+  const sources = await scan(page, "sources");
+  await shot(page, "10-sources");
+  if (!sources.includes(EN["fact.min-wage-hourly.label"])) {
+    fail("sources: the figures ledger did not reach its own page");
+  } else {
+    ok("the figures ledger has its own page, off the help path");
+  }
 
   if (page.qaErrors.length) fail(`browser console: ${page.qaErrors[0]}`);
   else ok("no console errors in a full run");

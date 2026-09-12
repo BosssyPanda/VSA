@@ -3,7 +3,6 @@
 import { useI18n } from "@/components/I18nProvider";
 import { Button } from "@/components/ui/Button";
 import { Column } from "@/components/ui/Column";
-import { readyLocales } from "@/lib/i18n";
 import { asOfDate } from "@/lib/format";
 import { FACTS_AS_OF } from "@/lib/facts";
 
@@ -33,14 +32,13 @@ export function Title({
   /** A save was found but this build could not honestly open it. Say so, don't hide it. */
   saveExpired?: boolean;
 }) {
-  const { t, locale, setLocale } = useI18n();
-  const locales = readyLocales();
+  const { t, locale } = useI18n();
 
   return (
-    <main className="flex min-h-screen flex-col justify-between py-8">
+    <main className="flex min-h-[calc(100svh-4.5rem)] flex-col justify-between py-8">
       <Column className="flex flex-col gap-6">
         <header className="flex flex-col gap-2">
-          <h1 className="text-[length:var(--text-figure)] leading-[var(--leading-figure)] font-semibold">
+          <h1 className="m-0 text-[length:var(--text-display)] leading-[var(--leading-display)] font-semibold">
             {t("app.name")}
           </h1>
           <p className="text-[length:var(--text-title)] leading-[var(--leading-title)]">
@@ -77,33 +75,6 @@ export function Title({
           </Button>
         </div>
 
-        <section className="flex flex-col gap-2" aria-label={t("title.language")}>
-          <h2 className="text-[length:var(--text-label)] leading-[var(--leading-label)] text-muted">
-            {t("title.language")}
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {locales.map((l) => (
-              <button
-                key={l.id}
-                type="button"
-                onClick={() => setLocale(l.id)}
-                aria-pressed={l.id === locale}
-                className={
-                  l.id === locale
-                    ? "min-h-12 rounded-[var(--radius-button)] bg-accent-tint px-4 py-3 text-[length:var(--text-body)] font-medium text-accent"
-                    : "min-h-12 rounded-[var(--radius-button)] border border-line bg-card px-4 py-3 text-[length:var(--text-body)] text-ink"
-                }
-              >
-                {l.label}
-              </button>
-            ))}
-          </div>
-          {locales.length < 2 ? (
-            <p className="text-[length:var(--text-label)] leading-[var(--leading-label)] text-muted">
-              {t("title.languageMore")}
-            </p>
-          ) : null}
-        </section>
       </Column>
 
       <Column className="mt-10">

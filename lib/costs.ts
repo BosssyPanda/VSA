@@ -96,3 +96,51 @@ export function drawFromCushion(
   const drawn = Math.min(savings, -cash);
   return { cash: cash + drawn, savings: savings - drawn, drawn };
 }
+
+/**
+ * How many steps a cushion is built in.
+ *
+ * Four, because a quarter of a month of pay is a sum somebody on HK$5,100 can picture
+ * reaching, and one month of pay is not.
+ */
+export const CUSHION_STEPS = 4;
+
+export type CushionStep = {
+  /** What the bar fills towards. Never the year's target unless the year's target is next. */
+  target: number;
+  /** One month of pay is already set aside. There is no next step to show. */
+  full: boolean;
+};
+
+/**
+ * The next step, not the finish line.
+ *
+ * "HK$ 0 of HK$ 5,100" is a true sentence and a demoralising screen, and demoralising
+ * the player is not a teaching method — it is the one thing most likely to make
+ * somebody close the tab on the month they most needed to finish. So the bar fills
+ * toward the next quarter of a month of pay, which is reachable, and the full target
+ * is named in words beside it rather than looming over it.
+ */
+export function nextCushionStep(run: RunState): CushionStep {
+  const targets = cushionStepTargets(run);
+  const whole = targets[targets.length - 1];
+  const saved = Math.max(0, run.savings);
+  if (saved >= whole) return { target: whole, full: true };
+  return { target: targets.find((t) => t > saved) ?? whole, full: false };
+}
+
+/**
+ * The rungs, in dollars.
+ *
+ * Each one is a fraction of the whole rather than a multiple of a rounded quarter,
+ * so the last rung is exactly one month of pay. The obvious arithmetic — round the
+ * quarter, then count in quarters — left a fifth step of HK$ 1 on top for any persona
+ * whose pay does not divide by four, which is a screen that says "nearly there" twice
+ * and means it once. `P24b` caught it.
+ */
+export function cushionStepTargets(run: RunState): number[] {
+  const whole = cushionTarget(run);
+  return Array.from({ length: CUSHION_STEPS }, (_, i) =>
+    Math.round((whole * (i + 1)) / CUSHION_STEPS),
+  );
+}

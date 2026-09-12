@@ -6,8 +6,9 @@ import { Button } from "@/components/ui/Button";
 import { Card, Label } from "@/components/ui/Card";
 import { Column } from "@/components/ui/Column";
 import { FactsAsOf } from "@/components/ui/FactsAsOf";
-import { HelpLineCard } from "@/components/screens/Help";
+import { HelpLineBrief } from "@/components/screens/Help";
 import { MoneyRow } from "@/components/ui/MoneyRow";
+import { cushionTarget } from "@/lib/costs";
 import { hkd } from "@/lib/format";
 import { getPersona, needsCommunityReview } from "@/lib/personas";
 import { runReport, topHelpLinesFor } from "@/lib/report";
@@ -40,19 +41,19 @@ export function FinalStatement({
   const persona = getPersona(run.personaId);
 
   return (
-    <main className="py-6 pb-28 md:pt-20 md:pb-10">
+    <main className="py-6 pb-28 md:pb-10">
       <Column className="flex flex-col gap-5">
         <header className="flex flex-col gap-1">
           <Label>{t("final.title", { name: run.name })}</Label>
-          <p
-            className="m-0 text-[length:var(--text-figure)] leading-[var(--leading-figure)] font-semibold"
+          <h1
+            className="m-0 text-[length:var(--text-display)] leading-[var(--leading-display)] font-semibold"
             style={{ color: report.verdict.hex }}
           >
             <span aria-hidden="true" className="mr-2">
               {report.verdict.glyph}
             </span>
             {t(`tier.${report.verdict.tier}.title`)}
-          </p>
+          </h1>
           <p className="m-0 text-[length:var(--text-body)] leading-[var(--leading-body)]">
             {t(`tier.${report.verdict.tier}.blurb`)}
           </p>
@@ -104,18 +105,20 @@ export function FinalStatement({
           <MoneyRow
             label={t("final.cushion")}
             value={hkd(run.savings, locale)}
-            note={t("final.cushionMonths", { months: Math.round(report.cushionMonths * 10) / 10 })}
+            note={t("final.cushionRule", { amount: hkd(cushionTarget(run), locale) })}
           />
         </Card>
 
-        {/* The two or three that match what went wrong this year, not the directory.
-            Opening every service to every life made this section twelve cards long,
-            which is a filing cabinet handed to somebody who has just finished a hard
-            year. The rest are one tap away under Help. */}
-        <section className="flex flex-col gap-3">
+        {/* The two or three that match what went wrong this year, not the directory,
+            and each said in three lines rather than seven. Opening every service to
+            every life made this section twelve cards long — a filing cabinet handed to
+            somebody who has just finished a hard year. The hours, the caveats and the
+            web addresses are on the Help screen, one tap away, which is where a person
+            goes once they have decided to call. */}
+        <section className="flex flex-col gap-4">
           <Label>{t("final.help")}</Label>
           {topHelpLinesFor(run).map((line) => (
-            <HelpLineCard key={line.id} line={line} />
+            <HelpLineBrief key={line.id} line={line} />
           ))}
         </section>
 

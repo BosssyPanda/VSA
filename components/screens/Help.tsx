@@ -1,108 +1,165 @@
 "use client";
 
+import { useState } from "react";
 import { useI18n } from "@/components/I18nProvider";
 import { Button } from "@/components/ui/Button";
 import { Card, Label } from "@/components/ui/Card";
 import { Column } from "@/components/ui/Column";
-import { FactsAsOf } from "@/components/ui/FactsAsOf";
-import { FACTS_AS_OF, allFacts } from "@/lib/facts";
-import { HELP_LINE_IDS, helpLine } from "@/lib/helpLines";
-import { asOfDate, hkd, pct, siteName } from "@/lib/format";
-import { readyLocales } from "@/lib/i18n";
-import type { Fact, HelpLine, Locale } from "@/lib/types";
+import { Sources } from "@/components/screens/Sources";
+import {
+  HELP_TOPICS,
+  INTERPRETATION_LINES,
+  helpLine,
+  helpLinesForTopic,
+} from "@/lib/helpLines";
+import { siteName } from "@/lib/format";
+import type { HelpLine, HelpTopic, PersonaId } from "@/lib/types";
+
+/** The one number for something that is happening right now. */
+const EMERGENCY = "anti-scam" as const;
 
 /**
- * Help, and where every number came from.
+ * Help, entered by problem rather than by organisation.
  *
- * Not an About page. The phone numbers are the most useful thing in this product for
- * somebody who is actually in trouble, so they are a tab rather than a footer, and they
- * are also repeated inside the cards and on the final statement.
+ * The first screen asks one question — "What do you need help with?" — and offers five
+ * answers in the words a person would use: a message I do not trust, money I owe, a
+ * problem at work, my flat or my rent, being treated unfairly. Nobody arrives knowing
+ * that the body which enforces the rent cap is the Rating and Valuation Department, and
+ * nobody should have to. The taxonomy is the person's problem, not the government's org
+ * chart.
  *
- * The figures list is here because a game that quotes the law at you owes you the
- * source. Every row has the number, the date it was true, and a link to the page it was
- * read off — which is also what makes the numbers falsifiable by anybody who thinks one
- * is wrong.
+ * What used to be here was twelve organisations in a row, which is a filing cabinet
+ * handed to somebody who is frightened. Every topic now holds at least two services for
+ * every life, and the engine fails the build if one does not (`P21e`).
+ *
+ * The figures ledger has moved to its own Sources page. It is a promise this product
+ * keeps to anybody who wants to check it, and it belongs next to the credits rather than
+ * between a frightened person and a phone number.
  */
-export function Help({ onBack, backLabel }: { onBack?: () => void; backLabel?: string }) {
-  const { t, locale, setLocale } = useI18n();
-  const locales = readyLocales();
+export function Help({
+  onBack,
+  backLabel,
+  personaId,
+}: {
+  onBack?: () => void;
+  backLabel?: string;
+  personaId?: PersonaId | null;
+}) {
+  const { t } = useI18n();
+  const [view, setView] = useState<HelpTopic | "topics" | "sources">("topics");
+
+  if (view === "sources") {
+    return <Sources onBack={() => setView("topics")} backLabel={t("help.backToHelp")} />;
+  }
+
+  if (view !== "topics") {
+    const topic = HELP_TOPICS.find((x) => x.id === view);
+    const lines = helpLinesForTopic(view, personaId ?? undefined);
+    return (
+      <main className="py-6 pb-28 md:pb-10">
+        <Column className="flex flex-col gap-5">
+          <button
+            type="button"
+            onClick={() => setView("topics")}
+            className="self-start min-h-12 text-[length:var(--text-body)] leading-[var(--leading-body)] text-accent underline underline-offset-4"
+          >
+            {t("help.allTopics")}
+          </button>
+          <header className="flex flex-col gap-2">
+            <h1 className="m-0 text-[length:var(--text-display)] leading-[var(--leading-display)] font-semibold">
+              {t(`helpTopic.${view}.label`)}
+            </h1>
+            <p className="m-0 text-[length:var(--text-body)] leading-[var(--leading-body)] text-muted">
+              {topic ? t(`helpTopic.${view}.blurb`) : null}
+            </p>
+          </header>
+          {lines.map((line) => (
+            <HelpLineCard key={line.id} line={line} />
+          ))}
+        </Column>
+      </main>
+    );
+  }
 
   return (
-    <main className="py-6 pb-28 md:pt-20 md:pb-10">
+    <main className="py-6 pb-28 md:pb-10">
       <Column className="flex flex-col gap-6">
+        {/* Something happening right now outranks any taxonomy. One tap from Help, and
+            Help is one tap from every screen in the product. */}
+        <section className="flex flex-col gap-1 rounded-[var(--radius-card)] border border-line bg-card p-4">
+          <Label>{t("help.now")}</Label>
+          <Number line={helpLine(EMERGENCY)} />
+          <p className="m-0 text-[length:var(--text-body)] leading-[var(--leading-body)]">
+            {t(`helpLine.${EMERGENCY}.what`)}
+          </p>
+        </section>
+
         <section className="flex flex-col gap-3">
-          <h1 className="m-0 text-[length:var(--text-title)] leading-[var(--leading-title)] font-semibold">
-            {t("help.title")}
+          <h1 className="m-0 text-[length:var(--text-display)] leading-[var(--leading-display)] font-semibold">
+            {t("help.question")}
           </h1>
-          <p className="m-0 text-[length:var(--text-body)] leading-[var(--leading-body)] text-muted">
-            {t("help.sub")}
-          </p>
-          {HELP_LINE_IDS.map((id) => (
-            <HelpLineCard key={id} line={helpLine(id)} />
-          ))}
-        </section>
-
-        <section className="flex flex-col gap-3">
-          <h2 className="m-0 text-[length:var(--text-title)] leading-[var(--leading-title)] font-medium">
-            {t("help.figures")}
-          </h2>
-          <FactsAsOf
-            date={FACTS_AS_OF}
-            locale={locale}
-            label={(vars) => t("title.figuresAsOf", vars)}
-          />
-          <Card className="flex flex-col gap-3">
-            {allFacts().map((fact) => (
-              <FactRow key={fact.id} fact={fact} locale={locale} />
+          <ul className="m-0 flex list-none flex-col gap-2.5 p-0">
+            {HELP_TOPICS.map((topic) => (
+              <li key={topic.id}>
+                <button
+                  type="button"
+                  onClick={() => setView(topic.id)}
+                  className="flex min-h-12 w-full flex-col gap-0.5 rounded-[var(--radius-button)] border border-line-strong bg-card p-4 text-left hover:bg-ground"
+                >
+                  <span className="text-[length:var(--text-body)] leading-[var(--leading-body)] font-medium">
+                    {t(`helpTopic.${topic.id}.label`)}
+                  </span>
+                  <span className="text-[length:var(--text-label)] leading-[var(--leading-label)] text-muted">
+                    {t(`helpTopic.${topic.id}.blurb`)}
+                  </span>
+                </button>
+              </li>
             ))}
-          </Card>
+          </ul>
         </section>
 
-        <section className="flex flex-col gap-2">
-          <h2 className="m-0 text-[length:var(--text-title)] leading-[var(--leading-title)] font-medium">
-            {t("title.language")}
+        {/* The most useful number in the file for the people this is built for, and the
+            one almost nobody knows exists. */}
+        <section className="flex flex-col gap-2 border-t border-line pt-5">
+          <h2 className="m-0 text-[length:var(--text-section)] leading-[var(--leading-section)] font-semibold">
+            {t("help.interpreters")}
           </h2>
-          <div className="flex flex-wrap gap-2">
-            {locales.map((l) => (
-              <button
-                key={l.id}
-                type="button"
-                onClick={() => setLocale(l.id)}
-                aria-pressed={l.id === locale}
-                className={
-                  l.id === locale
-                    ? "min-h-12 rounded-[var(--radius-button)] bg-accent-tint px-4 py-3 text-[length:var(--text-body)] font-medium text-accent"
-                    : "min-h-12 rounded-[var(--radius-button)] border border-line bg-card px-4 py-3 text-[length:var(--text-body)]"
-                }
+          <p className="m-0 text-[length:var(--text-body)] leading-[var(--leading-body)]">
+            {t("help.interpretersWhat")}
+          </p>
+          <ul className="m-0 flex list-none flex-col p-0">
+            {INTERPRETATION_LINES.map((line) => (
+              <li
+                key={line.phone}
+                className="flex flex-wrap items-center justify-between gap-x-3 border-b border-line last:border-b-0"
               >
-                {l.label}
-              </button>
+                <span className="text-[length:var(--text-body)] leading-[var(--leading-body)]">
+                  {line.endonym}
+                </span>
+                {/* A full tap target, not a 24px line of text. Somebody dialling this is
+                    doing it because a government office does not speak their language,
+                    often while upset, often one-handed on a bus. */}
+                <a
+                  href={`tel:${line.phone.replace(/\s/g, "")}`}
+                  className="inline-flex min-h-12 items-center text-[length:var(--text-body)] leading-[var(--leading-body)] font-medium text-accent underline underline-offset-4"
+                >
+                  {line.phone}
+                </a>
+              </li>
             ))}
-          </div>
-          {locales.length < 2 ? <Label>{t("title.languageMore")}</Label> : null}
+          </ul>
         </section>
 
-        <section className="flex flex-col gap-2 border-t border-line pt-4">
-          <h2 className="m-0 text-[length:var(--text-title)] leading-[var(--leading-title)] font-medium">
-            {t("help.about")}
-          </h2>
-          <p className="m-0 text-[length:var(--text-body)] leading-[var(--leading-body)]">
-            {t("title.privacy")}
-          </p>
-          <p className="m-0 text-[length:var(--text-body)] leading-[var(--leading-body)]">
-            {t("help.clearing")}
-          </p>
-          <p className="m-0 text-[length:var(--text-body)] leading-[var(--leading-body)]">
-            {t("help.unreviewed")}
-          </p>
-          <Label>{t("title.notAdvice")}</Label>
-        </section>
-
-        {onBack && backLabel ? (
-          <Button kind="secondary" onClick={onBack}>
-            {backLabel}
+        <div className="flex flex-col gap-2.5 border-t border-line pt-5">
+          <Button kind="secondary" onClick={() => setView("sources")}>
+            {t("help.figures")}
           </Button>
-        ) : null}
+          {onBack && backLabel ? (
+            <Button kind="secondary" onClick={onBack}>
+              {backLabel}
+            </Button>
+          ) : null}
+        </div>
       </Column>
     </main>
   );
@@ -120,20 +177,13 @@ export function HelpLineCard({ line }: { line: HelpLine }) {
   const { t } = useI18n();
   return (
     <Card className="flex flex-col gap-1.5">
-      <h3 className="m-0 text-[length:var(--text-title)] leading-[var(--leading-title)] font-medium">
+      <h2 className="m-0 text-[length:var(--text-title)] leading-[var(--leading-title)] font-semibold">
         {t(`helpLine.${line.id}.org`)}
-      </h3>
+      </h2>
       <p className="m-0 text-[length:var(--text-body)] leading-[var(--leading-body)]">
         {t(`helpLine.${line.id}.what`)}
       </p>
-      {line.phone ? (
-        <a
-          href={`tel:${line.phone.replace(/\s/g, "")}`}
-          className="inline-flex min-h-12 items-center text-[length:var(--text-title)] leading-[var(--leading-title)] font-medium text-accent underline underline-offset-4"
-        >
-          {line.phone}
-        </a>
-      ) : null}
+      <Number line={line} />
       {line.hours ? <Label>{t(`helpLine.${line.id}.hours`)}</Label> : null}
       {line.note ? <Label>{t(`helpLine.${line.id}.note`)}</Label> : null}
       {line.url ? (
@@ -150,49 +200,37 @@ export function HelpLineCard({ line }: { line: HelpLine }) {
   );
 }
 
-/** A figure, what it means, when it was true, and where it came from. */
-function FactRow({ fact, locale }: { fact: Fact; locale: Locale }) {
-  const { t, tn } = useI18n();
+/**
+ * The same place to go, said in three lines instead of seven.
+ *
+ * For the final statement, where the point is to leave somebody with two or three
+ * numbers they might actually call — not with the opening hours, the caveat and the web
+ * address of each one. Those are on the Help screen, which is one tap away and is where
+ * a person goes when they have decided to call.
+ */
+export function HelpLineBrief({ line }: { line: HelpLine }) {
+  const { t } = useI18n();
   return (
-    <div className="flex flex-col gap-0.5 border-b border-line pb-3 last:border-b-0 last:pb-0">
-      <Label>{t(`fact.${fact.id}.label`)}</Label>
-      <span className="text-[length:var(--text-title)] leading-[var(--leading-title)] font-medium">
-        {factValue(fact, locale, t, tn)}
-      </span>
-      <Label>{t("help.factAsOf", { date: asOfDate(fact.asOf, locale) })}</Label>
-      <a
-        href={fact.source.url}
-        target="_blank"
-        rel="noreferrer noopener"
-        className="text-[length:var(--text-label)] leading-[var(--leading-label)] text-accent underline underline-offset-4"
-      >
-        {fact.source.name}
-      </a>
+    <div className="flex flex-col gap-0.5 border-b border-line pb-4 last:border-b-0 last:pb-0">
+      <h2 className="m-0 text-[length:var(--text-title)] leading-[var(--leading-title)] font-semibold">
+        {t(`helpLine.${line.id}.org`)}
+      </h2>
+      <p className="m-0 text-[length:var(--text-body)] leading-[var(--leading-body)]">
+        {t(`helpLine.${line.id}.what`)}
+      </p>
+      <Number line={line} />
     </div>
   );
 }
 
-/** A number written the way its unit is written, never as a bare figure. */
-function factValue(
-  fact: Fact,
-  locale: Locale,
-  t: (key: string, vars?: Record<string, string | number>) => string,
-  tn: (key: string, count: number, vars?: Record<string, string | number>) => string,
-): string {
-  switch (fact.unit) {
-    case "HKD":
-      return hkd(fact.value, locale);
-    case "HKD/hr":
-      return t("unit.perHour", { amount: hkd(fact.value, locale) });
-    case "HKD/month":
-      return t("unit.perMonth", { amount: hkd(fact.value, locale) });
-    case "pct":
-      return pct(fact.value);
-    case "years":
-      return tn("unit.years", fact.value);
-    case "months":
-      return tn("unit.months", fact.value);
-    case "people":
-      return t("unit.people", { count: fact.value.toLocaleString("en-HK") });
-  }
+function Number({ line }: { line: HelpLine }) {
+  if (!line.phone) return null;
+  return (
+    <a
+      href={`tel:${line.phone.replace(/\s/g, "")}`}
+      className="inline-flex min-h-12 items-center text-[length:var(--text-title)] leading-[var(--leading-title)] font-semibold text-accent underline underline-offset-4"
+    >
+      {line.phone}
+    </a>
+  );
 }

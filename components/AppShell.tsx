@@ -7,7 +7,7 @@ import { Outcome } from "@/components/screens/Outcome";
 import { PickLife } from "@/components/screens/PickLife";
 import { Receipt } from "@/components/screens/Receipt";
 import { Title } from "@/components/screens/Title";
-import { Nav } from "@/components/ui/Nav";
+import { BottomNav, TopBar } from "@/components/ui/Chrome";
 import { useI18n } from "@/components/I18nProvider";
 import { useRun } from "@/hooks/useRun";
 
@@ -18,9 +18,10 @@ import { useRun } from "@/hooks/useRun";
  * screens — which matters on a cheap phone on mobile data far more than a tidy route
  * table does.
  *
- * The navigation appears only once a run is going. On the title screen there is nothing
- * to navigate between, and a nav bar there would be two rows of chrome around a single
- * button.
+ * The header is on every screen, because the language control is in it and somebody who
+ * cannot read the interface cannot be asked to find a settings page written in it. The
+ * two destinations appear once a run is going: on the title screen there is nothing to
+ * navigate between, and a nav bar there would be two rows of chrome around one button.
  */
 export function AppShell() {
   const api = useRun();
@@ -28,12 +29,24 @@ export function AppShell() {
   const { phase, stage, run } = api;
 
   const inGame = phase === "run" || phase === "report" || (phase === "help" && Boolean(run));
+  const destinations = [
+    { id: "month", label: t("nav.month") },
+    { id: "help", label: t("nav.help") },
+  ];
+  const active = phase === "help" ? "help" : "month";
+  const select = (id: string) => (id === "help" ? api.goHelp() : api.closeHelp());
 
   const screen = () => {
     // Order matters: help overlays everything, picking a life happens before a run
     // exists, and only then does the absence of a run mean "show the title".
     if (phase === "help") {
-      return <Help onBack={api.closeHelp} backLabel={run ? t("nav.backToMonth") : t("help.back")} />;
+      return (
+        <Help
+          onBack={api.closeHelp}
+          backLabel={run ? t("nav.backToMonth") : t("help.back")}
+          personaId={run?.personaId ?? null}
+        />
+      );
     }
     if (phase === "pickLife") {
       return <PickLife onBegin={api.begin} invitedPersona={api.invited?.personaId ?? null} />;
@@ -70,17 +83,14 @@ export function AppShell() {
 
   return (
     <>
+      <TopBar
+        wordmark={t("app.name")}
+        destinations={inGame ? destinations : []}
+        active={active}
+        onSelect={select}
+      />
       {screen()}
-      {inGame ? (
-        <Nav
-          tabs={[
-            { id: "month", label: t("nav.month"), glyph: "▤" },
-            { id: "help", label: t("nav.help"), glyph: "☎\uFE0E" },
-          ]}
-          active={phase === "help" ? "help" : "month"}
-          onSelect={(id) => (id === "help" ? api.goHelp() : api.closeHelp())}
-        />
-      ) : null}
+      {inGame ? <BottomNav destinations={destinations} active={active} onSelect={select} /> : null}
     </>
   );
 }

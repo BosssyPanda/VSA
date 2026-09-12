@@ -126,14 +126,21 @@ await withServer(async ({ browser, base }) => {
   await page.waitForTimeout(200);
   await check(page, "pick a life");
 
-  if (!(await press(page, /Maria/, "Maria's year"))) return;
+  const maria = page.getByRole("radio", { name: /Maria/ });
+  if ((await maria.count()) === 0) {
+    fail("no tile to pick for Maria's year");
+    return;
+  }
+  await maria.check();
   if (!(await press(page, /Start the year/, "month 1"))) return;
   await page.waitForTimeout(300);
   await check(page, "month");
 
-  // Into a trap card, which is the densest screen in the product.
-  for (let step = 0; step < 40; step++) {
-    if ((await page.getByText(/^Warning · /).count()) > 0) break;
+  // Into a card carrying a message, which is the densest screen in the product. The
+  // pitch is the one <figure> here, so this survives every rewording of the channel line.
+  const pitched = () => page.locator("main figure").count();
+  for (let step = 0; step < 60; step++) {
+    if ((await pitched()) > 0) break;
     const carryOn = page.getByRole("button", { name: /^Carry on/ });
     if ((await carryOn.count()) > 0) {
       await carryOn.click();
@@ -146,28 +153,29 @@ await withServer(async ({ browser, base }) => {
       await page.waitForTimeout(120);
       continue;
     }
+    const cont = page.getByRole("button", { name: /^Continue$/ });
+    if ((await cont.count()) > 0) {
+      await cont.click();
+      await page.waitForTimeout(120);
+      continue;
+    }
+    const choices = page.locator("main fieldset input[type=radio]");
+    if ((await choices.count()) > 0) {
+      await choices.first().check();
+      await page.waitForTimeout(100);
+      continue;
+    }
     const close = page.getByRole("button", { name: /^Finish the month/ });
-    if ((await close.count()) > 0 && (await close.isEnabled())) {
+    if ((await close.count()) > 0) {
       await close.click();
       await page.waitForTimeout(150);
       continue;
     }
-    const choices = page.locator("main button:not([disabled])");
-    const count = await choices.count();
-    let clicked = false;
-    for (let i = 0; i < count; i++) {
-      const label = await choices.nth(i).innerText();
-      if (/Set money aside|Borrow money|Pay some back/.test(label)) continue;
-      await choices.nth(i).click();
-      clicked = true;
-      break;
-    }
-    if (!clicked) break;
-    await page.waitForTimeout(120);
+    break;
   }
 
-  if ((await page.getByText(/^Warning · /).count()) > 0) await check(page, "trap card");
-  else fail("never reached a trap card to measure");
+  if ((await pitched()) > 0) await check(page, "message card");
+  else fail("never reached a card carrying a message to measure");
 
   // And the borrow sheet, where the numbers that matter most are shown.
   const borrow = page.getByRole("button", { name: /^Borrow money/ });
@@ -177,6 +185,23 @@ await withServer(async ({ browser, base }) => {
     await check(page, "borrow sheet");
   } else {
     fail("the borrow sheet never opened, so its numbers were never measured");
+  }
+  await press(page, /^Not now$/, "the month");
+  await page.waitForTimeout(200);
+
+  // Help, whose topic rows carry two lines of prose each and are the screen most likely
+  // to go sideways when the words grow.
+  if (await press(page, /^Help$/, "help")) {
+    await page.waitForTimeout(250);
+    await check(page, "help");
+    const topic = page.locator("main ul button").first();
+    if ((await topic.count()) > 0) {
+      await topic.click();
+      await page.waitForTimeout(250);
+      await check(page, "help topic");
+    } else {
+      fail("no help topic to open");
+    }
   }
 });
 

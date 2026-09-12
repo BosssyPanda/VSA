@@ -8,6 +8,7 @@ import { Column } from "@/components/ui/Column";
 import { CousinCard } from "@/components/ui/CousinCard";
 import { MoneyRow } from "@/components/ui/MoneyRow";
 import { getCard } from "@/lib/cards";
+import { fillIn } from "@/lib/i18n";
 import { hkd } from "@/lib/format";
 import { getPersona } from "@/lib/personas";
 import type { MoneyEffect, RunState } from "@/lib/types";
@@ -15,10 +16,14 @@ import type { MoneyEffect, RunState } from "@/lib/types";
 /**
  * What happened, and why.
  *
- * The order matters: what happened, then what it cost, then the lesson, then the signs
- * that were there all along. Putting the tells last is deliberate — they are useless
- * before a decision, because reading a list of scam signs is not the same skill as
- * recognising one in a message that is trying to look ordinary.
+ * The order matters: what happened, what it cost, why it could cost that, what it
+ * teaches, and the signs that were there all along.
+ *
+ * **This screen is where the red lives.** The warning header, the reasons and the tells
+ * were all on the card before the decision, which meant the game pointed at the trap and
+ * then asked the player to spot it. Reading a list of scam signs is not the same skill as
+ * recognising one in a message built to look ordinary, and only the second skill leaves
+ * the website. So the card asks, and this screen explains.
  *
  * Nothing here says "you should have". If the trap won, the trap is the subject of the
  * sentence.
@@ -44,25 +49,49 @@ export function Outcome({
   if (!card || !outcome) return null;
 
   const persona = getPersona(run.personaId);
+  const say = (text: string) => fillIn(text, { name: run.name });
   const tells = outcome.tells ?? (card.kind === "trap" ? card.pitch?.tells : undefined) ?? [];
 
   return (
     <main className="py-6 pb-28 md:pt-20 md:pb-10">
       <Column className="flex flex-col gap-4">
-        <Label>{card.title}</Label>
+        {/* The heading is the situation, not a wayfinding word: "Cash in 30 minutes,
+            heading level one" tells somebody reading by ear what this screen is about,
+            and "What happened" tells them nothing they did not already know. */}
+        <h1 className="m-0 text-[length:var(--text-section)] leading-[var(--leading-section)] font-semibold">
+          {say(card.title)}
+        </h1>
 
         <Card className="flex flex-col gap-3">
           <p className="m-0 text-[length:var(--text-body)] leading-[var(--leading-body)]">
-            {outcome.consequence}
+            {say(outcome.consequence)}
           </p>
           <Deltas effect={outcome.effect} locale={locale} t={t} tn={tn} />
         </Card>
+
+        {card.why && card.why.length > 0 ? (
+          <section className="overflow-hidden rounded-[var(--radius-card)] border border-line bg-card">
+            <h2 className="m-0 bg-warn-tint px-4 py-2.5 text-[length:var(--text-label)] leading-[var(--leading-label)] font-medium text-warn">
+              {t("card.why")}
+            </h2>
+            <ul className="m-0 flex list-none flex-col gap-1.5 p-4">
+              {card.why.map((point, i) => (
+                <li
+                  key={i}
+                  className="text-[length:var(--text-body)] leading-[var(--leading-body)] before:mr-2 before:content-['·']"
+                >
+                  {say(point)}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
 
         {outcome.lesson ? (
           <Card className="flex flex-col gap-1">
             <Label>{t("outcome.lesson")}</Label>
             <p className="m-0 text-[length:var(--text-body)] leading-[var(--leading-body)]">
-              {outcome.lesson}
+              {say(outcome.lesson)}
             </p>
           </Card>
         ) : null}

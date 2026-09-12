@@ -985,6 +985,59 @@ check("P23b a card left twice is gone, not looped forever", () => {
   }
 });
 
+
+// ── P24. The cushion's next step ────────────────────────────────────────────
+// The month screen never prints "HK$ 0 of HK$ 5,100". It fills a bar toward the next
+// quarter of a month of pay, and names the full rule of thumb in words beside it. That
+// is a design decision with arithmetic underneath it, and the arithmetic is what makes
+// it safe: a bar that could overflow its track, or a target that shrinks as somebody
+// saves, would be worse than the honest denominator it replaced.
+console.log("\nP24 the cushion's next step");
+
+check("P24 the next step is reachable, never past a month of pay, never backwards", () => {
+  for (const personaId of PERSONA_IDS) {
+    const base = engine.initRun(personaId, "", 7);
+    const whole = costs.cushionTarget(base);
+    let previous = 0;
+    for (let savings = 0; savings <= whole * 2; savings += Math.max(1, Math.round(whole / 40))) {
+      const run = { ...base, savings };
+      const step = costs.nextCushionStep(run);
+      ok(step.target > 0, `${personaId}: a target of ${step.target} at HK$${savings}`);
+      ok(step.target <= whole, `${personaId}: target HK$${step.target} above a month of pay at HK$${savings}`);
+      ok(step.target >= previous, `${personaId}: the target fell from HK$${previous} to HK$${step.target}`);
+      previous = step.target;
+      if (savings < whole) {
+        eq(step.full, false, `${personaId}: called full at HK$${savings} of HK$${whole}`);
+        ok(savings < step.target, `${personaId}: HK$${savings} already past its own next step HK$${step.target}`);
+      } else {
+        eq(step.full, true, `${personaId}: not called full at HK$${savings} of HK$${whole}`);
+      }
+    }
+  }
+});
+
+check("P24b the steps a player walks up are whole and finite", () => {
+  // Four steps to a full cushion, and each one actually reached on the way up: a
+  // "next step" that jumps from nothing to everything is the demoralising screen
+  // wearing a different label.
+  for (const personaId of PERSONA_IDS) {
+    const base = engine.initRun(personaId, "", 3);
+    const whole = costs.cushionTarget(base);
+    const seen = new Set();
+    for (let savings = 0; savings < whole; savings += 1) {
+      seen.add(costs.nextCushionStep({ ...base, savings }).target);
+    }
+    const rungs = [...new Set(costs.cushionStepTargets(base))].sort((a, b) => a - b);
+    eq(
+      [...seen].sort((a, b) => a - b).join(","),
+      rungs.join(","),
+      `${personaId}: walked ${[...seen].sort((a, b) => a - b).join(", ")}, not ${rungs.join(", ")}`,
+    );
+    eq(rungs[rungs.length - 1], whole, `${personaId}: the last step is not a full month of pay`);
+    ok(rungs.length === costs.CUSHION_STEPS, `${personaId}: ${rungs.length} rungs, not ${costs.CUSHION_STEPS}`);
+  }
+});
+
 // ─────────────────────────────────────────────────────────────────────────────
 // One report, after the last check and nowhere else. A `report()` call left in the
 // middle of a file is how a suite comes to print "all passed" and exit 0 while the

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { Button } from "@/components/ui/Button";
 
 /**
  * A panel that slides up from the bottom.
@@ -14,16 +15,26 @@ import { useEffect, useRef } from "react";
  * The borrow sheet is the reason this exists: what a loan costs over one month and over
  * twelve has to be readable, calmly, before anything is confirmed, and it has to be
  * dismissible without deciding anything.
+ *
+ * The way out is rendered here rather than left to each sheet, and `closeLabel` is
+ * required so the compiler will not let a sheet ship without one. The set-aside sheet had
+ * no visible exit at all: Escape and a tap on the backdrop worked, and neither is
+ * discoverable to somebody who is not sure what they are looking at. A panel about money
+ * that can only be left by spending some is the kind of pressure this product exists to
+ * refuse.
  */
 export function Sheet({
   open,
   onClose,
   title,
+  closeLabel,
   children,
 }: {
   open: boolean;
   onClose: () => void;
   title: React.ReactNode;
+  /** The way out, always drawn, never optional. */
+  closeLabel: string;
   children: React.ReactNode;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
@@ -57,6 +68,9 @@ export function Sheet({
           {title}
         </h2>
         {children}
+        <Button kind="secondary" className="mt-2.5" onClick={onClose}>
+          {closeLabel}
+        </Button>
       </div>
     </dialog>
   );
