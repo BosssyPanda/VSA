@@ -4,6 +4,7 @@ import { useI18n } from "@/components/I18nProvider";
 import { Button } from "@/components/ui/Button";
 import { Card, Label } from "@/components/ui/Card";
 import { Column } from "@/components/ui/Column";
+import { NavLink, OutLink } from "@/components/ui/Link";
 import { FactsAsOf } from "@/components/ui/FactsAsOf";
 import { FACTS_AS_OF, allFacts } from "@/lib/facts";
 import { HELP_LINE_IDS, helpLine } from "@/lib/helpLines";
@@ -29,13 +30,7 @@ export function Sources({ onBack, backLabel }: { onBack: () => void; backLabel: 
   return (
     <main className="py-6 pb-28 md:pb-10">
       <Column className="flex flex-col gap-6">
-        <button
-          type="button"
-          onClick={onBack}
-          className="self-start min-h-12 text-[length:var(--text-body)] leading-[var(--leading-body)] underline underline-offset-4"
-        >
-          {backLabel}
-        </button>
+        <NavLink onClick={onBack}>{backLabel}</NavLink>
 
         <section className="flex flex-col gap-3">
           <h1 className="m-0 text-[length:var(--text-display)] leading-[var(--leading-display)] font-semibold">
@@ -72,14 +67,7 @@ export function Sources({ onBack, backLabel }: { onBack: () => void; backLabel: 
                     {t(`helpLine.${id}.org`)}
                   </span>
                   <Label>{t("help.factAsOf", { date: asOfDate(line.checkedOn, locale) })}</Label>
-                  <a
-                    href={line.source}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="text-[length:var(--text-label)] leading-[var(--leading-label)] underline underline-offset-4 [overflow-wrap:anywhere]"
-                  >
-                    {siteName(line.source)}
-                  </a>
+                  <OutLink href={line.source}>{siteName(line.source)}</OutLink>
                 </li>
               );
             })}
@@ -116,14 +104,7 @@ function FactRow({ fact, locale }: { fact: Fact; locale: Locale }) {
         {factValue(fact, locale, t, tn)}
       </span>
       <Label>{t("help.factAsOf", { date: asOfDate(fact.asOf, locale) })}</Label>
-      <a
-        href={fact.source.url}
-        target="_blank"
-        rel="noreferrer noopener"
-        className="text-[length:var(--text-label)] leading-[var(--leading-label)] underline underline-offset-4 [overflow-wrap:anywhere]"
-      >
-        {fact.source.name}
-      </a>
+      <OutLink href={fact.source.url}>{fact.source.name}</OutLink>
     </div>
   );
 }

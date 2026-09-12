@@ -1,7 +1,7 @@
 import { getCard, isTrap } from "./cards";
 import { CONCEPT_IDS, concept } from "./concepts";
-import { cushionMonths } from "./costs";
-import { debtTotal } from "./debt";
+import { cushionMonths, fixedTotal } from "./costs";
+import { debtService, debtTotal } from "./debt";
 import { HELP_LINES, helpLine } from "./helpLines";
 import { getPersona } from "./personas";
 import { deriveVerdict } from "./stability";
@@ -224,6 +224,8 @@ export type RunReport = {
   savings: number;
   debt: number;
   cushionMonths: number;
+  /** What the cushion would cover, in days. See `cushionDays`. */
+  cushionDays: number;
   trapCost: number;
   interestPaid: number;
   trapHits: TrapHit[];
@@ -237,6 +239,27 @@ export type RunReport = {
   factsAsOf: string;
 };
 
+/**
+ * How long the money set aside would actually last.
+ *
+ * `cushionMonths` measures the cushion against one month of *pay*, because that is the
+ * target a person can hold in their head. This is the other question, and it is the one
+ * somebody asks at midnight: if the pay stopped, how long before the money runs out.
+ * So it is measured against what a month costs — rent, food, travel — plus what the
+ * debts demand, because a month with a loan in it costs more than a month without one.
+ * Leaving the debt payments out would have flattered exactly the player who can least
+ * afford to be flattered.
+ *
+ * A month is taken as 30 days. It is not, and the honest alternative is to say "0.6 of
+ * a month of pay", which is the sentence this row exists to replace. The screen says
+ * "about", and means it.
+ */
+function cushionDays(run: RunState): number {
+  const monthly = fixedTotal(run) + debtService(run);
+  if (monthly <= 0) return 0;
+  return Math.round((run.savings / monthly) * 30);
+}
+
 export function runReport(run: RunState): RunReport {
   return {
     verdict: deriveVerdict(run),
@@ -247,6 +270,7 @@ export function runReport(run: RunState): RunReport {
     savings: run.savings,
     debt: debtTotal(run),
     cushionMonths: cushionMonths(run),
+    cushionDays: cushionDays(run),
     trapCost: trapCost(run),
     interestPaid: interestPaid(run),
     trapHits: trapHits(run),

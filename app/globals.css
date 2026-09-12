@@ -43,7 +43,6 @@
    */
   --text-display: clamp(1.75rem, 1.554rem + 0.87vw, 2.25rem); /* 28–36px / 600 */
 
-  --leading-min: 1.125rem;
   --leading-label: 1.375rem;
   --leading-body: 1.5rem;
   --leading-title: 1.625rem;

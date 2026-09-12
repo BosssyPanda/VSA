@@ -242,9 +242,15 @@ export type Outcome = {
 };
 
 /**
- * `primary` and `secondary` are the safe paths and always come first; `quiet` is the
- * risky one, rendered as plain text rather than a button. The ordering is a design
- * rule with a lint behind it, not a style preference.
+ * `primary` and `secondary` are the safe paths and always come first; `quiet` marks the
+ * risky one. The ordering is a design rule with a lint behind it, not a style preference.
+ *
+ * `quiet` is a fact about the deck, not an instruction to the renderer. It used to mean
+ * "draw this as plain text rather than a button", which taught the player that the small
+ * grey thing is the dangerous thing — a tell that does not survive contact with a real
+ * lender's SMS, where the dangerous thing looks like everything else. `ButtonKind` has
+ * no `quiet` and `ChoiceRow` draws every option identically; the word stays here so the
+ * content can say which path is risky, and so the ordering lint has something to read.
  */
 export type ChoiceKind = "primary" | "secondary" | "quiet";
 

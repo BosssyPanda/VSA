@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { Card, Label } from "@/components/ui/Card";
 import { Column } from "@/components/ui/Column";
 import { Sources } from "@/components/screens/Sources";
+import { NavLink, OutLink } from "@/components/ui/Link";
 import {
   HELP_TOPICS,
   INTERPRETATION_LINES,
@@ -58,13 +59,7 @@ export function Help({
     return (
       <main className="py-6 pb-28 md:pb-10">
         <Column className="flex flex-col gap-5">
-          <button
-            type="button"
-            onClick={() => setView("topics")}
-            className="self-start min-h-12 text-[length:var(--text-body)] leading-[var(--leading-body)] underline underline-offset-4"
-          >
-            {t("help.allTopics")}
-          </button>
+          <NavLink onClick={() => setView("topics")}>{t("help.allTopics")}</NavLink>
           <header className="flex flex-col gap-2">
             <h1 className="m-0 text-[length:var(--text-display)] leading-[var(--leading-display)] font-semibold">
               {t(`helpTopic.${view}.label`)}
@@ -139,12 +134,9 @@ export function Help({
                 {/* A full tap target, not a 24px line of text. Somebody dialling this is
                     doing it because a government office does not speak their language,
                     often while upset, often one-handed on a bus. */}
-                <a
-                  href={`tel:${line.phone.replace(/\s/g, "")}`}
-                  className="inline-flex min-h-12 items-center text-[length:var(--text-body)] leading-[var(--leading-body)] font-medium underline underline-offset-4"
-                >
+                <OutLink href={`tel:${line.phone.replace(/\s/g, "")}`} role="call">
                   {line.phone}
-                </a>
+                </OutLink>
               </li>
             ))}
           </ul>
@@ -187,14 +179,7 @@ export function HelpLineCard({ line }: { line: HelpLine }) {
       {line.hours ? <Label>{t(`helpLine.${line.id}.hours`)}</Label> : null}
       {line.note ? <Label>{t(`helpLine.${line.id}.note`)}</Label> : null}
       {line.url ? (
-        <a
-          href={line.url}
-          target="_blank"
-          rel="noreferrer noopener"
-          className="text-[length:var(--text-label)] leading-[var(--leading-label)] underline underline-offset-4 [overflow-wrap:anywhere]"
-        >
-          {siteName(line.url)}
-        </a>
+        <OutLink href={line.url}>{siteName(line.url)}</OutLink>
       ) : null}
     </Card>
   );
@@ -226,11 +211,8 @@ export function HelpLineBrief({ line }: { line: HelpLine }) {
 function Number({ line }: { line: HelpLine }) {
   if (!line.phone) return null;
   return (
-    <a
-      href={`tel:${line.phone.replace(/\s/g, "")}`}
-      className="inline-flex min-h-12 items-center text-[length:var(--text-title)] leading-[var(--leading-title)] font-semibold underline underline-offset-4"
-    >
+    <OutLink href={`tel:${line.phone.replace(/\s/g, "")}`} role="callLarge">
       {line.phone}
-    </a>
+    </OutLink>
   );
 }

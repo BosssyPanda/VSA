@@ -125,6 +125,20 @@ export function FinalStatement({
             value={hkd(run.savings, locale)}
             note={t("final.cushionRule", { amount: hkd(cushionTarget(run), locale) })}
           />
+          {/* The same money said the way a person actually asks about it. "HK$ 3,100"
+              is a fact; "about eleven days" is the answer to the question somebody is
+              really holding, which is how long they could go if the pay stopped. */}
+          <MoneyRow
+            label={t("final.wouldLast")}
+            value={
+              report.cushionDays < 1
+                ? t("final.lastNone")
+                : report.cushionDays <= 60
+                  ? tn("final.lastDays", report.cushionDays)
+                  : tn("final.lastMonths", Math.round(report.cushionDays / 30))
+            }
+            note={t("final.wouldLastNote")}
+          />
         </Card>
 
         {/* The two or three that match what went wrong this year, not the directory,
